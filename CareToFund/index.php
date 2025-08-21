@@ -1,5 +1,4 @@
 <?php
-// This is a PHP comment
     echo "Hello, World!";
 ?>
 <!DOCTYPE html>
