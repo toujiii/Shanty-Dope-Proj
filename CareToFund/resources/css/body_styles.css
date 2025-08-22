@@ -12,6 +12,14 @@ body{
     background-color: #142A3E;
 }
 
+.btn-donate{
+    background-color: #eb9c62;
+}
+
+.btn-donate:hover {
+    background-color: #d68a4f;
+}
+
 .head_font {
     font-size: 4.5rem;
 }

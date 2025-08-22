@@ -1,0 +1,2 @@
+document.getElementById('charityDesc1').addEventListener('shown.bs.collapse',()=>document.getElementById('charityToggle1').classList.replace('bi-caret-down-fill','bi-caret-up-fill'));
+document.getElementById('charityDesc1').addEventListener('hidden.bs.collapse',()=>document.getElementById('charityToggle1').classList.replace('bi-caret-up-fill','bi-caret-down-fill'));
