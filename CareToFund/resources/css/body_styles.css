@@ -1,5 +1,6 @@
 body{
     font-family: 'Ubuntu', sans-serif;
+    background-color: #F9F3EF;;
 }
 
 .btn-signup {
@@ -11,3 +12,18 @@ body{
     background-color: #142A3E;
 }
 
+.head_font {
+    font-size: 4.5rem;
+}
+
+.btn_border {
+    border: 5px solid white;
+    box-sizing: border-box;
+    color: white
+}
+
+.btn_border:hover {
+    border: 5px solid rgba(27, 60, 83, 0); /* Transparent border using rgba */
+    background-color: white;
+    color: #142A3E;
+}
