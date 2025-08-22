@@ -10,17 +10,17 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
-    <link href="bootstrap/bootstrap-5.0.2-dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/body_styles.css">
+    <link href="/Shanty-Dope-Proj/CareToFund/resources/bootstrap/bootstrap-5.0.2-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/Shanty-Dope-Proj/CareToFund/resources/css/body_styles.css">
 
 </head>
 <body>
-<?php include 'header.php'; ?>
+<?php include __DIR__ . '/header.php'; ?>
 
-<div style="min-height: 90vh; background-color: #456882; background-image: url('img/charity-front.jpg'); background-size: cover; background-position: center;">
-s
+<div style="min-height: 90vh; background-color: #456882; background-image: url('/Shanty-Dope-Proj/CareToFund/resources/img/charity-front.jpg'); background-size: cover; background-position: center;">
+
 </div>
 
-<?php include 'footer.php'; ?>
+<?php include __DIR__ . '/footer.php'; ?>
 </body>
 </html>

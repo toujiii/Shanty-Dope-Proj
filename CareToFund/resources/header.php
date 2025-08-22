@@ -3,7 +3,7 @@
     <nav class="navbar navbar-expand-sm navbar-light p-0" style="background-color: #F9F3EF;">
         <div class="container d-flex justify-content-between align-items-center">
             <a class="navbar-brand p-0" href="#">
-                <img src="img/website_logo.png" alt="CareToFund Logo" width="90" height="90" >
+                <img src="/Shanty-Dope-Proj/CareToFund/resources/img/website_logo.png" alt="CareToFund Logo" width="90" height="90" >
             </a>
             <div class="navbar-nav gap-5">
                 <a class="nav-link active fw-bold fs-6" aria-current="page" href="#" style="color:#1B3C53">Home</a>

@@ -4,7 +4,7 @@
             <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center py-3">
                 <div class="container p-0 text-center mb-3 mb-md-0">
                     <a class="py-2" href="#">
-                        <img src="img/website_logo.png" alt="CareToFund Logo" width="90" height="90">
+                        <img src="/Shanty-Dope-Proj/CareToFund/resources/img/website_logo.png" alt="CareToFund Logo" width="90" height="90">
                     </a>
                 </div>
                 <div class="container d-flex flex-column flex-md-row justify-content-center align-items-center px-0 py-2 gap-4">
