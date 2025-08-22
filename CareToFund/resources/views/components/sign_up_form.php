@@ -10,7 +10,7 @@
             </p>
         </div>
 
-        <form action="" style="width: 100%; max-width: 400px;" method="POST">
+        <form action="" style="width: 100%; min-width: 450px;" method="POST">
             <div class="mb-2">
                 <input type="text" placeholder="Name" class="form-control py-2" style="border-radius: 12px;" id="name" name="name" required>
             </div>
@@ -34,7 +34,7 @@
             <div class="mb-2">
                 <input type="text" placeholder="GCash Number" class="form-control py-2" style="border-radius: 12px;" id="gcash" name="gcash" required>
             </div>
-            <button type="submit" class="btn mt-5  w-100" style="background-color: #549f7b; color: white; border-radius: 12px;">Continue</button>
+            <button type="submit" class="btn mt-5 d-block mx-auto w-75 btn_continue" style=" color: white; border-radius: 12px;">Continue</button>
         </form>
         <p class="fs-6" style="color: #545454;">
             Already Have an Account? <a href="/Shanty-Dope-Proj/CareToFund/resources/views/sign_in.php">Sign In</a>

@@ -20,6 +20,17 @@ body{
     background-color: #d68a4f;
 }
 
+.btn_continue {
+    background-color: #549f7b;
+    color: white;
+    border-radius: 12px;
+}
+
+.btn_continue:hover {
+    background-color: #457a5a;
+}
+
+
 .head_font {
     font-size: 4.5rem;
 }

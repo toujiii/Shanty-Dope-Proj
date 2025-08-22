@@ -10,14 +10,14 @@
             </p>
         </div>
 
-        <form action="" style="width: 100%; max-width: 400px;" method="POST">
+        <form action="" style="width: 100%; min-width: 450px;" method="POST">
             <div class="mb-3">
                 <input type="email" placeholder="Email address" class="form-control py-2" style="border-radius: 12px;" id="email" name="email" required>
             </div>
             <div class="mb-3">
                 <input type="password" placeholder="Password" class="form-control mb-5 py-2" style="border-radius: 12px;" id="password" name="password" required>
             </div>
-            <button type="submit" class="btn mt-5  w-100" style="background-color: #549f7b; color: white; border-radius: 12px;">Continue</button>
+            <button type="submit" class="btn mt-5 d-block mx-auto w-75 btn_continue" style=" color: white; border-radius: 12px;">Continue</button>
         </form>
         <p class="fs-6" style="color: #545454;">
             Don't have an account? <a href="/Shanty-Dope-Proj/CareToFund/resources/views/sign_up.php">Sign up</a>
