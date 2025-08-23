@@ -7,7 +7,7 @@
     <div class="bg-light shadow-sm p-4 pb-1" style="border-radius: 12px; min-height: fit-content;">
         <input type="text" class="form-control fs-6 p-1 px-2 ms-auto" placeholder="Search..." style="border-radius: 12px; border: 3px solid #1b3c53; width: 200px; padding-left: 15px; padding-right: 15px;">
         <div class="table-responsive my-3" style="overflow-x: auto; border-radius: 12px; overflow: hidden;">
-            <table class="table m-0 table-hover" style="min-width: 900px;">
+            <table class="table m-0 table-hover align-middle" style="min-width: 900px;">
                 <thead class="table-light">
                     <tr style="border-bottom: 3px solid #1b3c53;">
                         <th scope="col">#</th>
