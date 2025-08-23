@@ -1,5 +1,5 @@
 <div class="container d-flex justify-content-between align-items-center">
-    <h2 class="fs-4 fw-bold" style="color: #545454;">Charity Campaigns</h2>
+    <h2 class="fs-4 fw-bold m-0" style="color: #545454;">Charity Campaigns</h2>
     <div class="d-flex gap-3">
         <button class="btn btn-success fs-6 m-0 text-white px-3 py-1" style=" border-radius: 15px; width: fit-content;">
             Finished
