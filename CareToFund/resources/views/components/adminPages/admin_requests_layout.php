@@ -11,4 +11,4 @@
     </div>
 </div>
 
-<?php include __DIR__ . '/charity_request_card.php'; ?>
+<?php include __DIR__ . '/admin_charity_request_card.php'; ?>

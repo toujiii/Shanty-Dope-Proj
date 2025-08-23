@@ -3,8 +3,11 @@
         <p class="text-white m-0 fs-4  my-md-0 my-4 fw-bold">
             What change do you want to make?
         </p>
-        <button class="btn px-4 py-3 btn-signup text-decoration-none mb-md-0 mb-4 " style="border-radius: 15px; color: white; font-size: 0.9rem;" href="">
+        <button class="btn px-4 py-3 btn-signup text-decoration-none mb-md-0 mb-4"
+        style="border-radius: 15px; color: white; font-size: 0.9rem;"
+        data-bs-toggle="modal" data-bs-target="#createCharityModal">
             Create a Charity
         </button>
+
     </div>
 </div>
