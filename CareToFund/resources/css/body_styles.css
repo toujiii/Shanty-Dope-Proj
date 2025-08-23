@@ -42,7 +42,15 @@ body{
 }
 
 .btn_border:hover {
-    border: 5px solid rgba(27, 60, 83, 0); /* Transparent border using rgba */
+    border: 5px solid rgba(27, 60, 83, 0); 
     background-color: white;
     color: #142A3E;
+}
+
+.hide-scrollbar {
+    scrollbar-width: none;      
+    -ms-overflow-style: none;   
+}
+.hide-scrollbar::-webkit-scrollbar {
+    display: none;              
 }
