@@ -32,12 +32,14 @@
                 </p>
             </div>
             <div class="d-flex justify-content-end">
-                <button class="btn px-4 py-3 btn-donate text-decoration-none my-3 fw-bold" style="border-radius: 15px; color: white; font-size: 0.9rem;" href="">
-                    Donate
-                </button>
+               <button 
+                class="btn px-4 py-3 btn-donate text-decoration-none my-3 fw-bold" 
+                style="border-radius: 15px; color: white; font-size: 0.9rem;" 
+                data-bs-toggle="modal" 
+                data-bs-target="#donateModal">
+                Donate
+            </button>
             </div>
-            
-
         </div>
 
     </div>
