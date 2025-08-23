@@ -15,7 +15,7 @@
                     <a class="nav-link fs-6" href="/Shanty-Dope-Proj/CareToFund/charities" style="color:#1B3C53">Charities</a>
                 </li>
                 <li class="nav-item">
-                    <a class="btn px-4 py-2 w-100 w-lg-auto btn-signup text-decoration-none" style="border-radius: 12px; color: white; font-size: 0.9rem;" href="/Shanty-Dope-Proj/CareToFund/sign_in"">Sign In</a>
+                    <a class="btn px-4 py-2 w-100 w-lg-auto btn-signup text-decoration-none" style="border-radius: 12px; color: white; font-size: 0.9rem;" href="/Shanty-Dope-Proj/CareToFund/sign_in">Sign In</a>
                 </li>
             </ul>
         </div>

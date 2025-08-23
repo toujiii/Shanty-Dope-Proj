@@ -6,10 +6,10 @@
             </a>
         </div>
         <div class="container d-flex flex-column flex-md-row justify-content-center align-items-center px-0 py-2 gap-4">
-            <a href="" class="text-decoration-none text-white">Home</a> 
-            <a href="" class="text-decoration-none text-white">Charities</a> 
-            <a href="" class="text-decoration-none text-white">Sign Up</a>
-            <a href="" class="text-decoration-none text-white">Sign In</a>
+            <a href="/Shanty-Dope-Proj/CareToFund/" class="text-decoration-none text-white">Home</a> 
+            <a href="/Shanty-Dope-Proj/CareToFund/charities" class="text-decoration-none text-white">Charities</a> 
+            <a href="/Shanty-Dope-Proj/CareToFund/sign_up" class="text-decoration-none text-white">Sign Up</a>
+            <a href="/Shanty-Dope-Proj/CareToFund/sign_in" class="text-decoration-none text-white">Sign In</a>
         </div>
     </div>
     <div class="container text-center py-1">

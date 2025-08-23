@@ -1,6 +1,6 @@
 <div class="min-vh-100 d-flex justify-content-center align-items-center">
     <div class="bg-light shadow d-flex flex-column align-items-center justify-content-center p-5" style="border-radius: 12px; width: auto; min-width: 320px; max-width: 100%;">
-        <a href="/Shanty-Dope-Proj/CareToFund/resources/views/home.php"><img src="/Shanty-Dope-Proj/CareToFund/resources/img/website_logo.png" alt="CareToFund Logo" class="img-fluid mb-2" style="width: 150px; display: block; margin: 10px auto 10px auto;"></a>
+        <a href="/Shanty-Dope-Proj/CareToFund/"><img src="/Shanty-Dope-Proj/CareToFund/resources/img/website_logo.png" alt="CareToFund Logo" class="img-fluid mb-2" style="width: 150px; display: block; margin: 10px auto 10px auto;"></a>
         <div class="text-center mb-3">
             <p class="fs-2 fw-bold mb-0" style="color: #1b3c53;">
                 Sign In
@@ -20,7 +20,7 @@
             <button type="submit" class="btn mt-5 d-block mx-auto w-75 btn_continue" style=" color: white; border-radius: 12px;">Continue</button>
         </form>
         <p class="fs-6" style="color: #545454;">
-            Don't have an account? <a href="/Shanty-Dope-Proj/CareToFund/resources/views/sign_up.php">Sign up</a>
+            Don't have an account? <a href="/Shanty-Dope-Proj/CareToFund/sign_up">Sign up</a>
         </p>
     </div>
 </div>

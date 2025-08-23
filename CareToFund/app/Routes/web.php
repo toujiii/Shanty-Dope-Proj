@@ -6,5 +6,9 @@ $router->add('GET', '/', 'HomeController');
 require_once 'app/Controllers/CharitiesController.php';
 $router->add('GET', '/charities', ['CharitiesController', 'charities']); 
 
+require_once 'app/Controllers/SignController.php';
+$router->add('GET', '/sign_in', ['SignController', 'sign_in']);
+$router->add('GET', '/sign_up', ['SignController', 'sign_up']);
+
 // Add more routes as needed
 ?>
