@@ -4,6 +4,7 @@ namespace CareToFund\Controllers;
 //homepage and general pages
 class HomeController {
     public function index() {
-        include __DIR__ . '/../../resources/views/home.php';
+        include __DIR__ . '/../../resources/views/components/homepages/home.php';
     }
+    
 }

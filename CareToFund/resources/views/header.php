@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-sm navbar-light p-0" style="background-color: #F9F3EF;">
     <div class="container">
-        <a class="navbar-brand p-0" href="#">
+        <a class="navbar-brand p-0" href="/Shanty-Dope-Proj/CareToFund/">
             <img src="/Shanty-Dope-Proj/CareToFund/resources/img/website_logo.png" alt="CareToFund Logo" width="90" height="90">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -9,13 +9,13 @@
         <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
             <ul class="navbar-nav gap-lg-4 gap-3 align-items-center mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active fs-6" aria-current="page" href="/Shanty-Dope-Proj/CareToFund/resources/views/home.php" style="color:#1B3C53">Home</a>
+                    <a class="nav-link active fs-6" aria-current="page" href="/Shanty-Dope-Proj/CareToFund/" style="color:#1B3C53">Home</a>
                 </li>
                 <li class="nav-item me-lg-5">
-                    <a class="nav-link fs-6" href="/Shanty-Dope-Proj/CareToFund/resources/views/charities.php" style="color:#1B3C53">Charities</a>
+                    <a class="nav-link fs-6" href="/Shanty-Dope-Proj/CareToFund/charities" style="color:#1B3C53">Charities</a>
                 </li>
                 <li class="nav-item">
-                    <a class="btn px-4 py-2 w-100 w-lg-auto btn-signup text-decoration-none" style="border-radius: 12px; color: white; font-size: 0.9rem;" href="/Shanty-Dope-Proj/CareToFund/resources/views/sign_in.php">Sign In</a>
+                    <a class="btn px-4 py-2 w-100 w-lg-auto btn-signup text-decoration-none" style="border-radius: 12px; color: white; font-size: 0.9rem;" href="/Shanty-Dope-Proj/CareToFund/sign_in">Sign In</a>
                 </li>
             </ul>
         </div>

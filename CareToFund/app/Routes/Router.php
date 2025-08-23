@@ -11,9 +11,15 @@ class Router {
     public function dispatch($method, $uri) {
         foreach ($this->routes as $route) {
             if ($route['method'] === $method && $route['path'] === $uri) {
-                [$controller, $action] = $route['handler'];
-                $controllerName = $route['handler']; // e.g., 'HomeController'
-                $controllerFQCN = "CareToFund\\Controllers\\$controllerName"; // Full class name with namespace
+                $handler = $route['handler'];
+                if (is_array($handler)) {
+                    $controllerName = $handler[0];
+                    $action = $handler[1] ?? 'index';
+                } else {
+                    $controllerName = $handler;
+                    $action = 'index';
+                }
+                $controllerFQCN = "CareToFund\\Controllers\\$controllerName";
 
                 // Load the controller file if not loaded
                 if (!class_exists($controllerFQCN)) {
@@ -23,8 +29,16 @@ class Router {
                     }
                 }
 
-                // Instantiate and call the default method
-                (new $controllerFQCN)->index();
+                if (class_exists($controllerFQCN)) {
+                    $controllerInstance = new $controllerFQCN();
+                    if (method_exists($controllerInstance, $action)) {
+                        $controllerInstance->$action();
+                    } else {
+                        echo "404: Method '$action' not found in controller '$controllerName'";
+                    }
+                } else {
+                    echo "404: Controller '$controllerName' not found.";
+                }
                 return;
             }
         }

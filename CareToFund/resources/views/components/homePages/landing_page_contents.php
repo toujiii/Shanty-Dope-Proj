@@ -6,10 +6,10 @@
         <p class="text-white">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
     </div>
     <div class="container mt-2 d-flex align-items-center gap-4">
-        <a href="">
+        <a href="/Shanty-Dope-Proj/CareToFund/sign_up">
             <button class="btn btn-signup text-white p-3 px-4 fw-bold" style="border-radius: 20px;">Start a Charity Now</button>
         </a>
-        <a href="">
+        <a href="/Shanty-Dope-Proj/CareToFund/charities">
             <button class="btn btn_border fw-bold" style="border-radius: 20px; padding: 12px 50px;">Donate</button>
         </a>
     </div>
@@ -74,7 +74,7 @@
                 <h1 class="display-1 display-md-3 fw-bold " style="color: #1b3c53;">Sign up and Start you own Charity Now!</h1>
                 <p class="my-4 fs-5 " style="color: #1b3c53;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
                 <div class="d-flex justify-content-md-end justify-content-center">
-                    <a href="">
+                    <a href="/Shanty-Dope-Proj/CareToFund/sign_up">
                         <button class="btn btn-signup text-white p-3 px-4 fw-bold" style="border-radius: 20px;">Sign Up Now!</button>
                     </a>
                 </div>
