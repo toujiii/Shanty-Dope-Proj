@@ -16,6 +16,7 @@
                         <th scope="col">Email</th>
                         <th scope="col">GCash</th>
                         <th scope="col">Password</th>
+                        <th scope="col">Charity Status</th>
                         <th scope="col" class="action-col">Action</th>
                     </tr>
                 </thead>
@@ -27,9 +28,10 @@
                         <td>johndoe@email.com</td>
                         <td>09123456789</td>
                         <td>?SaNASJKDNBS DOI@#@09</td>
+                        <td class="text-success">Active</td>
                         <td class="action-col">
-                            <button class="btn btn-sm btn-warning text-white">Edit</button>
-                            <button class="btn btn-sm btn-danger">Delete</button>
+                            <button class="btn btn-sm btn-warning text-white" data-bs-toggle="modal" data-bs-target="#admin_user_edit">Edit</button>
+                            <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#admin_user_delete">Delete</button>
                         </td>
                     </tr>
                    
@@ -47,3 +49,6 @@
         </div>
     </div>
 </div>
+
+<?php include __DIR__ . '/admin_user_delete_modal.php'; ?>
+<?php include __DIR__ . '/admin_user_edit_modal.php'; ?>

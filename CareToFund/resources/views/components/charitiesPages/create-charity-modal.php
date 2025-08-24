@@ -129,6 +129,10 @@
                         <option value="national_id">National ID</option>
                     </select>
                 </div>
+                <div class="mb-3">
+                    <label for="id_number" class="form-label">ID Number</label>
+                    <input type="text" class="form-control" id="id_number" name="id_number" required>
+                </div>
 
                 <div class="mb-3">
                     <label class="form-label">Upload ID Image</label>
