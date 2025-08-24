@@ -1,5 +1,5 @@
 <div class="modal fade" id="donateModal" tabindex="-1" aria-labelledby="donateLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
     <div class="modal-content">
 
       <div class="modal-header">
@@ -11,7 +11,7 @@
 
         <div class="mx-auto mb-0" style="height: 4px; background-color: #1B3C53; width: 95%; border-radius: 2px;"></div>
 
-      <div class="container bg-light mb-3 px-4 py-2 shadow" style=" border-radius: 12px;">
+      <div class="container bg-light px-4 py-2 shadow" style=" border-radius: 12px;">
         <div class="container">
             <p class="text-dark fs-6 m-0">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -55,8 +55,6 @@
         <select class="form-select" id="payment_method" name="payment_method" required>
           <option value="" disabled selected>Select Payment Method</option>
           <option value="gcash">GCash</option>
-          <option value="paypal">PayPal</option>
-          <option value="bank">Bank Transfer</option>
         </select>
       </div>
     </div>
@@ -71,7 +69,10 @@
 
     <!-- Donate Button (Yellow, Lower Right) -->
     <div class="d-flex justify-content-end">
-      <button type="submit" class="btn px-4 py-2" style="background-color: #549f7b; color: #ffffffff; font-weight: bold; border-radius: 8px;">
+      <button type="submit"  
+        class="btn px-4 py-2" 
+        style="background-color: #549f7b; color: #ffffffff; font-weight: bold; border-radius: 8px;"
+        >
         Donate Now
       </button>
     </div>
@@ -81,3 +82,25 @@
     </div>
   </div>
 </div>
+
+<!-- <div class="modal fade" id="donatedModal" tabindex="-1"  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body d-flex flex-column align-items-center text-center gap-2 ">
+        <i class="bi bi-piggy-bank-fill" style="font-size: 100px; color: #549f7b;"></i>
+        <p class="fs-4 fw-bold m-0" >
+            Success!
+        </p>
+        <p class="m-0">
+          The have donated to John Doe's Charity.
+        </p>
+      </div>
+      <div class=" d-flex justify-content-center align-items-center gap-3 m-4">
+        <button type="button" data-bs-dismiss="modal" class="btn btn-secondary  fw-bold">Close</button>
+      </div>
+    </div>
+  </div>
+</div> -->

@@ -1,6 +1,6 @@
 <!-- Modal -->
 <div class="modal fade" id="admin_user_edit" tabindex="-1"  aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-body ">
         <form action="">
@@ -36,7 +36,7 @@
 </div>
 
 <div class="modal fade" id="admin_user_edited" tabindex="-1"  aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

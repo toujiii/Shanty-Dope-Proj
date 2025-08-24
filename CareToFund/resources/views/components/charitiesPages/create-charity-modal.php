@@ -78,7 +78,7 @@
 </style>
 
 <div class="modal fade" id="createCharityModal" tabindex="-1" aria-labelledby="createCharityLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
     <div class="modal-content">
 
       <div class="modal-header">

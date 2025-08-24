@@ -14,6 +14,10 @@
       <form action="process_reset_password.php" method="POST">
         <div class="modal-body">
           <div class="mb-3">
+            <label for="current_password" class="form-label">Current Password</label>
+            <input type="password" name="current_password" id="current_password" class="form-control" required minlength="6">
+          </div>
+          <div class="mb-3">
             <label for="new_password" class="form-label">New Password</label>
             <input type="password" name="new_password" id="new_password" class="form-control" required minlength="6">
           </div>
