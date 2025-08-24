@@ -2,15 +2,44 @@
 namespace CareToFund\Controllers;
 
 class Router {
+    private $currentMiddleware = [];
+
+    // Middleware group support para hindi na lagi i se set paulit ulit sa bawat route
+    public function group($options, $callback) {
+        $previous = $this->currentMiddleware;
+        if (isset($options['middleware'])) {
+            $this->currentMiddleware[] = $options['middleware'];
+        }
+        $callback($this);
+        $this->currentMiddleware = $previous;
+    }
+    //process sa pagkuha ng routes
     private $routes = [];
 
     public function add($method, $path, $handler) {
-        $this->routes[] = compact('method', 'path', 'handler');
+        $this->routes[] = [
+            'method' => $method,
+            'path' => $path,
+            'handler' => $handler,
+            'middleware' => $this->currentMiddleware
+        ];
     }
 
+    //process sa pagbuo ng routes and execution
     public function dispatch($method, $uri) {
         foreach ($this->routes as $route) {
             if ($route['method'] === $method && $route['path'] === $uri) {
+                // Run middleware if meron siyempre
+                foreach ($route['middleware'] as $middleware) {
+                    if (is_callable($middleware)) {
+                        $result = $middleware();
+                        if ($result === false) return;
+                    } elseif (is_string($middleware) && function_exists($middleware)) {
+                        $result = $middleware();
+                        if ($result === false) return;
+                    }
+                }
+
                 $handler = $route['handler'];
                 if (is_array($handler)) {
                     $controllerName = $handler[0];
