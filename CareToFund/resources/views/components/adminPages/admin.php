@@ -26,14 +26,14 @@
                     // include __DIR__ . '/admin_requests_layout.php'; 
                 ?>
                 <?php 
-                    // include __DIR__ . '/admin_user_layout.php'; 
+                    include __DIR__ . '/admin_user_layout.php'; 
                 ?>
             </div>
         </div>
     </div>
 </div>
 
+<script src="/Shanty-Dope-Proj/CareToFund/resources/js/side-bar-toggle.js"></script>
+
 </body>
 </html>
-
-<script src="../../../js/side-bar-toggle.js"></script>
