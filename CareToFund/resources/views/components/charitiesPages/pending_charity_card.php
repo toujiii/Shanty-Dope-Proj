@@ -4,9 +4,13 @@
             <p class="m-0 text-white fs-4 fw-bold">
                 Pending for Approval...
             </p>
-            <button class="btn btn-danger px-4 py-2" style="border-radius: 15px; font-size: 0.9rem;">
+            <button class="btn btn-danger px-4 py-2" 
+                    style="border-radius: 15px; font-size: 0.9rem;"
+                    data-bs-toggle="modal" 
+                    data-bs-target="#abortCharityModal">
                 Abort Charity
             </button>
+
         </div>
         <div class="container">
             <p class="m-0 text-white fs-6 pt-2">

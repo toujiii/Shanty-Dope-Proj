@@ -14,7 +14,11 @@
 <?php include __DIR__ . '/my_charity_card.php'; ?>
 <?php include __DIR__ . '/charity_card.php'; ?>
 <?php include __DIR__ . '/create-charity-modal.php'; ?>
+<?php include __DIR__ . '/abort-modal.php'; ?>
+<?php include __DIR__ . '/donators-modal.php'; ?>
 <?php include __DIR__ . '/donate-modal.php'; ?>
+
+
 
 
 

@@ -9,9 +9,7 @@
         </button>
       </div>
 
-      <div class="modal-step-indicator text-center py-2 relative m-0">
         <div class="mx-auto mb-0" style="height: 4px; background-color: #1B3C53; width: 95%; border-radius: 2px;"></div>
-      </div>
 
       <div class="container bg-light mb-3 px-4 py-2 shadow" style=" border-radius: 12px;">
         <div class="container">

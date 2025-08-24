@@ -1,0 +1,59 @@
+<div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content rounded-3 shadow-sm" style="border: none;">
+      
+       <div class="modal-header">
+            <h5 class="modal-title">Profile</h5>
+            <button type="button" class="btn p-0 border-0 bg-transparent close-btn" data-bs-dismiss="modal" aria-label="Close">
+                <i class="bi bi-x-circle"></i>
+            </button>
+        </div>
+
+        <div class="mx-auto mb-2" style="height: 4px; background-color: #1B3C53; width: 95%; border-radius: 2px;"></div>
+        
+      <!-- Body -->
+      <div class="modal-body">
+        <!-- Profile Fields -->
+        <!-- Display Fields (No Edit Icons) -->
+        <div class="mb-3">
+          <span class="fw-semibold text-dark">Name: John Doe</span>
+        </div>
+
+        <div class="mb-3">
+          <span class="fw-semibold text-dark">Email: johndoe@email.com</span>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="d-flex justify-content-end gap-2 mb-4">
+          <button type="button" class="btn px-3 py-2" 
+                  style="background-color: #1B3C53; color: #fff; font-weight: bold; border-radius: 8px;"
+                  data-bs-toggle="modal" data-bs-target="#editDetailsModal">
+            Edit Details
+          </button>
+
+          <button type="submit" class="btn px-3 py-2" 
+                  style="background-color: #ff9d5cff; color: #fff; font-weight: bold; border-radius: 8px;">
+            Reset Password
+          </button>
+        </div>
+
+
+        <!-- Wallets -->
+        <h6 class="fw-bold">Wallets</h6>
+          <p class="fw-bold">Gcash: 09123456789</p>
+
+          <div class="mx-auto mb-2" 
+              style="height: 4px; background-color: #1B3C53; width: 100%; border-radius: 2px;">
+          </div>
+
+          <!-- Sign Out -->
+          <div class="text-end">
+            <button type="submit" class="btn px-4 py-2" 
+                    style="background-color: #ff0000ff; color: #ffffffff; font-weight: bold; border-radius: 8px;">
+              Sign Out
+            </button>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>

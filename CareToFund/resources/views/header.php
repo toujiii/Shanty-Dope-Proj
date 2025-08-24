@@ -17,14 +17,22 @@
                 <li class="nav-item">
                     <a class="btn px-4 py-2 w-100 w-lg-auto btn-signup text-decoration-none" style="border-radius: 12px; color: white; font-size: 0.9rem;" href="/Shanty-Dope-Proj/CareToFund/sign_in">Sign In</a>
                 </li>
+               <button 
+                    class="d-flex align-items-center justify-content-center gap-2 bg-transparent border-0"
+                    style="cursor: pointer;"
+                    data-bs-toggle="modal" 
+                    data-bs-target="#profileModal">
+                    <img src="/Shanty-Dope-Proj/CareToFund/resources/img/user-profile.png" 
+                        alt="User Profile" width="40" height="40">
+                    <p class="m-0 fw-bold" style="color:#1B3C53">John Doe</p>
+                </button>
             </ul>
         </div>
     </div>
 </nav>
 
+<?php include __DIR__ . '/components/usermodalPages/profile-modal.php'; ?>
+<?php include __DIR__ . '/components/usermodalPages/edit-details-modal.php'; ?>
 
-<!-- pang palit sa signup kapag may naka-login -->
-<!-- <button class="d-flex align-items-center justify-content-center gap-2 bg-transparent border-0" style="cursor: pointer;">
-    <img class="" src="/Shanty-Dope-Proj/CareToFund/resources/img/user-profile.png" alt="User Profile" width="40" height="40">
-    <p class="m-0 fw-bold" style="color:#1B3C53">John Doe</p>
-</button> -->
+
+

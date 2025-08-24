@@ -1,3 +1,5 @@
+
+
 <div class="container">
     <div class="container my-3 px-4 d-flex flex-column justify-content-center shadow" style="background: linear-gradient(to right, #88afcd,#6da0c6, #456882); ; border-radius: 12px;">
         <div class="container">
@@ -36,10 +38,13 @@
                 </p>
             </div>
             
-            <button class="btn btn-transparent fs-6 text-white fw-bold mb-3 p-0 d-flex align-items-center gap-2">
+            <button class="btn btn-transparent fs-6 text-white fw-bold mb-3 p-0 d-flex align-items-center gap-2"
+                    data-bs-toggle="modal" 
+                    data-bs-target="#donatorsModal">
                 <i class="bi bi-people-fill fs-5"></i>
                 View Donators
             </button>
+
         </div>
     </div>
 </div>
