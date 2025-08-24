@@ -3,7 +3,7 @@
     <div class="modal-content">
        <div class="modal-header">
             <h5 class="modal-title">Edit Details</h5>
-            <button type="button" class="btn p-0 border-0 bg-transparent close-btn" data-bs-dismiss="modal" aria-label="Close">
+            <button type="button" class="btn p-0 border-0 bg-transparent close-btn ms-auto" data-bs-dismiss="modal" aria-label="Close">
                 <i class="bi bi-x-circle"></i>
             </button>
         </div>
