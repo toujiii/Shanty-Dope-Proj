@@ -44,7 +44,7 @@
                 </p>
             </div>
             <div class="d-flex flex-md-row flex-column justify-content-between align-items-cente my-3">
-                <button class="btn btn-transparent fw-bold p-0 d-flex align-items-center gap-2 m-0" style="color: #1b3c53; font-size: 0.9rem;"
+                <button class="btn btn-transparent fw-bold p-0 d-flex align-items-center gap-2 m-0 mb-md-0 mb-3" style="color: #1b3c53; font-size: 0.9rem;"
                     data-bs-toggle="modal" data-bs-target="#donatorsModal"
                 >
                     <i class="bi bi-people-fill fs-5"></i>
