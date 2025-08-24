@@ -57,7 +57,7 @@ class SignController {
         }
     }
     // Handles sign in form submission
-    public function signinprocess() {
+    public function signInProcess() {
         session_start();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $email = trim($_POST['email'] ?? '');
