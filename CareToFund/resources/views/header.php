@@ -33,6 +33,8 @@
 
 <?php include __DIR__ . '/components/usermodalPages/profile-modal.php'; ?>
 <?php include __DIR__ . '/components/usermodalPages/edit-details-modal.php'; ?>
+<?php include __DIR__ . '/components/usermodalPages/reset-password-modal.php'; ?>
+
 
 
 

@@ -31,10 +31,12 @@
             Edit Details
           </button>
 
-          <button type="submit" class="btn px-3 py-2" 
-                  style="background-color: #ff9d5cff; color: #fff; font-weight: bold; border-radius: 8px;">
-            Reset Password
-          </button>
+          <button class="btn btn-warning px-3 py-2" 
+                    style="background-color: #ff9d5cff; color: #fff; font-weight: bold; border-radius: 8px;"
+                    data-bs-toggle="modal" 
+                    data-bs-target="#resetPasswordModal">
+                Reset Password
+            </button>
         </div>
 
 
