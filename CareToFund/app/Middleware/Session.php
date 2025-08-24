@@ -20,4 +20,13 @@ class Session {
         session_unset();
         session_destroy();
     }
+    
+}
+function guest() {
+    echo 'Guest middleware called<br>';
+    session_start();
+    if (isset($_SESSION['user_id'])) {
+        header('Location: /'); // Redirect to home or dashboard
+        exit;
+    }
 }

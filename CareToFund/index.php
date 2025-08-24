@@ -1,6 +1,7 @@
 <?php
 //Router ito, dito daraan mga request
-
+session_start();
+// session_unset();
 require_once 'app/Routes/Router.php';
 
 use CareToFund\Controllers\Router;
