@@ -1,6 +1,6 @@
 <?php
 namespace CareToFund\Models;
-require '../../config/db/db.php';
+require __DIR__ . '/../../config/db/db.php';
 
 class Crud {
     private $db;
@@ -46,6 +46,14 @@ class Crud {
         $id = $this->conn->real_escape_string($id);
         $sql = "DELETE FROM {$this->table} WHERE id = '$id'";
         return $this->conn->query($sql);
+    }
+    
+    // Find user by email
+    public function readByEmail($email) {
+        $email = $this->conn->real_escape_string($email);
+        $sql = "SELECT * FROM {$this->table} WHERE email = '$email'";
+        $result = $this->conn->query($sql);
+        return $result ? $result->fetch_assoc() : null;
     }
 }
 ?>

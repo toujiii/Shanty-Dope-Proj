@@ -10,7 +10,7 @@
             </p>
         </div>
 
-        <form action="" style="width: 100%; min-width: 450px;" method="POST">
+    <form action="/Shanty-Dope-Proj/CareToFund/signUpProcess" style="width: 100%; min-width: 450px;" method="POST">
             <div class="mb-2">
                 <input type="text" placeholder="Name" class="form-control py-2" style="border-radius: 12px;" id="name" name="name" required>
             </div>

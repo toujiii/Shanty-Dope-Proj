@@ -19,9 +19,6 @@
 <?php include __DIR__ . '/donate-modal.php'; ?>
 
 
-
-
-
 </body>
 </html>
 
