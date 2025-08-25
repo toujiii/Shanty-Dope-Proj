@@ -3,8 +3,6 @@ namespace CareToFund\Controllers;
 
 class Router {
     private $currentMiddleware = [];
-
-    //process sa pagkuha ng routes
     private $routes = [];
 
     public function add($method, $path, $handler) {
@@ -15,28 +13,39 @@ class Router {
             'middleware' => $this->currentMiddleware
         ];
     }
-    // Middleware group support para hindi na lagi i se set paulit ulit sa bawat route
+
     public function group($options, $callback) {
         $previous = $this->currentMiddleware;
         if (isset($options['middleware'])) {
-            $this->currentMiddleware[] = $options['middleware'];
+            // Ensure middleware is always a flat array of strings
+            if (is_array($options['middleware'])) {
+                $this->currentMiddleware = array_merge($this->currentMiddleware, $options['middleware']);
+            } else {
+                $this->currentMiddleware[] = $options['middleware'];
+            }
         }
         $callback($this);
         $this->currentMiddleware = $previous;
     }
-    
-    //process sa pagbuo ng routes and execution
+
     public function dispatch($method, $uri) {
         foreach ($this->routes as $route) {
             if ($route['method'] === $method && $route['path'] === $uri) {
-                // Run middleware if meron siyempre
-                foreach ($route['middleware'] as $middleware) {
-                    if (is_callable($middleware)) {
-                        $result = $middleware();
-                        if ($result === false) return;
-                    } elseif (is_string($middleware) && function_exists($middleware)) {
-                        $result = $middleware();
-                        if ($result === false) return;
+                // Run middleware if present
+                if (!empty($route['middleware'])) {
+                    foreach ($route['middleware'] as $middleware) {
+                        // Debug: show which middleware is being dispatched
+                        if (is_string($middleware)) {
+                            echo 'Dispatching middleware: ' . $middleware . '<br>';
+                            if (function_exists($middleware)) {
+                                $middlewareResult = $middleware();
+                                // If middleware returns false or exits, stop further processing
+                                if ($middlewareResult === false) return;
+                            }
+                        } elseif (is_callable($middleware)) {
+                            $middlewareResult = $middleware();
+                            if ($middlewareResult === false) return;
+                        }
                     }
                 }
 

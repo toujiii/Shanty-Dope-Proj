@@ -2,6 +2,7 @@
 //Router ito, dito daraan mga request
 session_start();
 // session_unset();
+// session_destroy();
 require_once 'app/Routes/Router.php';
 
 use CareToFund\Controllers\Router;

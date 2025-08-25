@@ -4,6 +4,7 @@ namespace CareToFund\Controllers;
 //homepage and general pages
 class SignController {
     // Handles sign in form submission
+    
     public function sign_in() {
         include __DIR__ . '/../../resources/views/components/signPages/sign_in.php';
     }
@@ -45,7 +46,6 @@ class SignController {
             require_once __DIR__ . '/../Models/CRUD.php';
             $crud = new \CareToFund\Models\Crud('users');
             $result = $crud->create($userData);
-
             if ($result) {
                 header('Location: /Shanty-Dope-Proj/CareToFund/sign_in');
                 exit;

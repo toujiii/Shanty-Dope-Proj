@@ -9,3 +9,6 @@ Pallete:
     #456882
     #D2C1B6
     #F9F3EF
+
+
+SQL

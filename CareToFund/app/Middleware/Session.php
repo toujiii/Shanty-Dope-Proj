@@ -23,10 +23,13 @@ class Session {
     
 }
 function guest() {
-    echo 'Guest middleware called<br>';
-    session_start();
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+    echo 'Guest middleware called<br>'; // Debug
+    print_r($_SESSION); 
     if (isset($_SESSION['user_id'])) {
-        header('Location: /'); // Redirect to home or dashboard
+        header('Location: /Shanty-Dope-Proj/CareToFund/'); // Redirect to home or dashboard
         exit;
     }
 }
