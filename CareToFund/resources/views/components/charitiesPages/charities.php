@@ -10,7 +10,7 @@
 <?php include __DIR__ . '/../../header.php'; ?>
 
 <?php include __DIR__ . '/new_charity_card.php'; ?>
-<?php include __DIR__ . '/pending_charity_card.php'; ?>
+<div class="container" id="idPendingCharity"></div>
 <?php include __DIR__ . '/my_charity_card.php'; ?>
 <?php include __DIR__ . '/charity_card.php'; ?>
 <?php include __DIR__ . '/create-charity-modal.php'; ?>

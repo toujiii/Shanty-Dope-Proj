@@ -46,8 +46,6 @@ function loadPendingCharity(){
         url: "/Shanty-Dope-Proj/CareToFund/viewPendingCharity",
         method: "GET",
         success: function(result){
-
-
             console.log(JSON.parse(result));
             var data = JSON.parse(result);
             var pendingCharitiesHTML = `
