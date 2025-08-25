@@ -8,4 +8,3 @@
 <script src="/Shanty-Dope-Proj/CareToFund/resources/js/styling.js"></script>
 <link rel="icon" type="image/png" href="/Shanty-Dope-Proj/CareToFund/resources/img/website_logo.png">
 <script rel="text/javascript" src="/Shanty-Dope-Proj/CareToFund/resources/js/jquery.js"></script>
-<script src="/Shanty-Dope-Proj/CareToFund/resources/js/ajax_requests.js"></script>

@@ -37,3 +37,4 @@ $("#createCharityForm").on("submit", function(e){
         }
     });
 });
+

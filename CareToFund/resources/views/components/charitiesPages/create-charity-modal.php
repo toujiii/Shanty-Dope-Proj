@@ -109,11 +109,11 @@
             <div class="row g-3">
                 <div class="col-md-6">
                     <input type="number" class="form-control custom-input"
-                        name="fund_limit" placeholder="Charity Fund limit..." required>
+                        name="fund_limit" placeholder="Charity Fund limit..." required min="100" max="100000" step="1">
                 </div>
                 <div class="col-md-6">
                     <input type="number" class="form-control custom-input"
-                        name="duration" placeholder="Charity Event duration..." required>
+                        name="duration" placeholder="Charity Event duration..." required min="1" max="31" step="1">
                 </div>
             </div>
         </div>
@@ -252,11 +252,29 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   function checkStep1Fields() {
-    const step1 = document.querySelector('.step-1');
-    const required = step1.querySelectorAll('[required]');
-    const allFilled = Array.from(required).every(input => input.value.trim() !== "");
-    nextBtn.disabled = !allFilled;
-  }
+  const step1 = document.querySelector('.step-1');
+  const required = step1.querySelectorAll('[required]');
+  let allValid = true;
+
+  required.forEach(input => {
+    // Check for empty value
+    if (input.value.trim() === "") {
+      allValid = false;
+      return;
+    }
+    // If number input, check min/max
+    if (input.type === "number") {
+      const val = Number(input.value);
+      const min = input.min !== "" ? Number(input.min) : -Infinity;
+      const max = input.max !== "" ? Number(input.max) : Infinity;
+      if (val < min || val > max) {
+        allValid = false;
+      }
+    }
+  });
+
+  nextBtn.disabled = !allValid;
+}
 
   // Attach input listeners to all required fields in step 1
   document.querySelectorAll('.step-1 [required]').forEach(input => {

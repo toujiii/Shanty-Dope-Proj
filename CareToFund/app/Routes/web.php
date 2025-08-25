@@ -8,6 +8,8 @@ $router->add('GET', '/', 'HomeController');
 
 require_once 'app/Controllers/CharitiesController.php';
 $router->add('GET', '/charities', ['CharitiesController', 'charities']);
+$router->add('GET', '/create_charity', ['CharitiesController', 'createCharity']);
+$router->add('POST', '/createCharityProcess', ['CharitiesController', 'createCharityProcess']);
 // $router->group(['middleware' => ['CareToFund\Middleware\UserAuth::requireAuth']], function($router) {
 // 	require_once 'app/Controllers/AdminController.php';
 // 	$router->add('GET', '/admin', ['AdminController', 'index']);
@@ -21,9 +23,6 @@ $router->group(['middleware' => ['guest']], function($router) {
 	$router->add('POST', '/signInProcess', ['SignController', 'signInProcess']);
 });
 
-require_once 'app/Controllers/CreateCharityController.php';
-$router->add('GET', '/create_charity', ['CreateCharityController', 'createCharity']);
-$router->add('POST', '/createCharityProcess', ['CreateCharityController', 'createCharityProcess']);
 
 require_once 'app/Controllers/AdminController.php';
 $router->add('GET', '/admin', ['AdminController', 'index']);

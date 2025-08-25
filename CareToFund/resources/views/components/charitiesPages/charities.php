@@ -23,4 +23,4 @@
 </html>
 
 <script src="/Shanty-Dope-Proj/CareToFund/resources/js/styling.js"></script>
-<script src="/Shanty-Dope-Proj/CareToFund/resources/js/ajax_requests.js"></script>
+<script rel="text/javascript" src="/Shanty-Dope-Proj/CareToFund/resources/js/ajax_requests.js"></script>
