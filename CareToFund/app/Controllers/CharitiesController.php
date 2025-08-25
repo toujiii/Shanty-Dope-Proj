@@ -11,7 +11,7 @@ class CharitiesController {
         include __DIR__ . '/../../resources/views/components/charitiesPages/create-charity-modal.php';
     }
 
-     public function createCharityProcess() {
+    public function createCharityProcess() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $description = trim($_POST['description'] ?? '');
             $fund_limit = floatval($_POST['fund_limit'] ?? 0);
@@ -80,6 +80,15 @@ class CharitiesController {
         } 
        
     }
-    
+
+    public function viewPendingCharity() {
+        if($_SERVER['REQUEST_METHOD'] === 'GET') {
+            require_once __DIR__ . '/../Models/CRUD.php';
+            $crud = new \CareToFund\Models\Crud('charity_request');
+            $pendingCharities = $crud->select('*', ['request_id' => '20']);
+            echo json_encode($pendingCharities);
+        }
+    }
+
 }
 

@@ -10,6 +10,8 @@ require_once 'app/Controllers/CharitiesController.php';
 $router->add('GET', '/charities', ['CharitiesController', 'charities']);
 $router->add('GET', '/create_charity', ['CharitiesController', 'createCharity']);
 $router->add('POST', '/createCharityProcess', ['CharitiesController', 'createCharityProcess']);
+$router->add('GET', '/viewPendingCharity', ['CharitiesController', 'viewPendingCharity']);
+
 // $router->group(['middleware' => ['CareToFund\Middleware\UserAuth::requireAuth']], function($router) {
 // 	require_once 'app/Controllers/AdminController.php';
 // 	$router->add('GET', '/admin', ['AdminController', 'index']);

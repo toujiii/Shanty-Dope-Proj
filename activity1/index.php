@@ -119,6 +119,8 @@
                 var tBody = '';
                 var cnt = 1;
                 var datas = JSON.parse(result);
+
+                //search ito
                 filteredDatas = datas.filter(
                     student => {
                         return Object.values(student).some(value => String(value).toLowerCase().includes(searchValue));
