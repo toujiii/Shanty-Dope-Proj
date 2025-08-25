@@ -97,7 +97,7 @@
 
 
 
-      <form action="process_create_charity.php" method="POST" enctype="multipart/form-data">
+      <form id="createCharityForm" method="POST" enctype="multipart/form-data">
         <div class="modal-body">
 
           <!-- Step 1: Charity Details -->
@@ -124,9 +124,9 @@
                     <label for="id_type" class="form-label">ID Verification</label>
                     <select class="form-select" id="id_type" name="id_type" required>
                         <option value="">Select ID Type</option>
-                        <option value="passport">Passport</option>
-                        <option value="drivers_license">Driver's License</option>
-                        <option value="national_id">National ID</option>
+                        <option value="Passport">Passport</option>
+                        <option value="Driver's License">Driver's License</option>
+                        <option value="National ID">National ID</option>
                     </select>
                 </div>
                 <div class="mb-3">
@@ -135,26 +135,28 @@
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label">Upload ID Image</label>
-                    <label for="id_upload" class="upload-box">
+                    <label class="form-label">ID Upload</label>
+                    <label for="id_upload" class="upload-box" id="id_upload_box">
                         <i class="bi bi-plus-circle"></i>
-                        Click to upload ID image
+                        <span>Click to upload ID image</span>
+                        <img id="id_upload_preview" src="" alt="ID Preview" style="display:none; max-height:175px;" />
                     </label>
-                    <input type="file" class="d-none" id="id_upload" name="id_upload" accept="image/*" required>
+                    <input type="file" class="d-none" id="id_upload" name="id_upload" accept="image/*" capture="environment" required>
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label">Face Verification</label>
-
-                    <label for="face_front" class="upload-box">
+                    <label class="form-label">Face Front</label>
+                    <label for="face_front" class="upload-box" id="face_front_box">
                         <i class="bi bi-plus-circle"></i>
-                        Click to upload front face image
+                        <span>Click to upload front face image</span>
+                        <img id="face_front_preview" src="" alt="Front Face Preview" style="display:none; max-height:175px;" />
                     </label>
                     <input type="file" class="d-none" id="face_front" name="face_front" accept="image/*" required>
-
-                    <label for="face_side" class="upload-box">
+                    <label for="face_front" class="form-label">Face Side</label>
+                    <label for="face_side" class="upload-box" id="face_side_box">
                         <i class="bi bi-plus-circle"></i>
-                        Click to upload side face image
+                        <span>Click to upload side face image</span>
+                        <img id="face_side_preview" src="" alt="Side Face Preview" style="display:none; max-height:175px;" />
                     </label>
                     <input type="file" class="d-none" id="face_side" name="face_side" accept="image/*" required>
                 </div>
@@ -171,23 +173,46 @@
 
         <button type="button" 
             class="btn px-4 py-2 btn-signup next-btn text-decoration-none mb-md-0 mb-4" 
-            style="border-radius: 15px; color: white; font-size: 0.9rem;">
+            style="border-radius: 15px; color: white; font-size: 0.9rem;"
+            disabled
+            >
             Next
         </button>
 
         <button type="submit" 
             class="btn px-4 py-2 btn-signup submit-btn d-none text-decoration-none mb-md-0 mb-4" 
-            style="border-radius: 15px; color: white; font-size: 0.9rem;">
+            style="border-radius: 15px; color: white; font-size: 0.9rem;"
+            >
             Submit Charity
         </button>
-
-
         </div>
       </form>
-
     </div>
   </div>
 </div>
+
+<div class="modal fade" id="charity_created" tabindex="-1"  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body d-flex flex-column align-items-center text-center gap-2 ">
+        <i class="bi bi-piggy-bank-fill" style="font-size: 100px;;"></i>
+        <p class="fs-4 fw-bold m-0 text-success" >
+            Success!
+        </p>
+        <p class="m-0">
+          The charity request has been created successfully.
+        </p>
+      </div>
+      <div class=" d-flex justify-content-center align-items-center gap-3 m-4">
+        <button type="button" data-bs-dismiss="modal" class="btn btn-secondary  fw-bold">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
@@ -226,11 +251,69 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
+  function checkStep1Fields() {
+    const step1 = document.querySelector('.step-1');
+    const required = step1.querySelectorAll('[required]');
+    const allFilled = Array.from(required).every(input => input.value.trim() !== "");
+    nextBtn.disabled = !allFilled;
+  }
+
+  // Attach input listeners to all required fields in step 1
+  document.querySelectorAll('.step-1 [required]').forEach(input => {
+    input.addEventListener('input', checkStep1Fields);
+  });
+
+  // Run check on page load and when showing step 1
+  checkStep1Fields();
+  modal.addEventListener("shown.bs.modal", checkStep1Fields);
+
+
   modal.addEventListener("shown.bs.modal", () => showStep(1));
   modal.addEventListener("hidden.bs.modal", () => showStep(1));
 
   showStep(1);
+
+  function setupImagePreview(inputId, previewId, boxId) {
+    const input = document.getElementById(inputId);
+    const preview = document.getElementById(previewId);
+    const box = document.getElementById(boxId);
+
+    input?.addEventListener('change', function (e) {
+      const file = e.target.files[0];
+      if (file && file.type.startsWith('image/')) {
+        const reader = new FileReader();
+        reader.onload = function (ev) {
+          preview.src = ev.target.result;
+          preview.style.display = 'block';
+          // Optionally hide icon/text
+          box.querySelector('i').style.display = 'none';
+          box.querySelector('span').style.display = 'none';
+        };
+        reader.readAsDataURL(file);
+      } else {
+        preview.src = '';
+        preview.style.display = 'none';
+        box.querySelector('i').style.display = '';
+        box.querySelector('span').style.display = '';
+      }
+    });
+  }
+
+  const form = document.getElementById("createCharityForm");
+  if (!modal || !form) return;
+
+  modal.addEventListener("hidden.bs.modal", function () {
+    form.reset();
+    showStep(1); // Reset to first step if needed
+  });
+
+  
+
+  setupImagePreview('id_upload', 'id_upload_preview', 'id_upload_box');
+  setupImagePreview('face_front', 'face_front_preview', 'face_front_box');
+  setupImagePreview('face_side', 'face_side_preview', 'face_side_box');
 });
+
 </script>
 
 

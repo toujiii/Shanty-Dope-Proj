@@ -21,6 +21,10 @@ $router->group(['middleware' => ['guest']], function($router) {
 	$router->add('POST', '/signInProcess', ['SignController', 'signInProcess']);
 });
 
+require_once 'app/Controllers/CreateCharityController.php';
+$router->add('GET', '/create_charity', ['CreateCharityController', 'createCharity']);
+$router->add('POST', '/createCharityProcess', ['CreateCharityController', 'createCharityProcess']);
+
 require_once 'app/Controllers/AdminController.php';
 $router->add('GET', '/admin', ['AdminController', 'index']);
 ?>
