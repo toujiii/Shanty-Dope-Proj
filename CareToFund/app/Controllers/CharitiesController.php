@@ -29,7 +29,7 @@ class CharitiesController {
                 $new_face_side_name = uniqid('face_side_', true) . '.png';
 
                 //papalitan ung time() ng sa id o name ng user
-                $folderName = 'charity_requests_attachments_' . time();
+                $folderName = 'charity_requests_attachments_' . $_SESSION['user_id'] . '_' . time();
                 $uploadDir = __DIR__ . '/../../resources/img/charity_requests_attachments/' . $folderName . '/';
 
                 if (!is_dir($uploadDir)) {
@@ -57,7 +57,8 @@ class CharitiesController {
                         'id_att_link' => 'resources/img/charity_requests_attachments/' . $folderName . '/' . $new_id_upload_name,
                         'front_face_link' => 'resources/img/charity_requests_attachments/' . $folderName . '/' . $new_face_front_name,
                         'side_face_link' => 'resources/img/charity_requests_attachments/' . $folderName . '/' . $new_face_side_name,
-                        'status' => 'pending'
+                        'status' => 'pending',
+                        'user_id' => $_SESSION['user_id']
                     ];
 
                     $result = $crud->create($charityData);
@@ -85,7 +86,7 @@ class CharitiesController {
         if($_SERVER['REQUEST_METHOD'] === 'GET') {
             require_once __DIR__ . '/../Models/CRUD.php';
             $crud = new \CareToFund\Models\Crud('charity_request');
-            $pendingCharities = $crud->select('*', ['request_id' => '20']);
+            $pendingCharities = $crud->select('*', ['user_id' => $_SESSION['user_id']]);
             echo json_encode($pendingCharities);
         }
     }

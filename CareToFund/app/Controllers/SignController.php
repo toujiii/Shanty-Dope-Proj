@@ -17,8 +17,8 @@ class SignController {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $name = trim($_POST['name'] ?? '');
             $email = trim($_POST['email'] ?? '');
-            $password = $_POST['password'] ?? '';
-            $confirm_password = $_POST['confirm_password'] ?? '';
+            $password = trim($_POST['password'] ?? '');
+            $confirm_password = trim($_POST['confirm_password'] ?? '');
             $gcash_number = trim($_POST['gcash'] ?? '');
 
             // Basic validation
@@ -39,7 +39,8 @@ class SignController {
                 'name' => $name,
                 'email' => $email,
                 'password' => $hashedPassword,
-                'gcash_number' => $gcash_number
+                'gcash_number' => $gcash_number,
+                'status' => 'offline'
             ];
 
             // Insert into database
@@ -58,10 +59,9 @@ class SignController {
     }
     // Handles sign in form submission
     public function signInProcess() {
-        session_start();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $email = trim($_POST['email'] ?? '');
-            $password = $_POST['password'] ?? '';
+            $password = trim($_POST['password'] ?? '')  ;
 
             if (!$email || !$password) {
                 echo 'Email and password are required.';
