@@ -5,7 +5,7 @@ session_start();
 // session_destroy();
 require_once 'app/Routes/Router.php';
 
-use CareToFund\Controllers\Router;
+use CareToFund\Routes\Router;
 
 
 $router = new Router();

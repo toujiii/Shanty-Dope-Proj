@@ -62,7 +62,7 @@ class CharitiesController {
                     ];
 
                     $result = $crud->create($charityData);
-                    
+                
                     if ($result) {
                         echo json_encode(['success' => true]);
                     } else {

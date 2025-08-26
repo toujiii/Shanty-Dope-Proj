@@ -74,7 +74,6 @@ class SignController {
 
             if ($user && password_verify($password, $user['password'])) {
                 $_SESSION['user_id'] = $user['id'];
-                $_SESSION['username'] = $user['username'] ?? $user['name'] ?? '';
                 // Redirect to dashboard or home page
                 header('Location: /Shanty-Dope-Proj/CareToFund/');
                 exit;

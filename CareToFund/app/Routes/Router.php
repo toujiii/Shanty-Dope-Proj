@@ -1,5 +1,6 @@
 <?php
-namespace CareToFund\Controllers;
+namespace CareToFund\Routes;
+include_once 'app/Middleware/Session.php';
 
 class Router {
     private $currentMiddleware = [];
@@ -34,15 +35,14 @@ class Router {
                 // Run middleware if present
                 if (!empty($route['middleware'])) {
                     foreach ($route['middleware'] as $middleware) {
-                        // Debug: show which middleware is being dispatched
-                        if (is_string($middleware)) {
+                        // Check for global function
+                        if (is_string($middleware) && function_exists('\\' . $middleware)) {
                             echo 'Dispatching middleware: ' . $middleware . '<br>';
-                            if (function_exists($middleware)) {
-                                $middlewareResult = $middleware();
-                                // If middleware returns false or exits, stop further processing
-                                if ($middlewareResult === false) return;
-                            }
-                        } elseif (is_callable($middleware)) {
+                            $middlewareResult = call_user_func('\\' . $middleware);
+                            if ($middlewareResult === false) return;
+                        }
+                        // Check for closures or callable objects
+                        elseif (is_callable($middleware)) {
                             $middlewareResult = $middleware();
                             if ($middlewareResult === false) return;
                         }
