@@ -185,7 +185,7 @@ function viewCharityRequests() {
                             <div class="container pb-3 px-0 d-flex flex-wrap  align-items-center gap-4 justify-content-start">
                                 <p class=" m-0 fs-6 fw-bold d-flex align-items-center gap-2" style="color: #1b3c53;">
                                     <i class="bi bi-flag-fill fs-5"></i>
-                                    ₱ ${data.fund_limit}
+                                    ₱ ${data.fund_limit}.00
                                 </p>
                                 <p class=" m-0 fs-6 fw-bold d-flex align-items-center gap-2" style="color: #1b3c53;">
                                     <i class="bi bi-stopwatch-fill fs-5"></i>

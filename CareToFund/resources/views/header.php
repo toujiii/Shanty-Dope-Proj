@@ -14,18 +14,30 @@
                 <li class="nav-item me-lg-5">
                     <a class="nav-link fs-6" href="/Shanty-Dope-Proj/CareToFund/charities" style="color:#1B3C53">Charities</a>
                 </li>
-                <li class="nav-item">
-                    <a class="btn px-4 py-2 w-100 w-lg-auto btn-signup text-decoration-none" style="border-radius: 12px; color: white; font-size: 0.9rem;" href="/Shanty-Dope-Proj/CareToFund/sign_in">Sign In</a>
-                </li>
-               <button 
-                    class="d-flex align-items-center justify-content-center gap-2 bg-transparent border-0"
-                    style="cursor: pointer;"
-                    data-bs-toggle="modal" 
-                    data-bs-target="#profileModal">
-                    <img src="/Shanty-Dope-Proj/CareToFund/resources/img/user-profile.png" 
-                        alt="User Profile" width="40" height="40">
-                    <p class="m-0 fw-bold" style="color:#1B3C53">John Doe</p>
-                </button>
+                
+               <?php 
+                 if(isset($_SESSION['user_id'])) {
+                     // User is logged in
+                     echo '
+                        <button 
+                            class="d-flex align-items-center justify-content-center gap-2 bg-transparent border-0"
+                            style="cursor: pointer;"
+                            data-bs-toggle="modal" 
+                            data-bs-target="#profileModal">
+                            <img src="/Shanty-Dope-Proj/CareToFund/resources/img/user-profile.png" 
+                                alt="User Profile" width="40" height="40">
+                            <p class="m-0 fw-bold" style="color:#1B3C53">John Doe</p>
+                        </button>
+                    ';
+                 } else {
+                     // User is not logged in
+                    echo '
+                        <li class="nav-item">
+                            <a class="btn px-4 py-2 w-100 w-lg-auto btn-signup text-decoration-none" style="border-radius: 12px; color: white; font-size: 0.9rem;" href="/Shanty-Dope-Proj/CareToFund/sign_in">Sign In</a>
+                        </li>
+                    ';
+                 }
+               ?>
             </ul>
         </div>
     </div>
