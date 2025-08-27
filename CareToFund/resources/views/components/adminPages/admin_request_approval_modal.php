@@ -13,7 +13,8 @@
       </div>
       <div class=" d-flex justify-content-center align-items-center gap-3 m-4">
         <button type="button" data-bs-dismiss="modal" class="btn btn-secondary  fw-bold">Cancel</button>
-        <button type="button" class="btn btn-success  fw-bold" data-bs-toggle="modal" data-bs-target="#admin_request_approved">Approve</button>
+        <button type="button" class="btn btn-success  fw-bold" data-bs-toggle="modal" data-bs-target="#admin_request_approved"
+        onclick="charityApprovalRequest()">Approve</button>
       </div>
     </div>
   </div>
@@ -40,3 +41,16 @@
     </div>
   </div>
 </div>
+
+<script>
+  $('#admin_request_approval').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget); // Button that triggered the modal
+      var requestId = button.data('request-id'); // Extract info from data-* attributes
+      var userId = button.data('user-id');
+      // console.log(requestId);
+
+      // Store the requestId somewhere, e.g., in a hidden input or a JS variable
+      $(this).data('request-id', requestId);
+      $(this).data('user-id', userId);
+  });
+</script>

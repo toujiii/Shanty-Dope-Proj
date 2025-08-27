@@ -16,7 +16,8 @@
     </div>
 </div>
 
-<?php include __DIR__ . '/admin_request_charity_card.php'; ?>
+<div class="" id="charityRequestsContainer"></div>
+
 <?php include __DIR__ . '/admin_request_approval_modal.php'; ?>
 <?php include __DIR__ . '/admin_request_rejection_modal.php'; ?>
 <?php include __DIR__ . '/admin_attachments_modal.php'; ?>

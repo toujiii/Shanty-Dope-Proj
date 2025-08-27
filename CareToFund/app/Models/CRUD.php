@@ -55,15 +55,42 @@ class Crud {
     }
 
     // Update
-    public function update($id, array $data) {
-        $id = $this->conn->real_escape_string($id);
-        $fields = [];
-        foreach ($data as $key => $value) {
-            $fields[] = "$key = '" . $this->conn->real_escape_string($value) . "'";
+    // public function update($id, array $data) {
+    //     $id = $this->conn->real_escape_string($id);
+    //     $fields = [];
+    //     foreach ($data as $key => $value) {
+    //         $fields[] = "$key = '" . $this->conn->real_escape_string($value) . "'";
+    //     }
+    //     $fields_str = implode(', ', $fields);
+    //     $sql = "UPDATE {$this->table} SET $fields_str WHERE id = '$id'";
+    //     return $this->conn->query($sql);
+    // }
+    public function update($data, $where){
+        try{
+            $set = $set_types = "";
+            foreach($data as $key => $value){
+                $set .= "$key = ?,";
+                $set_types .= substr(gettype($value), 0, 1);
+            }
+            $set = substr($set, 0, -1);
+
+            $cond = $cond_types = "";
+            foreach($where as $key => $value){
+                $cond .= "$key = ? AND ";
+                $cond_types .= substr(gettype($value), 0, 1);
+            }
+            $cond = substr($cond, 0, -4); 
+            
+            $types = $set_types . $cond_types;
+            $values = array_merge(array_values($data), array_values($where));
+
+            $stmt = $this->conn->prepare("UPDATE {$this->table} SET $set WHERE $cond");
+            $stmt->bind_param($types, ...$values);
+            $stmt->execute();
+            $stmt->close();
+        }catch(\Exception $e){
+            die("Error while updating data!. <br>". $e);
         }
-        $fields_str = implode(', ', $fields);
-        $sql = "UPDATE {$this->table} SET $fields_str WHERE id = '$id'";
-        return $this->conn->query($sql);
     }
 
     // Delete
