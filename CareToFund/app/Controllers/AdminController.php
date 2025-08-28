@@ -81,4 +81,17 @@ class AdminController {
             }
         }
     }
+
+    public function getCharityRequestDetails() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $requestId = $_POST['request_id'] ?? null;
+
+            require_once __DIR__ . '/../Models/CRUD.php';
+            $crud = new \CareToFund\Models\Crud('charity_request');
+
+            $requestDetails = $crud->select('*', ['request_id' => $requestId]);
+
+            echo json_encode($requestDetails);
+        }
+    }
 }

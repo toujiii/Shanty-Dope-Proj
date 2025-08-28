@@ -52,41 +52,16 @@ function loadPendingCharity(){
         success: function(result){
             console.log(JSON.parse(result));
             var data = JSON.parse(result);
-            var pendingCharitiesHTML = `
-                <div class="container my-3 px-4 d-flex flex-column justify-content-center shadow" style="background: linear-gradient(to right, #88afcd,#6da0c6, #456882);  border-radius: 12px;">
-                    <div class="container d-flex justify-content-between align-items-center py-3 border-bottom border-4 border-light">
-                        <p class="m-0 text-white fs-4 fw-bold" >
-                            Pending for Approval...
-                        </p>
-                        <button class="btn btn-danger px-4 py-2" 
-                                style="border-radius: 15px; font-size: 0.9rem;"
-                                data-bs-toggle="modal" 
-                                data-bs-target="#abortCharityModal">
-                            Abort Charity
-                        </button>
 
-                    </div>
-                    <div class="container">
-                        <p class="m-0 text-white fs-6 pt-2">
-                            ${data[0].description}
-                        </p>
-                        <p class="m-0 pb-3 text-white" style="font-size: 0.9rem;">
-                            ${data[0].datetime}
-                        </p>
-                    </div>
-                    <div class="container pb-3 d-flex align-items-center gap-4">
-                        <p class="text-white m-0 fs-6 fw-bold d-flex align-items-center gap-2">
-                            <i class="bi bi-flag-fill fs-5"></i>
-                            ${data[0]["fund_limit"]}
-                        </p>
-                        <p class="text-white m-0 fs-6 fw-bold d-flex align-items-center gap-2">
-                            <i class="bi bi-stopwatch-fill fs-5"></i>
-                            ${data[0]["duration"]} Days
-                        </p>
-                    </div>
-                </div>
-            `;
-            $("#idPendingCharity").html(pendingCharitiesHTML);
+            // Sort by latest
+            data.sort(function(a, b) {
+                return new Date(b.datetime) - new Date(a.datetime);
+            });
+
+            $("#pendingDescription").text(data[0].description);
+            $("#pendingDatetime").text(data[0].datetime);
+            $("#pendingFundLimit").text(data[0].fund_limit);
+            $("#pendingDuration").text(data[0].duration);
 
         },
         error: function(error){
@@ -106,6 +81,7 @@ function fetchUserStatus(){
                 $("#newCharityCard").hide();
                 $("#idPendingCharity").show();
                 $("#myCharityCard").hide();
+
                 // User is pending
             } else if(data[0].status === "Offline") {
                 $("#newCharityCard").show();
@@ -134,6 +110,15 @@ function viewCharityRequests() {
             console.log(JSON.parse(result));
             var datas = JSON.parse(result);
             var charityRequestsHTML = '';
+
+            datas.sort(function(a, b) {
+                if (a.request_status === "Pending" && b.request_status !== "Pending") return -1;
+                if (a.request_status !== "Pending" && b.request_status === "Pending") return 1;
+                return 0;
+            });
+
+            datas.reverse();
+
             datas.forEach(function(data) {
                 charityRequestsHTML += `
                     <div class="container " >
@@ -141,7 +126,17 @@ function viewCharityRequests() {
                             <div class="d-flex gap-2 w-100 justify-content-between py-2" style="border-bottom: 4px solid #1b3c53;">
                                 <div class="d-flex gap-3 align-items-center">
                                     <p class="m-0 fs-5 fw-bold" style="color: #1b3c53;">
-                                        ${data.name} is requesting a charity.
+                                    `;
+                                    if(data.request_status === "Pending") {
+                                        charityRequestsHTML += `
+                                            ${data.name} is requesting a new charity.
+                                        `;
+                                    } else {
+                                        charityRequestsHTML += `
+                                            ${data.name} charity request.
+                                        `;
+                                    }
+                charityRequestsHTML += `
                                     </p>
                                 </div>
                                 `;
@@ -175,8 +170,10 @@ function viewCharityRequests() {
                                 <p class="m-0 " style="font-size: 0.9rem; color: #848484ff;">
                                     ${data.datetime}
                                 </p>
-                                <p class="m-0 py-3 text-decoration-underline" style="cursor: pointer; color: #1b3c53; font-size: 0.9rem;"
-                                    data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                <p class="m-0 py-3 text-decoration-underline" style="cursor: pointer; color: #1b3c53; font-size: 0.9rem; width: fit-content;"
+                                    data-bs-toggle="modal" 
+                                    data-bs-target="#requestDetailsModal" 
+                                    onclick="getCharityRequestDetails(${data.request_id}, ${data.user_id})"
                                 >
                                     View More
                                 </p>
@@ -240,6 +237,7 @@ function charityApprovalRequest() {
         },
         success: function(response) {
             viewCharityRequests();
+            fetchUserStatus();
         },
         error: function(error) {
 
@@ -270,4 +268,32 @@ function charityRejectionRequest() {
             alert('Something went wrong.');
         }
     });
+}
+
+function getCharityRequestDetails(requestId, userId) {
+    console.log(requestId);
+    console.log(userId);
+    $.ajax({
+        url: "/Shanty-Dope-Proj/CareToFund/getCharityRequestDetails",
+        method: "POST",
+        data: {
+            request_id: requestId,
+            user_id: userId
+        },
+        success: function(result) {
+            var data = JSON.parse(result);
+            console.log('Charity details:', data);
+
+            $('#request_id_details').text(data[0].request_id);
+            $('#id_type_used_details').text(data[0].id_type_used);
+            $('#id_number_details').text(data[0].id_number);
+            $('#id_image_details').attr('src', '/Shanty-Dope-Proj/CareToFund/' + data[0].id_att_link);
+            $('#front_face_image_details').attr('src', '/Shanty-Dope-Proj/CareToFund/' + data[0].front_face_link);
+            $('#side_face_image_details').attr('src', '/Shanty-Dope-Proj/CareToFund/' + data[0].side_face_link);
+        },
+        error: function(error) {
+            alert('Something went wrong.');
+        }
+    });
+
 }

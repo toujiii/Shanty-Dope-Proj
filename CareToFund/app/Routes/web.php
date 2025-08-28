@@ -16,6 +16,7 @@ $router->add('GET', '/fetchUserStatus', ['CharitiesController', 'fetchUserStatus
 $router->add('GET', '/viewCharityRequests', ['AdminController', 'viewCharityRequests']);
 $router->add('POST', '/approveCharityRequest', ['AdminController', 'approveCharityRequest']);
 $router->add('POST', '/rejectCharityRequest', ['AdminController', 'rejectCharityRequest']);
+$router->add('POST', '/getCharityRequestDetails', ['AdminController', 'getCharityRequestDetails']);
 
 
 // $router->group(['middleware' => ['CareToFund\Middleware\UserAuth::requireAuth']], function($router) {
