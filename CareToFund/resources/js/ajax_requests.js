@@ -111,15 +111,24 @@ function viewCharityRequests() {
             var datas = JSON.parse(result);
             var charityRequestsHTML = '';
 
-            datas.sort(function(a, b) {
-                if (a.request_status === "Pending" && b.request_status !== "Pending") return -1;
-                if (a.request_status !== "Pending" && b.request_status === "Pending") return 1;
-                return 0;
+            // Separate pending and non-pending
+            var pendings = datas.filter(d => d.request_status === "Pending");
+            var others = datas.filter(d => d.request_status !== "Pending");
+
+            // (Optional) Sort pendings by latest if you want
+            pendings.sort(function(a, b) {
+                return new Date(b.datetime) - new Date(a.datetime);
             });
 
-            datas.reverse();
+            // Sort others by latest
+            others.sort(function(a, b) {
+                return new Date(b.datetime) - new Date(a.datetime);
+            });
 
-            datas.forEach(function(data) {
+        
+            var sortedDatas = pendings.concat(others);
+
+            sortedDatas.forEach(function(data) {
                 charityRequestsHTML += `
                     <div class="container " >
                         <div class="container bg-light my-3 px-4 py-2 shadow-sm d-flex align-items-center flex-column" style=" border-radius: 12px; ">
@@ -226,7 +235,6 @@ function charityApprovalRequest() {
     var requestId = $('#admin_request_approval').data('request-id');
     var userId = $('#admin_request_approval').data('user-id');
     console.log(userId);
-
     console.log(requestId);
     $.ajax({
         url: "/Shanty-Dope-Proj/CareToFund/approveCharityRequest",

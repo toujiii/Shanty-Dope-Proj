@@ -33,8 +33,9 @@
     </div>
 </div>
 
-<script src="/Shanty-Dope-Proj/CareToFund/resources/js/side-bar-toggle.js"></script>
-<script rel="text/javascript" src="/Shanty-Dope-Proj/CareToFund/resources/js/ajax_requests.js"></script>
+
 
 </body>
 </html>
+<script src="/Shanty-Dope-Proj/CareToFund/resources/js/side-bar-toggle.js"></script>
+<script rel="text/javascript" src="/Shanty-Dope-Proj/CareToFund/resources/js/ajax_requests.js"></script>
