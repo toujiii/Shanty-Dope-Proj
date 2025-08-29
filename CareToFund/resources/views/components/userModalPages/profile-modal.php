@@ -50,10 +50,12 @@
 
           <!-- Sign Out -->
           <div class="text-end">
-            <button type="submit" class="btn px-4 py-2" 
-                    style="background-color: #ff0000ff; color: #ffffffff; font-weight: bold; border-radius: 8px;">
-              Sign Out
-            </button>
+            <form action="/Shanty-Dope-Proj/CareToFund/signOut" method="POST">
+              <button type="submit" class="btn px-4 py-2" 
+                      style="background-color: #ff0000ff; color: #ffffffff; font-weight: bold; border-radius: 8px;">
+                Sign Out
+              </button>
+            </form>
           </div>
       </div>
     </div>

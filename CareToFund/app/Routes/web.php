@@ -6,6 +6,8 @@ require_once 'app/Middleware/Session.php';
 require_once 'app/Controllers/HomeController.php';
 $router->add('GET', '/', 'HomeController');
 
+//Charities only
+//User
 require_once 'app/Controllers/CharitiesController.php';
 $router->add('GET', '/charities', ['CharitiesController', 'charities']);
 $router->add('GET', '/create_charity', ['CharitiesController', 'createCharity']);
@@ -15,6 +17,7 @@ $router->add('GET', '/fetchUserStatus', ['CharitiesController', 'fetchUserStatus
 $router->add('GET', '/loadMyCharity', ['CharitiesController', 'loadMyCharity']);
 $router->add('POST', '/updateMyCharity', ['CharitiesController', 'updateMyCharity']);
 
+//Admin
 $router->add('GET', '/viewCharityRequests', ['AdminController', 'viewCharityRequests']);
 $router->add('POST', '/approveCharityRequest', ['AdminController', 'approveCharityRequest']);
 $router->add('POST', '/rejectCharityRequest', ['AdminController', 'rejectCharityRequest']);
@@ -34,6 +37,10 @@ $router->group(['middleware' => 'guest'], function($router) {
 	$router->add('POST', '/signUpProcess', ['SignController', 'signUpProcess']);
 	$router->add('POST', '/signInProcess', ['SignController', 'signInProcess']);
 });
+$router->group(['middleware' => 'user'], function($router) {
+	$router->add('POST', '/signOut', ['SignController', 'signOut']);
+});
+
 
 
 require_once 'app/Controllers/AdminController.php';
