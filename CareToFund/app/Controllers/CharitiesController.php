@@ -13,6 +13,11 @@ class CharitiesController {
         include __DIR__ . '/../../resources/views/components/charitiesPages/create-charity-modal.php';
     }
 
+    public function render($view, $data = []) {
+        extract($data); 
+        require __DIR__ . '/../../resources/views/' . $view . '.php';
+    }
+
     public function createCharityProcess() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $description = trim($_POST['description'] ?? '');

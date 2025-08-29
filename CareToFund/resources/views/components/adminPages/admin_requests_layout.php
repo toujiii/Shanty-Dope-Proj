@@ -25,8 +25,7 @@
     </div>
 </div>
 
-<div class="" id="charityRequestsContainer"></div>
-
+<div id="charityRequestsContainer"></div>
+<div id="modalContainer"></div>
 <?php include __DIR__ . '/admin_request_approval_modal.php'; ?>
 <?php include __DIR__ . '/admin_request_rejection_modal.php'; ?>
-<?php include __DIR__ . '/admin_attachments_modal.php'; ?>

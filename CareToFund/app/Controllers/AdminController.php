@@ -1,6 +1,8 @@
 <?php
 namespace CareToFund\Controllers;
 
+use CareToFund\Models\Crud;
+
 date_default_timezone_set('Asia/Manila');
 
 require_once __DIR__ . '/../Models/CRUD.php';
@@ -10,29 +12,20 @@ class AdminController {
         include __DIR__ . '/../../resources/views/components/adminPages/admin.php';
     }
 
+    public function render($view, $data = []) {
+        extract($data); 
+        require __DIR__ . '/../../resources/views/' . $view . '.php';
+    }
+
     public function viewCharityRequests() {
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
-            $crudCharity = new \CareToFund\Models\Crud('charity_request');
-            $crudUsers   = new \CareToFund\Models\Crud('users');
+            $charity = new Crud('users');
+            $charityRequests = $charity->join('charity_request','users.id = charity_request.user_id');
 
-            $charityRequests = $crudCharity->select('*');
-
-            foreach ($charityRequests as &$request) {
-                $user_id = $request['user_id'];
-                
-                $userData = $crudUsers->select('name', ['id' => $user_id]);
-
-                // If user exists, append the name to the request row
-                if (!empty($userData) && isset($userData[0]['name'])) {
-                    $request['name'] = ucfirst($userData[0]['name']);
-                } else {
-                    $request['name'] = null; // or 'Unknown'
-                }
-            }
-
-            // Return JSON with appended name field
-            echo json_encode($charityRequests);
+            $this->render('components/adminPages/admin_request_charity', [
+                'charityRequests' => $charityRequests
+            ]);
         }
     }
 
@@ -93,12 +86,12 @@ class AdminController {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $requestId = $_POST['request_id'] ?? null;
 
-            require_once __DIR__ . '/../Models/CRUD.php';
-            $crud = new \CareToFund\Models\Crud('charity_request');
+            $charity = new Crud('users');
+            $requestDetails = $charity->join('charity_request','users.id = charity_request.user_id', ['request_id' => $requestId]);
 
-            $requestDetails = $crud->select('*', ['request_id' => $requestId]);
-
-            echo json_encode($requestDetails);
+            $this->render('components/adminPages/admin_attachments_modal', [
+                'requestDetails' => $requestDetails
+            ]);
         }
     }
 
