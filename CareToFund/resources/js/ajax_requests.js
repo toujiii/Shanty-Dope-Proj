@@ -217,6 +217,7 @@ function getCharityRequestDetails(requestId) {
             alert('Something went wrong.');
         }
     });
+}
 
 // Load my charity details
 function loadMyCharity() {
