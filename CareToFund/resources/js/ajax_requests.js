@@ -1,7 +1,23 @@
+var requestSearchValue = '';
+
 $(document).ready(function() {
     loadPendingCharity();
     fetchUserStatus();
+
+    $('#requestCharitySearch').on('keyup', function() {
+        requestSearchValue = $(this).val().toLowerCase().trim();
+
+        viewCharityRequests();
+
+        // if($(this).val().length > 0) {
+            
+        // } else {
+            
+        // }
+    });
     viewCharityRequests();
+    loadMyCharity();
+
 });
 
 
@@ -47,21 +63,23 @@ $("#createCharityForm").on("submit", function(e){
 
 function loadPendingCharity(){
     $.ajax({
-        url: "/Shanty-Dope-Proj/CareToFund/viewPendingCharity",
+        url: "/Shanty-Dope-Proj/CareToFund/loadPendingCharity",
         method: "GET",
         success: function(result){
             console.log(JSON.parse(result));
             var data = JSON.parse(result);
+            if(data.length !== 0) {
 
-            // Sort by latest
-            data.sort(function(a, b) {
-                return new Date(b.datetime) - new Date(a.datetime);
-            });
+                // Sort by latest
+                data.sort(function(a, b) {
+                    return new Date(b.datetime) - new Date(a.datetime);
+                });
 
-            $("#pendingDescription").text(data[0].description);
-            $("#pendingDatetime").text(data[0].datetime);
-            $("#pendingFundLimit").text(data[0].fund_limit);
-            $("#pendingDuration").text(data[0].duration);
+                $("#pendingDescription").text(data[0].description);
+                $("#pendingDatetime").text(data[0].datetime);
+                $("#pendingFundLimit").text(data[0].fund_limit);
+                $("#pendingDuration").text(data[0].duration);
+            }
 
         },
         error: function(error){
@@ -102,7 +120,8 @@ function fetchUserStatus(){
     });
 }
 
-function viewCharityRequests() {
+let currentSorting = '';
+function viewCharityRequests(sorting) {
     $.ajax({
         url: "/Shanty-Dope-Proj/CareToFund/viewCharityRequests",
         method: "GET",
@@ -125,10 +144,54 @@ function viewCharityRequests() {
                 return new Date(b.datetime) - new Date(a.datetime);
             });
 
-        
-            var sortedDatas = pendings.concat(others);
+            // Button mapping
+            const btns = {
+                Pending: "#pendingRequestsBtn",
+                Approved: "#approvedRequestsBtn",
+                Rejected: "#rejectedRequestsBtn"
+            };
 
-            sortedDatas.forEach(function(data) {
+            const btnClasses = {
+                Pending: "btn-yellow",
+                Approved: "btn-green",
+                Rejected: "btn-red"
+            };
+
+            // Toggle sorting: if same as current, reset
+            if (sorting === currentSorting) {
+                sorting = null;
+                currentSorting = null;
+            } else {
+                currentSorting = sorting;
+            }
+
+            // Reset all buttons
+            Object.values(btns).forEach(btn => {
+                $(btn).removeClass("btn-yellow btn-green btn-red").addClass("btn-cool");
+            });
+
+            // Set active button
+            if (sorting && btns[sorting]) {
+                $(btns[sorting]).addClass(btnClasses[sorting]).removeClass("btn-cool");
+            }
+
+            // Sort data
+            let sortedDatas;
+            if (!sorting) {
+                sortedDatas = pendings.concat(others);
+            } else if (sorting === "Pending") {
+                sortedDatas = pendings;
+            } else {
+                sortedDatas = others.filter(d => d.request_status === sorting);
+            }
+
+            filteredDatas = sortedDatas.filter(
+                requestCharity => {
+                    return Object.values(requestCharity).some(value => String(value).toLowerCase().includes(requestSearchValue));
+                }
+            )
+
+            filteredDatas.forEach(function(data) {
                 charityRequestsHTML += `
                     <div class="container " >
                         <div class="container bg-light my-3 px-4 py-2 shadow-sm d-flex align-items-center flex-column" style=" border-radius: 12px; ">
@@ -191,7 +254,7 @@ function viewCharityRequests() {
                             <div class="container pb-3 px-0 d-flex flex-wrap  align-items-center gap-4 justify-content-start">
                                 <p class=" m-0 fs-6 fw-bold d-flex align-items-center gap-2" style="color: #1b3c53;">
                                     <i class="bi bi-flag-fill fs-5"></i>
-                                    ₱ ${data.fund_limit}.00
+                                    ₱ ${Number(data.fund_limit).toLocaleString()}.00
                                 </p>
                                 <p class=" m-0 fs-6 fw-bold d-flex align-items-center gap-2" style="color: #1b3c53;">
                                     <i class="bi bi-stopwatch-fill fs-5"></i>
@@ -246,6 +309,7 @@ function charityApprovalRequest() {
         success: function(response) {
             viewCharityRequests();
             fetchUserStatus();
+            loadMyCharity(response);
         },
         error: function(error) {
 
@@ -303,5 +367,81 @@ function getCharityRequestDetails(requestId, userId) {
             alert('Something went wrong.');
         }
     });
+}
 
+function loadMyCharity() {
+    $.ajax({
+        url: "/Shanty-Dope-Proj/CareToFund/loadMyCharity",
+        method: "GET",
+        success: function(result) {
+            var data = JSON.parse(result);
+            if(data.length === 0) {
+                console.log('No charity details found.');
+                 console.log('My charity details:', data);
+
+                $("#charityDescription").text(data[0].description);
+                $("#charityDatetime").text('Approved at: ' + data[0].approved_datetime);
+                $("#charityRaised").text(`₱ ${Number(data[0].raised).toLocaleString()}.00`);
+                $("#charityFundLimit").text(`₱ ${Number(data[0].fund_limit).toLocaleString()}.00`);
+                // $("#charityDuration").text(data[0].duration);
+                startCharityCountdown(data[0].approved_datetime, data[0].duration, "#charityDuration", data[0].charity_id);
+                $("#charityProgress").css("width", `${data[0].raised / data[0].fund_limit * 100}%`).attr("aria-valuenow", data[0].raised / data[0].fund_limit * 100);
+                
+                    return;
+            }
+        },
+        error: function(error) {
+            alert('Something went wrong.');
+        }
+    });
+}
+
+function startCharityCountdown(startDatetime, durationDays, selector, charityId) {
+    let timer; // Declare timer in the parent scope
+
+    function updateCountdown() {
+        const start = new Date(startDatetime);
+        const end = new Date(start.getTime() + durationDays * 24 * 60 * 60 * 1000);
+        const now = new Date();
+        const diff = end - now;
+
+        if (diff <= 0) {
+            $(selector).text("Ended");
+            clearInterval(timer);
+            updateMyCharity(charityId);
+            return;
+        }
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((diff / (1000 * 60)) % 60);
+        const seconds = Math.floor((diff / 1000) % 60);
+
+        $(selector).text(
+            `${days ? days + 'd ' : ''}` +
+            `${hours ? hours + 'h ' : ''}` +
+            `${minutes ? minutes + 'm ' : ''}` +
+            `${seconds ? seconds + 's ' : ''}left...`
+        );
+    }
+
+    updateCountdown();
+    timer = setInterval(updateCountdown, 1000); // Assign after function definition
+}
+
+function updateMyCharity(charityId) {
+    $.ajax({
+        url: "/Shanty-Dope-Proj/CareToFund/updateMyCharity",
+        method: "POST",
+        data: {
+            charity_id: charityId
+        },
+        success: function(result) {
+           console.log('Charity updated successfully');
+
+        },
+        error: function(error) {
+            alert('Something went wrong.');
+        }
+    });
 }

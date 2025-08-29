@@ -1,5 +1,7 @@
 <?php
 namespace CareToFund\Controllers;
+require_once __DIR__ . '/../Models/CRUD.php';
+date_default_timezone_set('Asia/Manila');
 
 //homepage and general pages
 class CharitiesController {
@@ -44,7 +46,7 @@ class CharitiesController {
                     move_uploaded_file($face_front['tmp_name'], $faceFrontPath) &&
                     move_uploaded_file($face_side['tmp_name'], $faceSidePath)) {
 
-                    require_once __DIR__ . '/../Models/CRUD.php';
+                   
                     $crud = new \CareToFund\Models\Crud('charity_request');
 
                     $charityData = [
@@ -66,7 +68,7 @@ class CharitiesController {
                     if ($result) {
                         echo json_encode(['success' => true]);
                         // Update user status
-                        require_once __DIR__ . '/../Models/CRUD.php';
+                       
                         $updateCrud = new \CareToFund\Models\Crud('users');
                         $updateCrud->update(['status' => 'Pending'], ['id' => $_SESSION['user_id']]);
                         
@@ -87,31 +89,61 @@ class CharitiesController {
        
     }
 
-    public function viewPendingCharity() {
+    public function loadPendingCharity() {
         if($_SERVER['REQUEST_METHOD'] === 'GET') {
-            require_once __DIR__ . '/../Models/CRUD.php';
+         
             $crud = new \CareToFund\Models\Crud('charity_request');
-            $pendingCharities = $crud->select('*', ['user_id' => $_SESSION['user_id']]);
-            echo json_encode($pendingCharities);
+            $pendingCharities = $crud->select('*', ['user_id' => $_SESSION['user_id']], 'datetime', 'DESC', 1);
+            if($pendingCharities[0]['request_status'] === 'Pending') {
+                echo json_encode($pendingCharities);
+            } else {
+                echo json_encode([]);
+            }
         }
     }
 
     public function fetchUserStatus(){
         if($_SERVER['REQUEST_METHOD'] === 'GET') {
-            require_once __DIR__ . '/../Models/CRUD.php';
+            
             $crud = new \CareToFund\Models\Crud('users');
             $userStatus = $crud->select('status', ['id' => $_SESSION['user_id']]);
             echo json_encode($userStatus);
         }
     }
+    
+    public function loadMyCharity(){
+        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
-    // public function loadUserCharity() {
-    //     if($_SERVER['REQUEST_METHOD'] === 'GET') {
-    //         require_once __DIR__ . '/../Models/CRUD.php';
-    //         $crud = new \CareToFund\Models\Crud('charity_request');
-    //         $userCharities = $crud->select('*', ['user_id' => $_SESSION['user_id']]);
-    //         echo json_encode($userCharities);
-    //     }
-    // }
+            
+            $charityRequestTable = new \CareToFund\Models\Crud('charity_request');
+            $charityTable = new \CareToFund\Models\Crud('charity');
+
+            $userCharityRequest = $charityRequestTable->select('request_id', ['user_id' => $_SESSION['user_id']], 'datetime', 'DESC', 1);
+            $requestIdFromCharityRequest = $userCharityRequest[0]['request_id'] ?? null;
+
+            $charity = new \CareToFund\Models\Crud('charity');
+
+            $charityDetails = $charity->join(
+                'charity_request',
+                'charity.request_id = charity_request.request_id',
+                ['charity.request_id' => $requestIdFromCharityRequest]
+            );
+
+            echo json_encode($charityDetails);
+        }
+    }
+
+    public function updateMyCharity(){
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $charityId = $_POST['charity_id'] ?? null;
+
+            $updateStatus = new \CareToFund\Models\Crud('charity');
+            $updateStatus->update(['charity_status' => 'Finished'], ['charity_id' => $charityId]);
+
+            $updateUserStatus = new \CareToFund\Models\Crud('users');
+            $updateUserStatus->update(['status' => 'Offline'], ['id' => $_SESSION['user_id']]);
+
+        }
+    }
 }
 

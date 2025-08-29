@@ -10,13 +10,16 @@ require_once 'app/Controllers/CharitiesController.php';
 $router->add('GET', '/charities', ['CharitiesController', 'charities']);
 $router->add('GET', '/create_charity', ['CharitiesController', 'createCharity']);
 $router->add('POST', '/createCharityProcess', ['CharitiesController', 'createCharityProcess']);
-$router->add('GET', '/viewPendingCharity', ['CharitiesController', 'viewPendingCharity']);
+$router->add('GET', '/loadPendingCharity', ['CharitiesController', 'loadPendingCharity']);
 $router->add('GET', '/fetchUserStatus', ['CharitiesController', 'fetchUserStatus']);
+$router->add('GET', '/loadMyCharity', ['CharitiesController', 'loadMyCharity']);
+$router->add('POST', '/updateMyCharity', ['CharitiesController', 'updateMyCharity']);
 
 $router->add('GET', '/viewCharityRequests', ['AdminController', 'viewCharityRequests']);
 $router->add('POST', '/approveCharityRequest', ['AdminController', 'approveCharityRequest']);
 $router->add('POST', '/rejectCharityRequest', ['AdminController', 'rejectCharityRequest']);
 $router->add('POST', '/getCharityRequestDetails', ['AdminController', 'getCharityRequestDetails']);
+
 
 
 // $router->group(['middleware' => ['CareToFund\Middleware\UserAuth::requireAuth']], function($router) {

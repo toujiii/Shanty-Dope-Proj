@@ -1,6 +1,9 @@
 <?php
 namespace CareToFund\Controllers;
 
+date_default_timezone_set('Asia/Manila');
+
+require_once __DIR__ . '/../Models/CRUD.php';
 //admin and general pages
 class AdminController {
     public function index() {
@@ -9,7 +12,6 @@ class AdminController {
 
     public function viewCharityRequests() {
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-            require_once __DIR__ . '/../Models/CRUD.php';
 
             $crudCharity = new \CareToFund\Models\Crud('charity_request');
             $crudUsers   = new \CareToFund\Models\Crud('users');
@@ -39,22 +41,27 @@ class AdminController {
             $requestId = $_POST['request_id'] ?? null;
             $userId = $_POST['user_id'] ?? null;
 
-            require_once __DIR__ . '/../Models/CRUD.php';
             $crud = new \CareToFund\Models\Crud('charity_request');
+            $crud->update(['request_status' => 'Approved', 'approved_datetime' => date('Y-m-d H:i:s')], ['request_id' => $requestId]);
 
- 
-            $updateResult = $crud->update(['request_status' => 'Approved'], ['request_id' => $requestId]);
-
-            require_once __DIR__ . '/../Models/CRUD.php';
             $updateUserStatus = new \CareToFund\Models\Crud('users');
             $updateUserStatus->update(['status' => 'Active'], ['id' => $userId]);
 
-            if ($updateResult) {
-                echo json_encode(['success' => true, 'message' => 'Charity request approved.']);
+            $createNewCharity = new \CareToFund\Models\Crud('charity');
+            $createNewCharity->create([
+                'request_id' => $requestId,
+                'raised' => 0,
+                'charity_status' => 'Ongoing'
+            ]);
 
-            } else {
-                echo json_encode(['success' => false, 'message' => 'Failed to approve charity request.']);
-            }
+            echo json_encode($requestId);
+
+            // if ($updateResult) {
+            //     echo json_encode(['success' => true, 'message' => 'Charity request approved.']);
+
+            // } else {
+            //     echo json_encode(['success' => false, 'message' => 'Failed to approve charity request.']);
+            // }
         }
     }
 
@@ -94,4 +101,6 @@ class AdminController {
             echo json_encode($requestDetails);
         }
     }
+
 }
+
