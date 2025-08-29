@@ -1,6 +1,7 @@
 <?php
 namespace CareToFund\Controllers;
-require_once __DIR__ . '/../Models/CRUD.php';
+
+use CareToFund\Models\Crud;
 date_default_timezone_set('Asia/Manila');
 
 //homepage and general pages
@@ -47,7 +48,7 @@ class CharitiesController {
                     move_uploaded_file($face_side['tmp_name'], $faceSidePath)) {
 
                    
-                    $crud = new \CareToFund\Models\Crud('charity_request');
+                    $crud = new Crud('charity_request');
 
                     $charityData = [
                         'description' => $description,
@@ -69,7 +70,7 @@ class CharitiesController {
                         echo json_encode(['success' => true]);
                         // Update user status
                         require_once __DIR__ . '/../Models/CRUD.php';
-                        $updateCrud = new \CareToFund\Models\Crud('users');
+                        $updateCrud = new Crud('users');
                         $updateCrud->update(['status' => 'Pending'], ['id' => $_SESSION['user_id']]);
                         
                     } else {
@@ -92,7 +93,7 @@ class CharitiesController {
     public function loadPendingCharity() {
         if($_SERVER['REQUEST_METHOD'] === 'GET') {
          
-            $crud = new \CareToFund\Models\Crud('charity_request');
+            $crud = new Crud('charity_request');
             $pendingCharities = $crud->select('*', ['user_id' => $_SESSION['user_id']], 'datetime', 'DESC', 1);
             if($pendingCharities[0]['request_status'] === 'Pending') {
                 echo json_encode($pendingCharities);
@@ -105,7 +106,7 @@ class CharitiesController {
     public function fetchUserStatus(){
         if($_SERVER['REQUEST_METHOD'] === 'GET') {
             
-            $crud = new \CareToFund\Models\Crud('users');
+            $crud = new Crud('users');
             $userStatus = $crud->select('status', ['id' => $_SESSION['user_id']]);
             echo json_encode($userStatus);
         }
@@ -115,8 +116,8 @@ class CharitiesController {
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
             
-            $charityRequestTable = new \CareToFund\Models\Crud('charity_request');
-            $charityTable = new \CareToFund\Models\Crud('charity');
+            $charityRequestTable = new Crud('charity_request');
+            $charityTable = new Crud('charity');
 
             $userCharityRequest = $charityRequestTable->select('request_id', ['user_id' => $_SESSION['user_id']], 'datetime', 'DESC', 1);
             $requestIdFromCharityRequest = $userCharityRequest[0]['request_id'] ?? null;
@@ -124,7 +125,7 @@ class CharitiesController {
             $charityStatus = $charityTable->select('charity_status', ['request_id' => $requestIdFromCharityRequest]);
 
             if (!empty($charityStatus) && isset($charityStatus[0]['charity_status']) && $charityStatus[0]['charity_status'] === 'Ongoing') {
-                $charity = new \CareToFund\Models\Crud('charity');
+                $charity = new Crud('charity');
                 $charityDetails = $charity->join(
                     'charity_request',
                     'charity.request_id = charity_request.request_id',
@@ -141,10 +142,10 @@ class CharitiesController {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $charityId = $_POST['charity_id'] ?? null;
 
-            $updateStatus = new \CareToFund\Models\Crud('charity');
+            $updateStatus = new Crud('charity');
             $updateStatus->update(['charity_status' => 'Finished'], ['charity_id' => $charityId]);
 
-            $updateUserStatus = new \CareToFund\Models\Crud('users');
+            $updateUserStatus = new Crud('users');
             $updateUserStatus->update(['status' => 'Offline'], ['id' => $_SESSION['user_id']]);
 
         }
