@@ -20,7 +20,7 @@ CREATE TABLE charity_requests (
     approved_datetime DATETIME NULL,
     fund_limit INT(6) NOT NULL,
     duration INT(2) NOT NULL,
-    id_type_used ENUM('Passport', 'Driver''s Licence', 'National ID') NOT NULL,
+    id_type_used ENUM('Passport', 'Driver''s License', 'National ID') NOT NULL,
     id_number VARCHAR(50) NOT NULL,
     id_att_link VARCHAR(255) NOT NULL,
     front_face_link VARCHAR(255) NOT NULL,

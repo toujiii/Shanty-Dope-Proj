@@ -77,8 +77,8 @@ function loadPendingCharity(){
 
                 $("#pendingDescription").text(data[0].description);
                 $("#pendingDatetime").text(data[0].datetime);
-                $("#pendingFundLimit").text(data[0].fund_limit);
-                $("#pendingDuration").text(data[0].duration);
+                $("#pendingFundLimit").text('₱ ' + Number(data[0].fund_limit).toLocaleString() + '.00');
+                $("#pendingDuration").text(data[0].duration + ' Day/s');
             }
 
         },
@@ -376,18 +376,17 @@ function loadMyCharity() {
         success: function(result) {
             var data = JSON.parse(result);
             if(data.length === 0) {
-                console.log('No charity details found.');
-                 console.log('My charity details:', data);
-
-                $("#charityDescription").text(data[0].description);
+                console.log('No charity details found.', data.length);
+                return;
+            } else {
+                console.log('My charity details:', data);
+                 $("#charityDescription").text(data[0].description);
                 $("#charityDatetime").text('Approved at: ' + data[0].approved_datetime);
                 $("#charityRaised").text(`₱ ${Number(data[0].raised).toLocaleString()}.00`);
                 $("#charityFundLimit").text(`₱ ${Number(data[0].fund_limit).toLocaleString()}.00`);
                 // $("#charityDuration").text(data[0].duration);
                 startCharityCountdown(data[0].approved_datetime, data[0].duration, "#charityDuration", data[0].charity_id);
-                $("#charityProgress").css("width", `${data[0].raised / data[0].fund_limit * 100}%`).attr("aria-valuenow", data[0].raised / data[0].fund_limit * 100);
-                
-                    return;
+                $("#charityProgress").css("width", `${data[0].raised / data[0].fund_limit * 100}%`).attr("aria-valuenow", data[0].raised / data[0].fund_limit * 100);    
             }
         },
         error: function(error) {
@@ -438,7 +437,7 @@ function updateMyCharity(charityId) {
         },
         success: function(result) {
            console.log('Charity updated successfully');
-
+        
         },
         error: function(error) {
             alert('Something went wrong.');

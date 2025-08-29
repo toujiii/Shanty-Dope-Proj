@@ -68,7 +68,7 @@ class CharitiesController {
                     if ($result) {
                         echo json_encode(['success' => true]);
                         // Update user status
-                       
+                        require_once __DIR__ . '/../Models/CRUD.php';
                         $updateCrud = new \CareToFund\Models\Crud('users');
                         $updateCrud->update(['status' => 'Pending'], ['id' => $_SESSION['user_id']]);
                         
@@ -121,16 +121,20 @@ class CharitiesController {
             $userCharityRequest = $charityRequestTable->select('request_id', ['user_id' => $_SESSION['user_id']], 'datetime', 'DESC', 1);
             $requestIdFromCharityRequest = $userCharityRequest[0]['request_id'] ?? null;
 
-            $charity = new \CareToFund\Models\Crud('charity');
+            $charityStatus = $charityTable->select('charity_status', ['request_id' => $requestIdFromCharityRequest]);
 
-            $charityDetails = $charity->join(
-                'charity_request',
-                'charity.request_id = charity_request.request_id',
-                ['charity.request_id' => $requestIdFromCharityRequest]
-            );
-
-            echo json_encode($charityDetails);
-        }
+            if (!empty($charityStatus) && isset($charityStatus[0]['charity_status']) && $charityStatus[0]['charity_status'] === 'Ongoing') {
+                $charity = new \CareToFund\Models\Crud('charity');
+                $charityDetails = $charity->join(
+                    'charity_request',
+                    'charity.request_id = charity_request.request_id',
+                    ['charity.request_id' => $requestIdFromCharityRequest]
+                );
+                echo json_encode($charityDetails);
+            } else {
+                echo json_encode([]);
+            }
+            }
     }
 
     public function updateMyCharity(){
