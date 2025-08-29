@@ -1,6 +1,7 @@
 <?php
 namespace CareToFund\Routes;
 // Define all routes here
+require_once 'app/Controllers/UserController.php';
 require_once 'app/Middleware/Session.php';
 
 require_once 'app/Controllers/HomeController.php';

@@ -66,9 +66,8 @@ class AdminController {
             require_once __DIR__ . '/../Models/CRUD.php';
             $crud = new \CareToFund\Models\Crud('charity_request');
 
-
             $updateResult = $crud->update(['request_status' => 'Rejected'], ['request_id' => $requestId]);
-
+            
             require_once __DIR__ . '/../Models/CRUD.php';
             $updateUserStatus = new \CareToFund\Models\Crud('users');
             $updateUserStatus->update(['status' => 'Offline'], ['id' => $userId]);
