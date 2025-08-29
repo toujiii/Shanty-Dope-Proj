@@ -13,12 +13,12 @@
           <!-- Name -->
           <div class="mb-3">
             <label for="editName" class="fw-semibold text-dark">Name</label>
-            <input type="text" class="form-control" id="editName" value="John Doe" required>
+            <input type="text" class="form-control" id="editName" value="<?php echo htmlspecialchars($userDetails[0]['name'] ?? ''); ?>" required>
           </div>
           <!-- Email -->
           <div class="mb-3">
             <label for="editEmail" class="fw-semibold text-dark">Email</label>
-            <input type="email" class="form-control" id="editEmail" value="johndoe@email.com" required>
+            <input type="email" class="form-control" id="editEmail" value="<?php echo htmlspecialchars($userDetails[0]['email'] ?? ''); ?>" required>
           </div>
         </form>
       </div>

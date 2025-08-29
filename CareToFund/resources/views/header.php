@@ -17,9 +17,6 @@
                 
                <?php 
                  if(isset($_SESSION['user_id'])) {
-                     // User is logged in
-                     // Fetch user details before including header.php
-                     // $userDetails should be available here
                      ?>
                         <button 
                             class="d-flex align-items-center justify-content-center gap-2 bg-transparent border-0"
@@ -29,12 +26,11 @@
                             <img src="/Shanty-Dope-Proj/CareToFund/resources/img/user-profile.png" 
                                 alt="User Profile" width="40" height="40">
                             <p class="m-0 fw-bold" style="color:#1B3C53">
-                                <?php echo htmlspecialchars($userDetails['name'] ?? 'Tite'); ?>
+                                <?php echo htmlspecialchars($userDetails[0]['name'] ?? 'Tite'); ?>
                             </p>
                         </button>
                     <?php
                  } else {
-                     // User is not logged in
                     echo '
                         <li class="nav-item">
                             <a class="btn px-4 py-2 w-100 w-lg-auto btn-signup text-decoration-none" style="border-radius: 12px; color: white; font-size: 0.9rem;" href="/Shanty-Dope-Proj/CareToFund/sign_in">Sign In</a>

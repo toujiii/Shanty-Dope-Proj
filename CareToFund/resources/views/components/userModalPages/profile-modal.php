@@ -16,11 +16,11 @@
         <!-- Profile Fields -->
         <!-- Display Fields (No Edit Icons) -->
         <div class="mb-3">
-          <span class="fw-semibold text-dark">Name: John Doe</span>
+          <span class="fw-semibold text-dark">Name: <?php echo htmlspecialchars($userDetails[0]['name'] ?? 'N/A'); ?></span>
         </div>
 
         <div class="mb-3">
-          <span class="fw-semibold text-dark">Email: johndoe@email.com</span>
+          <span class="fw-semibold text-dark">Email: <?php echo htmlspecialchars($userDetails[0]['email'] ?? 'N/A'); ?></span>
         </div>
 
         <!-- Action Buttons -->
@@ -42,7 +42,7 @@
 
         <!-- Wallets -->
         <h6 class="fw-bold">Wallets</h6>
-          <p class="fw-bold">Gcash: 09123456789</p>
+          <p class="fw-bold">Gcash: <?php echo htmlspecialchars($userDetails[0]['gcash_number'] ?? 'N/A'); ?></p>
 
           <div class="mx-auto mb-2" 
               style="height: 4px; background-color: #1B3C53; width: 100%; border-radius: 2px;">
