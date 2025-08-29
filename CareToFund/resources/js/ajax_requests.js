@@ -384,8 +384,13 @@ function loadMyCharity() {
                 $("#charityDatetime").text('Approved at: ' + data[0].approved_datetime);
                 $("#charityRaised").text(`₱ ${Number(data[0].raised).toLocaleString()}.00`);
                 $("#charityFundLimit").text(`₱ ${Number(data[0].fund_limit).toLocaleString()}.00`);
-                // $("#charityDuration").text(data[0].duration);
-                startCharityCountdown(data[0].approved_datetime, data[0].duration, "#charityDuration", data[0].charity_id);
+                startCountdown(data[0].approved_datetime, data[0].duration, "#charityDuration", {
+                    onEnd: () => {
+                        document.querySelector("#charityDuration").textContent = "Finished!";
+                    },
+                    action: () => updateMyCharity(data[0].charity_id) 
+                });
+
                 $("#charityProgress").css("width", `${data[0].raised / data[0].fund_limit * 100}%`).attr("aria-valuenow", data[0].raised / data[0].fund_limit * 100);    
             }
         },
@@ -395,8 +400,16 @@ function loadMyCharity() {
     });
 }
 
-function startCharityCountdown(startDatetime, durationDays, selector, charityId) {
-    let timer; // Declare timer in the parent scope
+function startCountdown(startDatetime, durationDays, selector, options = {}) {
+    let timer;
+
+    // Default options
+    const settings = {
+        onEnd: () => { document.querySelector(selector).textContent = "Ended"; },
+        label: "left...", // text after countdown
+        action: null,     // default no-op
+        ...options // allow overrides
+    };
 
     function updateCountdown() {
         const start = new Date(startDatetime);
@@ -405,9 +418,11 @@ function startCharityCountdown(startDatetime, durationDays, selector, charityId)
         const diff = end - now;
 
         if (diff <= 0) {
-            $(selector).text("Ended");
             clearInterval(timer);
-            updateMyCharity(charityId);
+            settings.onEnd(); // Run custom callback
+            if (typeof settings.action === "function") {
+                settings.action(); // Run extra action if provided
+            }
             return;
         }
 
@@ -416,17 +431,18 @@ function startCharityCountdown(startDatetime, durationDays, selector, charityId)
         const minutes = Math.floor((diff / (1000 * 60)) % 60);
         const seconds = Math.floor((diff / 1000) % 60);
 
-        $(selector).text(
+        document.querySelector(selector).textContent =
             `${days ? days + 'd ' : ''}` +
             `${hours ? hours + 'h ' : ''}` +
             `${minutes ? minutes + 'm ' : ''}` +
-            `${seconds ? seconds + 's ' : ''}left...`
-        );
+            `${seconds ? seconds + 's ' : ''}` +
+            settings.label;
     }
 
     updateCountdown();
-    timer = setInterval(updateCountdown, 1000); // Assign after function definition
+    timer = setInterval(updateCountdown, 1000);
 }
+
 
 function updateMyCharity(charityId) {
     $.ajax({
