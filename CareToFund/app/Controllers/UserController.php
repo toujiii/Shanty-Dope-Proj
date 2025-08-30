@@ -30,12 +30,6 @@ class UserController {
             'email' => $email,
         ];
 
-        $result = $this->crud->update($updateData, ['id' => $this->userId]);
-        // For debug only, comment out if gumana
-        if ($result) {
-            echo json_encode(['success' => true, 'message' => 'User details updated successfully!']);
-        } else {
-            echo json_encode(['success' => false, 'message' => 'Update failed.']);
-        }
+        $this->crud->update($updateData, ['id' => $this->userId]);
     }
 }

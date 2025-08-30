@@ -2,11 +2,17 @@
 namespace CareToFund\Controllers;
 
 use CareToFund\Models\Crud;
+use CareToFund\Controllers\UserController;
 date_default_timezone_set('Asia/Manila');
 
 //homepage and general pages
 class CharitiesController {
     public function charities() {
+        $userDetails = null;
+        if (isset($_SESSION['user_id'])) {
+            $userController = new UserController();
+            $userDetails = $userController->getUserDetails();
+        }
         include __DIR__ . '/../../resources/views/components/charitiesPages/charities.php';
     }
 

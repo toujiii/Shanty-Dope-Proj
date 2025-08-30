@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-sm navbar-light p-0" style="background-color: #F9F3EF;">
-    <div class="container" id="headerContainer">
+    <div class="container">
         <a class="navbar-brand p-0" href="/Shanty-Dope-Proj/CareToFund/">
             <img src="/Shanty-Dope-Proj/CareToFund/resources/img/website_logo.png" alt="CareToFund Logo" width="90" height="90">
         </a>
@@ -46,7 +46,8 @@
 <?php include __DIR__ . '/components/usermodalPages/profile-modal.php'; ?>
 <?php include __DIR__ . '/components/usermodalPages/edit-details-modal.php'; ?>
 <?php include __DIR__ . '/components/usermodalPages/reset-password-modal.php'; ?>
-<script src="/Shanty-Dope-Proj/CareToFund/resources/js/user_requests.js"></script>
+<!-- <script rel="text/javascript" src="/Shanty-Dope-Proj/CareToFund/resources/js/jquery.js"></script>
+<script src="/Shanty-Dope-Proj/CareToFund/resources/js/user_requests.js"></script> -->
 
 
 

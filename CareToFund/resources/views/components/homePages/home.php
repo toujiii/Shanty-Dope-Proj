@@ -7,7 +7,9 @@
     <?php include __DIR__ . '/../../head_assets.php'; ?>
 </head>
 <body>
-    <?php include __DIR__ . '/../../header.php'; ?>
+    <div id="headerContainer">
+        <?php include __DIR__ . '/../../header.php'; ?>
+    </div>
 
     <?php include __DIR__ . '/landing_page_contents.php'; ?>
 
