@@ -7,6 +7,10 @@ require_once 'app/Middleware/Session.php';
 require_once 'app/Controllers/HomeController.php';
 $router->add('GET', '/', 'HomeController');
 
+// Header
+require_once 'app/Controllers/HeaderController.php';
+$router->add('GET', '/header', ['HeaderController', 'show']);
+
 //Charities only
 //User
 require_once 'app/Controllers/CharitiesController.php';
@@ -47,4 +51,5 @@ $router->group(['middleware' => 'user'], function($router) {
 
 require_once 'app/Controllers/AdminController.php';
 $router->add('GET', '/admin', ['AdminController', 'index']);
+
 ?>

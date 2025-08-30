@@ -37,7 +37,7 @@ class Router {
                     foreach ($route['middleware'] as $middleware) {
                         // Check for global function
                         if (is_string($middleware) && function_exists('\\' . $middleware)) {
-                            echo 'Dispatching middleware: ' . $middleware . '<br>';
+                            // echo 'Dispatching middleware: ' . $middleware . '<br>';
                             $middlewareResult = call_user_func('\\' . $middleware);
                             if ($middlewareResult === false) return;
                         }

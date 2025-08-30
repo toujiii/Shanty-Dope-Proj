@@ -327,43 +327,6 @@ function updateMyCharity(charityId) {
   });
 }
 
-// Update user details
-$(document).ready(function () {
-  // ...other code...
-
-  // PATCH: Bind AJAX to form submit
-  $('#editDetailsForm').on('submit', function(e) {
-    e.preventDefault();
-    editUserDetails();
-  });
-});
-
-function editUserDetails() {
-  $.ajax({
-    url: "/Shanty-Dope-Proj/CareToFund/updateUser",
-    method: "POST",
-    data: {
-      name: $('#editName').val(),
-      email: $('#editEmail').val()
-      // Add other fields as needed
-    },
-    success: function (result) {
-      var res = JSON.parse(result);
-      if (res.success) {
-        // Optionally update the modal fields or display a success message
-        $('#editName').val($('editName').val());
-        $('#editEmail').val($('editEmail').val());
-        $('#editDetailsSuccessMsg').text(res.message).show();
-        // Do NOT close the modal
-      } else {
-        $('#editDetailsErrorMsg').text(res.message).show();
-      }
-    },
-    error: function (error) {
-      alert("Something went wrong.");
-    },
-  });
-}
 
 // Adminnnnnnn
 // Charity approval request function
