@@ -32,4 +32,33 @@ class UserController {
 
         $this->crud->update($updateData, ['id' => $this->userId]);
     }
+
+    public function updateUserPassword() {
+        header('Content-Type: application/json');
+        $currentPassword = $_POST['currentPassword'] ?? '';
+        $newPassword = $_POST['newPassword'] ?? '';
+
+        if ($this->userId) {
+            $userDetails = $this->getUserDetails();
+            $hashedCurrentPassword = $userDetails[0]['password'] ?? '';
+            if (!password_verify($currentPassword, $hashedCurrentPassword)) {
+                echo json_encode([
+                    'success' => false,
+                    'message' => 'Current password is incorrect.'
+                ]);
+                return;
+            }
+            $hashedNewPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+            $this->crud->update(['password' => $hashedNewPassword], ['id' => $this->userId]);
+            echo json_encode([
+                'success' => true,
+                'message' => 'Password updated successfully.'
+            ]);
+        } else {
+            echo json_encode([
+                'success' => false,
+                'message' => 'User not found.'
+            ]);
+        }
+    }
 }

@@ -11,19 +11,19 @@
 
         <div class="mx-auto mb-2" style="height: 4px; background-color: #1B3C53; width: 95%; border-radius: 2px;"></div>
 
-      <form action="process_reset_password.php" method="POST">
+      <form action="Shanty-Dope-Proj/CareToFund/updateUserPassword" method="POST" id="editPasswordForm">
         <div class="modal-body">
           <div class="mb-3">
             <label for="current_password" class="form-label">Current Password</label>
-            <input type="password" name="current_password" id="current_password" class="form-control" required minlength="6">
+            <input type="password" name="current_password" id="currentPassword" class="form-control" required minlength="6">
           </div>
           <div class="mb-3">
             <label for="new_password" class="form-label">New Password</label>
-            <input type="password" name="new_password" id="new_password" class="form-control" required minlength="6">
+            <input type="password" name="new_password" id="newPassword" class="form-control" required minlength="6">
           </div>
           <div class="mb-3">
             <label for="confirm_password" class="form-label">Confirm Password</label>
-            <input type="password" name="confirm_password" id="confirm_password" class="form-control" required minlength="6">
+            <input type="password" name="confirm_password" id="confirmPassword" class="form-control" required minlength="6">
           </div>
         </div>
 
