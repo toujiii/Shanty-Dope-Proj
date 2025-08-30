@@ -20,13 +20,14 @@ $router->add('POST', '/createCharityProcess', ['CharitiesController', 'createCha
 $router->add('GET', '/loadPendingCharity', ['CharitiesController', 'loadPendingCharity']);
 $router->add('GET', '/fetchUserStatus', ['CharitiesController', 'fetchUserStatus']);
 $router->add('GET', '/loadMyCharity', ['CharitiesController', 'loadMyCharity']);
-$router->add('POST', '/updateMyCharity', ['CharitiesController', 'updateMyCharity']);
+$router->add('POST', '/updateCharity', ['CharitiesController', 'updateCharity']);
 
 //Admin
 $router->add('GET', '/viewCharityRequests', ['AdminController', 'viewCharityRequests']);
 $router->add('POST', '/approveCharityRequest', ['AdminController', 'approveCharityRequest']);
 $router->add('POST', '/rejectCharityRequest', ['AdminController', 'rejectCharityRequest']);
 $router->add('POST', '/getCharityRequestDetails', ['AdminController', 'getCharityRequestDetails']);
+$router->add('GET', '/viewCharities', ['AdminController', 'viewCharities']);
 
 
 

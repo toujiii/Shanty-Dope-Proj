@@ -1,11 +1,10 @@
 
-<?php $count = 0; ?>
 <?php foreach ($charityRequests as $result): ?>
     <div class="container " >
         <div class="container bg-light my-3 px-4 py-2 shadow-sm d-flex align-items-center flex-column" style=" border-radius: 12px; ">
-            <div class="d-flex gap-2 w-100 justify-content-between py-2" style="border-bottom: 4px solid #1b3c53;">
+            <div class="d-flex gap-2 w-100 justify-content-between py-2" style="border-bottom: 2.3px solid #1b3c53;">
                 <div class="d-flex gap-3 align-items-center">
-                     <p class="m-0 fs-5 fw-bold" style="color: #1b3c53;">
+                     <p class="m-0 fs-6 fw-bold" style="color: #1b3c53;">
                             <?php  
                                 if($result['request_status'] === "Pending") {
                                     echo ucfirst($result['name']) . " has a new charity request."; 
@@ -39,36 +38,36 @@
                     <?php echo $result['description']; ?>
                 </p>
                 <p class="m-0 " style="font-size: 0.9rem; color: #848484ff;">
-                    <?php echo $result['datetime']; ?>
+                    <?php echo date('M j, Y g:i a', strtotime($result['datetime'])); ?>
                 </p>
-                <p class="m-0 py-3 text-decoration-underline" style="cursor: pointer; color: #1b3c53; font-size: 0.9rem; width: fit-content;"
+                <p class="m-0 py-3 " style="cursor: pointer; color: #1b3c53; font-size: 0.9rem; width: fit-content;"
                     data-bs-toggle="modal" 
                     data-bs-target="#requestDetailsModal" 
                     onclick="getCharityRequestDetails( '<?php echo $result['request_id']; ?>')"
                 >
-                    View More
+                    See More...
                 </p>
                 
             </div>
-            <div class="container pb-3 px-0 d-flex flex-wrap  align-items-center gap-4 justify-content-start">
+            <div class="container pb-2 px-0 d-flex flex-wrap  align-items-center gap-4 justify-content-start">
                 <p class=" m-0 fs-6 fw-bold d-flex align-items-center gap-2" style="color: #1b3c53;">
-                    <i class="bi bi-flag-fill fs-5"></i>
+                    <i class="bi bi-flag-fill fs-6"></i>
                     ₱ <?php echo number_format($result['fund_limit'], 2); ?>
                 </p>
                 <p class=" m-0 fs-6 fw-bold d-flex align-items-center gap-2" style="color: #1b3c53;">
-                    <i class="bi bi-stopwatch-fill fs-5"></i>
+                    <i class="bi bi-stopwatch-fill fs-6"></i>
                     <?php echo $result['duration']; ?> Days
                 </p>
                 <?php if($result['request_status'] === "Approved") { ?>
-                    <p class="m-0 ms-0 ms-sm-auto text-white bg-success px-3" style="border-radius: 10px; width: fit-content;">
+                    <p class="m-0 ms-0 ms-sm-auto text-white bg-success px-3 d-flex align-items-center" style="border-radius: 10px; width: fit-content; font-size: 0.9rem;">
                         Approved
                     </p>
                 <?php } elseif($result['request_status'] === "Pending") { ?>
-                    <p class="m-0 ms-0 ms-sm-auto text-white bg-warning px-3" style="border-radius: 10px; width: fit-content;">
+                    <p class="m-0 ms-0 ms-sm-auto text-white bg-warning px-3 d-flex align-items-center" style="border-radius: 10px; width: fit-content; font-size: 0.9rem;">
                         Pending
                     </p>
                 <?php } elseif($result['request_status'] === "Rejected") { ?>
-                    <p class="m-0 ms-0 ms-sm-auto text-white  bg-danger px-3" style="border-radius: 10px; width: fit-content;">
+                    <p class="m-0 ms-0 ms-sm-auto text-white  bg-danger px-3 d-flex align-items-center" style="border-radius: 10px; width: fit-content; font-size: 0.9rem;">
                         Rejected
                     </p>
                 <?php } ?>

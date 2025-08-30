@@ -20,10 +20,10 @@
 
             <div class="container-fluid py-4 flex-grow-1 hide-scrollbar" style="overflow-y: auto; max-height: calc(100vh - 56px);">
                 <?php 
-                    // include __DIR__ . '/admin_charities_layout.php'; 
+                    include __DIR__ . '/admin_charities_layout.php'; 
                 ?>
                 <?php 
-                    include __DIR__ . '/admin_requests_layout.php'; 
+                    // include __DIR__ . '/admin_requests_layout.php'; 
                 ?>
                 <?php 
                     // include __DIR__ . '/admin_user_layout.php'; 

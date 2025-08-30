@@ -3,7 +3,7 @@
   <div class="modal-dialog modal-dialog-centered" style="min-width: 800px;">
     <div class="modal-content" id="admin_request_details">
       <div class="modal-body">
-        <div class="d-flex justify-content-between align-items-center p-2 px-0" style="border-bottom: 4px solid #1b3c53;">
+        <div class="d-flex justify-content-between align-items-center pb-2 px-0" style="border-bottom: 2.5px solid #1b3c53;">
         <h5 class="modal-title fw-bold" style="color: #1b3c53;"><?= ucfirst($requestDetails[0]['name']); ?>'s Charity Attachments</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>

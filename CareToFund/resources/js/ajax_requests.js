@@ -1,4 +1,5 @@
 var requestSearchValue = "";
+var charitySearchValue = "";
 // Initialize the search input
 $(document).ready(function () {
   loadPendingCharity();
@@ -8,14 +9,15 @@ $(document).ready(function () {
     requestSearchValue = $(this).val().toLowerCase().trim();
 
     viewCharityRequests();
+  });
+  $("#charitySearch").on("keyup", function () {
+    charitySearchValue = $(this).val().toLowerCase().trim();
 
-    // if($(this).val().length > 0) {
-
-    // } else {
-
-    // }
+    viewCharities();
   });
   viewCharityRequests();
+  viewCharities();
+  updateCharities();
   loadMyCharity();
 });
 
@@ -125,98 +127,157 @@ function fetchUserStatus() {
 }
 
 // Initialize the view charity requests function
-let currentSorting = "";
-function viewCharityRequests(sorting) {
+function viewCharityRequests(filter) {
+  var search = requestSearchValue;
+  $.ajax({
+    url: "/Shanty-Dope-Proj/CareToFund/viewCharityRequests",
+    method: "GET",
+    data: {
+      filter: filter,
+      search: search,
+    },
+    success: function (result) {
+      $("#charityRequestsContainer").empty();
+      $("#charityRequestsContainer").html(result);
+    },
+    error: function (error) {
+      alert("Something went Wrong.");
+    },
+  });
+}
 
-    $.ajax({
-        url: "/Shanty-Dope-Proj/CareToFund/viewCharityRequests",
-        method: "GET",
-        success: function(result){
-            $("#charityRequestsContainer").empty();
-            $("#charityRequestsContainer").html(result);
+let currentFilter = null;
+function handleFilterClick(filter) {
+  if (currentFilter === filter) {
+    // If clicked again, reset to default (no filter)
+    currentFilter = null;
+    viewCharityRequests();
+    viewCharities();
+    if (filter === "Pending") {
+      $("#pendingRequestsBtn").addClass("btn-cool").removeClass("btn-yellow");
+    } else if (filter === "Rejected") {
+      $("#rejectedRequestsBtn").addClass("btn-cool").removeClass("btn-red");
+    } else if (filter === "Approved") {
+      $("#approvedRequestsBtn").addClass("btn-cool").removeClass("btn-green");
+    }
+    if (filter === "Ongoing") {
+      $("#ongoingCharityBtn").addClass("btn-cool").removeClass("btn-yellow");
+    } else if (filter === "Finished") {
+      $("#finishedCharityBtn").addClass("btn-cool").removeClass("btn-green");
+    }
+  } else {
+    currentFilter = filter;
+    viewCharityRequests(filter);
+    viewCharities(filter);
+    if (filter === "Pending") {
+      $("#pendingRequestsBtn").removeClass("btn-cool").addClass("btn-yellow");
+    } else if (filter === "Rejected") {
+      $("#rejectedRequestsBtn").removeClass("btn-cool").addClass("btn-red");
+    } else if (filter === "Approved") {
+      $("#approvedRequestsBtn").removeClass("btn-cool").addClass("btn-green");
+    }
+    if (filter === "Ongoing") {
+      $("#ongoingCharityBtn").removeClass("btn-cool").addClass("btn-yellow");
+    } else if (filter === "Finished") {
+      $("#finishedCharityBtn").removeClass("btn-cool").addClass("btn-green");
+    }
+  }
+}
 
-            // console.log(result);
-           
-        },
-        error: function(error){
-            alert('Something went Wrong.');
-        }
-    });
+function viewCharities(filter) {
+  var search = charitySearchValue;
+  $.ajax({
+    url: "/Shanty-Dope-Proj/CareToFund/viewCharities",
+    method: "GET",
+    data: {
+      filter: filter,
+      search: search
+    },
+    success: function (result) {
+      // console.log(result);
+
+      $("#charitiesContainer").empty();
+      $("#charitiesContainer").html(result);
+    },
+    error: function (error) {
+      alert("Something went Wrong.");
+    },
+  });
 }
 
 function charityApprovalRequest() {
-    var requestId = $('#admin_request_approval').data('request-id');
-    var userId = $('#admin_request_approval').data('user-id');
-    console.log(userId);
-    console.log(requestId);
-    $.ajax({
-        url: "/Shanty-Dope-Proj/CareToFund/approveCharityRequest",
-        method: "POST",
-        data: {
-            request_id: requestId,
-            user_id: userId
-        },
-        success: function(response) {
-            viewCharityRequests();
-            fetchUserStatus();
-            loadMyCharity(response);
-        },
-        error: function(error) {
-
-            alert('Something went wrong.');
-        }
-    });
+  var requestId = $("#admin_request_approval").data("request-id");
+  var userId = $("#admin_request_approval").data("user-id");
+  console.log(userId);
+  console.log(requestId);
+  $.ajax({
+    url: "/Shanty-Dope-Proj/CareToFund/approveCharityRequest",
+    method: "POST",
+    data: {
+      request_id: requestId,
+      user_id: userId,
+    },
+    success: function (response) {
+      viewCharityRequests();
+      fetchUserStatus();
+      loadMyCharity(response);
+    },
+    error: function (error) {
+      alert("Something went wrong.");
+    },
+  });
 }
 
 function charityRejectionRequest() {
-    var requestId = $('#admin_request_rejection').data('request-id');
-    var userId = $('#admin_request_rejection').data('user-id');
+  var requestId = $("#admin_request_rejection").data("request-id");
+  var userId = $("#admin_request_rejection").data("user-id");
 
-    console.log(requestId);
-    console.log(userId);
+  console.log(requestId);
+  console.log(userId);
 
-    $.ajax({
-        url: "/Shanty-Dope-Proj/CareToFund/rejectCharityRequest",
-        method: "POST",
-        data: {
-            request_id: requestId,
-            user_id: userId
-        },
-        success: function(response) {
-            viewCharityRequests();
-        },
-        error: function(error) {
-
-            alert('Something went wrong.');
-        }
-    });
+  $.ajax({
+    url: "/Shanty-Dope-Proj/CareToFund/rejectCharityRequest",
+    method: "POST",
+    data: {
+      request_id: requestId,
+      user_id: userId,
+    },
+    success: function (response) {
+      viewCharityRequests();
+    },
+    error: function (error) {
+      alert("Something went wrong.");
+    },
+  });
 }
 
 function getCharityRequestDetails(requestId) {
-    // console.log(requestId);
-    // console.log(userId);
-    $.ajax({
-        url: "/Shanty-Dope-Proj/CareToFund/getCharityRequestDetails",
-        method: "POST",
-        data: {
-            request_id: requestId
-        },
-        success: function(result) {
-            console.log(result);
-            $('#requestDetailsModal').each(function() {
-                const modal = bootstrap.Modal.getInstance(this);
-                if (modal) modal.dispose();
-                $(this).remove();
-            });
+  // console.log(requestId);
+  // console.log(userId);
+  $.ajax({
+    url: "/Shanty-Dope-Proj/CareToFund/getCharityRequestDetails",
+    method: "POST",
+    data: {
+      request_id: requestId,
+    },
+    success: function (result) {
+      console.log(result);
+      $("#requestDetailsModal").each(function () {
+        const modal = bootstrap.Modal.getInstance(this);
+        if (modal) modal.dispose();
+        $(this).remove();
+      });
 
-            // Inject and show new modal
-            $('#modalContainer').html(result);
-            new bootstrap.Modal(document.getElementById('requestDetailsModal')).show();
-        },
-        error: function(error) {
-            alert('Something went wrong.');
-        }
-    });
+      // Inject and show new modal
+      $("#modalContainer").html(result);
+      new bootstrap.Modal(
+        document.getElementById("requestDetailsModal")
+      ).show();
+    },
+    error: function (error) {
+      alert("Something went wrong.");
+    },
+  });
 }
 
 // Load my charity details
@@ -270,17 +331,26 @@ function startCountdown(startDatetime, durationDays, selector, options = {}) {
   // Default options
   const settings = {
     onEnd: () => {
-      document.querySelector(selector).textContent = "Ended";
+      const el = document.querySelector(selector);
+      if (el) el.textContent = "Ended";
     },
-    label: "left...", // text after countdown
-    action: null, // default no-op
-    ...options, // allow overrides
+    label: "left...",
+    action: null,
+    ...options,
   };
+
+  // Calculate end time
+  const start = new Date(startDatetime);
+  const end = new Date(start.getTime() + durationDays * 24 * 60 * 60 * 1000);
+  const now = new Date();
+
+  // If already expired, do nothing at all
+  if (end - now <= 0) {
+    return;
+  }
 
   // Update countdown function
   function updateCountdown() {
-    const start = new Date(startDatetime);
-    const end = new Date(start.getTime() + durationDays * 24 * 60 * 60 * 1000);
     const now = new Date();
     const diff = end - now;
 
@@ -298,12 +368,15 @@ function startCountdown(startDatetime, durationDays, selector, options = {}) {
     const minutes = Math.floor((diff / (1000 * 60)) % 60);
     const seconds = Math.floor((diff / 1000) % 60);
 
-    document.querySelector(selector).textContent =
-      `${days ? days + "d " : ""}` +
-      `${hours ? hours + "h " : ""}` +
-      `${minutes ? minutes + "m " : ""}` +
-      `${seconds ? seconds + "s " : ""}` +
-      settings.label;
+    const countdownEl = document.querySelector(selector);
+    if (countdownEl) {
+      countdownEl.textContent =
+        `${days ? days + "d " : ""}` +
+        `${hours ? hours + "h " : ""}` +
+        `${minutes ? minutes + "m " : ""}` +
+        `${seconds ? seconds + "s " : ""}` +
+        settings.label;
+    }
   }
 
   updateCountdown();
@@ -311,15 +384,14 @@ function startCountdown(startDatetime, durationDays, selector, options = {}) {
 }
 
 // Update my charity function
-function updateMyCharity(charityId) {
+function updateCharities() {
   $.ajax({
-    url: "/Shanty-Dope-Proj/CareToFund/updateMyCharity",
+    url: "/Shanty-Dope-Proj/CareToFund/updateCharity",
     method: "POST",
-    data: {
-      charity_id: charityId,
-    },
     success: function (result) {
-      console.log("Charity updated successfully");
+      if (typeof result === "string") {
+        console.log("Charity updated successfully");
+      }
     },
     error: function (error) {
       alert("Something went wrong.");

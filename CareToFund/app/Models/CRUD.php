@@ -128,36 +128,64 @@ class Crud {
         return $result ? $result->fetch_assoc() : null;
     }
 
-    public function join($table, $on, $where = []) {
-    try {
-        $sql = "SELECT * FROM {$this->table} INNER JOIN $table ON $on";
-        $params = [];
-        $types = "";
+    public function join($table, $on, $where = [], $orderBy = NULL, $orderDir = "ASC", $limit = NULL, $like = []) {
+            try {
+            $sql = "SELECT * FROM {$this->table} INNER JOIN $table ON $on";
+            $params = [];
+            $types = "";
 
-        if (!empty($where)) {
-            $cond = "";
-            foreach ($where as $key => $value) {
-                $cond .= "$key = ? AND ";
-                $types .= substr(gettype($value), 0, 1);
-                $params[] = $value;
+            // Combine WHERE and LIKE conditions
+            $cond = [];
+            if (!empty($where)) {
+                foreach ($where as $key => $value) {
+                    $cond[] = "$key = ?";
+                    $types .= substr(gettype($value), 0, 1);
+                    $params[] = $value;
+                }
             }
-            $cond = substr($cond, 0, -4);
-            $sql .= " WHERE $cond";
-        }
+            $likeCond = [];
+            if (!empty($like)) {
+                foreach ($like as $key => $value) {
+                    $likeCond[] = "$key LIKE ?";
+                    $types .= "s";
+                    $params[] = "%$value%";
+                }
+            }
+            if (!empty($likeCond)) {
+                $cond[] = '(' . implode(' OR ', $likeCond) . ')';
+            }
+            if (!empty($cond)) {
+                $sql .= " WHERE " . implode(" AND ", $cond);
+            }
 
-        $stmt = $this->conn->prepare($sql);
-        if (!empty($params)) {
-            $stmt->bind_param($types, ...$params);
+            // ORDER BY clause
+            if (!is_null($orderBy)) {
+                if (stripos($orderBy, 'asc') !== false || stripos($orderBy, 'desc') !== false) {
+                    $sql .= " ORDER BY $orderBy";
+                } else {
+                    $orderDir = strtoupper($orderDir) === "DESC" ? "DESC" : "ASC";
+                    $sql .= " ORDER BY $orderBy $orderDir";
+                }
+            }
+
+            // LIMIT clause
+            if (!is_null($limit) && is_numeric($limit)) {
+                $sql .= " LIMIT $limit";
+            }
+
+            $stmt = $this->conn->prepare($sql);
+            if (!empty($params)) {
+                $stmt->bind_param($types, ...$params);
+            }
+            $stmt->execute();
+            $result = $stmt->get_result();
+            if ($result && $result->num_rows > 0) {
+                return $result->fetch_all(MYSQLI_ASSOC);
+            }
+            return [];
+        } catch (\Exception $e) {
+            die("Error while joining tables with where!. <br>" . $e);
         }
-        $stmt->execute();
-        $result = $stmt->get_result();
-        if ($result && $result->num_rows > 0) {
-            return $result->fetch_all(MYSQLI_ASSOC);
-        }
-        return [];
-    } catch (\Exception $e) {
-        die("Error while joining tables with where!. <br>" . $e);
     }
-}
 }
 ?>

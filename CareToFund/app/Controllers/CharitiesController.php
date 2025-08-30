@@ -70,13 +70,13 @@ class CharitiesController {
                     ];
 
                     $result = $crud->create($charityData);
-            
+                    $updateCrud = new Crud('users');
+                    $updateCrud->update(['status' => 'Pending'], ['id' => $_SESSION['user_id']]);
                     if ($result) {
                         echo json_encode(['success' => true]);
                         // Update user status
-                        require_once __DIR__ . '/../Models/CRUD.php';
-                        $updateCrud = new Crud('users');
-                        $updateCrud->update(['status' => 'Pending'], ['id' => $_SESSION['user_id']]);
+                        
+                        
                         
                     } else {
                         echo json_encode(['success' => false, 'message' => 'Failed to save charity data.']);
@@ -143,16 +143,42 @@ class CharitiesController {
             }
     }
 
-    public function updateMyCharity(){
+    public function updateCharity() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $charityId = $_POST['charity_id'] ?? null;
+            $charityData = new Crud('charity');
+            $charityDetails = $charityData->join(
+                'charity_request',
+                'charity.request_id = charity_request.request_id'
+            );
 
-            $updateStatus = new Crud('charity');
-            $updateStatus->update(['charity_status' => 'Finished'], ['charity_id' => $charityId]);
+            foreach ($charityDetails as $charity) {
+                // Only check ongoing charities
+                if ($charity['charity_status'] !== 'Ongoing') continue;
 
-            $updateUserStatus = new Crud('users');
-            $updateUserStatus->update(['status' => 'Offline'], ['id' => $_SESSION['user_id']]);
+                $approved = $charity['approved_datetime'];
+                $duration = (int)$charity['duration'];
+                $charityId = $charity['charity_id'];
+                $userId = $charity['user_id'];
 
+                if (!$approved || !$duration) continue;
+
+                $approvedDate = new \DateTime($approved);
+                $endDate = clone $approvedDate;
+                $endDate->modify("+$duration days");
+                $now = new \DateTime();
+
+                if ($now >= $endDate) {
+                    // Update charity status to Finished
+                    $updateStatus = new Crud('charity');
+                    $updateStatus->update(['charity_status' => 'Finished'], ['charity_id' => $charityId]);
+
+                    // Update user status to Offline
+                    $updateUserStatus = new Crud('users');
+                    $updateUserStatus->update(['status' => 'Offline'], ['id' => $userId]);
+                }
+            }
+            echo json_encode(['success' => true]);
+            exit;
         }
     }
 }
