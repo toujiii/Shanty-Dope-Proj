@@ -40,6 +40,7 @@ $router->group(['middleware' => 'guest'], function($router) {
 });
 $router->group(['middleware' => 'user'], function($router) {
 	$router->add('POST', '/signOut', ['SignController', 'signOut']);
+	$router->add('POST', '/updateUser', ['UserController', 'updateUserDetails']);
 });
 
 

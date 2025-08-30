@@ -18,24 +18,24 @@ class UserController {
     }
     
     public function updateUserDetails() {
-        // Fetch current user details
         $userDetails = $this->getUserDetails();
-        // Example: get the user's current name and email
         $currentName = $userDetails[0]['name'] ?? '';
         $currentEmail = $userDetails[0]['email'] ?? '';
 
-        // Get new details from POST data
         $name = $_POST['name'] ?? $currentName;
         $email = $_POST['email'] ?? $currentEmail;
 
-        // Prepare data for update
         $updateData = [
             'name' => $name,
             'email' => $email,
-            // Add other fields as needed
         ];
 
-        // Update user details in the database
-        $this->crud->update($updateData, ['id' => $this->userId]);
+        $result = $this->crud->update($updateData, ['id' => $this->userId]);
+        // For debug only, comment out if gumana
+        if ($result) {
+            echo json_encode(['success' => true, 'message' => 'User details updated successfully!']);
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Update failed.']);
+        }
     }
 }
