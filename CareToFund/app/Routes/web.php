@@ -21,6 +21,8 @@ $router->add('GET', '/loadPendingCharity', ['CharitiesController', 'loadPendingC
 $router->add('GET', '/fetchUserStatus', ['CharitiesController', 'fetchUserStatus']);
 $router->add('GET', '/loadMyCharity', ['CharitiesController', 'loadMyCharity']);
 $router->add('POST', '/updateCharity', ['CharitiesController', 'updateCharity']);
+$router->add('GET', '/loadCharities', ['CharitiesController', 'loadCharities']);
+$router->add('POST', '/sendDonation', ['CharitiesController', 'sendDonation']);
 
 //Admin
 $router->add('GET', '/viewCharityRequests', ['AdminController', 'viewCharityRequests']);

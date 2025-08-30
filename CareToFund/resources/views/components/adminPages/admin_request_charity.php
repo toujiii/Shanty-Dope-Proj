@@ -34,10 +34,10 @@
                 <?php endif; ?>
             </div>
             <div class="container mt-2 p-0">
-                <p class="text-dark fs-6 m-0">
+                <p class="text-dark m-0" style="font-size: 0.9rem;">
                     <?php echo $result['description']; ?>
                 </p>
-                <p class="m-0 " style="font-size: 0.9rem; color: #848484ff;">
+                <p class="m-0 " style="font-size: 0.8rem; color: #848484ff;">
                     <?php echo date('M j, Y g:i a', strtotime($result['datetime'])); ?>
                 </p>
                 <p class="m-0 py-3 " style="cursor: pointer; color: #1b3c53; font-size: 0.9rem; width: fit-content;"
@@ -50,12 +50,12 @@
                 
             </div>
             <div class="container pb-2 px-0 d-flex flex-wrap  align-items-center gap-4 justify-content-start">
-                <p class=" m-0 fs-6 fw-bold d-flex align-items-center gap-2" style="color: #1b3c53;">
-                    <i class="bi bi-flag-fill fs-6"></i>
+                <p class=" m-0 fw-bold d-flex align-items-center gap-2" style="color: #1b3c53; font-size: 0.9rem;">
+                    <i class="bi bi-flag-fill "></i>
                     ₱ <?php echo number_format($result['fund_limit'], 2); ?>
                 </p>
-                <p class=" m-0 fs-6 fw-bold d-flex align-items-center gap-2" style="color: #1b3c53;">
-                    <i class="bi bi-stopwatch-fill fs-6"></i>
+                <p class=" m-0  fw-bold d-flex align-items-center gap-2" style="color: #1b3c53; font-size: 0.9rem;">
+                    <i class="bi bi-stopwatch-fill "></i>
                     <?php echo $result['duration']; ?> Days
                 </p>
                 <?php if($result['request_status'] === "Approved") { ?>

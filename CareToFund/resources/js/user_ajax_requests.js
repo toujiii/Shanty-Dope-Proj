@@ -1,8 +1,16 @@
+var SearchValue = "";
 $(document).ready(function () {
+  $("#charitySearching").on("keyup", function () {
+    SearchValue = $(this).val().toLowerCase().trim();
+
+    loadCharities();
+  });
   loadPendingCharity();
   fetchUserStatus();
   updateCharities();
   loadMyCharity();
+  loadCharities();
+  
 });
 
 // Initialize the create charity form submission
@@ -50,6 +58,53 @@ $("#createCharityForm").on("submit", function (e) {
   });
 });
 
+$("#sendDonationForm").on("submit", function (e) {
+  e.preventDefault();
+
+  var charityId = $("#donateModal").data("charity-id");
+  var form = this;
+  var formData = new FormData(form);
+
+  // Append charity_id to the FormData
+  formData.append("charity_id", charityId);
+
+  $.ajax({
+    url: "/Shanty-Dope-Proj/CareToFund/sendDonation",
+    method: "POST",
+    data: formData,
+    processData: false,
+    contentType: false,
+    success: function (result) {
+      if (typeof result === "string") {
+        try {
+          result = JSON.parse(result);
+        } catch (e) {
+          alert("Unexpected server response.");
+          return;
+        }
+      }
+
+      if (result.success) {
+        var donateModal = bootstrap.Modal.getInstance(
+          document.getElementById("donateModal")
+        );
+        if (donateModal) donateModal.hide();
+
+        var thankYouModal = new bootstrap.Modal(
+          document.getElementById("thankYouModal")
+        );
+        thankYouModal.show();
+        loadCharities();
+      } else {
+        alert(result.message || "Something went wrong.");
+      }
+    },
+    error: function (error) {
+      alert("Something went Wrong.");
+    },
+  });
+});
+
 // Initialize the load pending charity function
 function loadPendingCharity() {
   $.ajax({
@@ -65,7 +120,18 @@ function loadPendingCharity() {
         });
 
         $("#pendingDescription").text(data[0].description);
-        $("#pendingDatetime").text(data[0].datetime);
+        // $("#pendingDatetime").text(data[0].datetime);
+        const d = new Date(data[0].datetime);
+        $("#pendingDatetime").text(
+        d.toLocaleString("en-US", {
+              month: "short",
+              day: "numeric",
+              year: "numeric",
+              hour: "numeric",
+              minute: "2-digit",
+              hour12: true,
+            }).replace(",", "")
+        );
         $("#pendingFundLimit").text(
           "₱ " + Number(data[0].fund_limit).toLocaleString() + ".00"
         );
@@ -123,7 +189,18 @@ function loadMyCharity() {
       } else {
         console.log("My charity details:", data);
         $("#charityDescription").text(data[0].description);
-        $("#charityDatetime").text("Approved at: " + data[0].approved_datetime);
+        const d = new Date(data[0].approved_datetime);
+        $("#charityDatetime").text(
+          "Approved at: " +
+            d.toLocaleString("en-US", {
+              month: "short",
+              day: "numeric",
+              year: "numeric",
+              hour: "numeric",
+              minute: "2-digit",
+              hour12: true,
+            }).replace(",", "")
+        );
         $("#charityRaised").text(
           `₱ ${Number(data[0].raised).toLocaleString()}.00`
         );
@@ -150,6 +227,23 @@ function loadMyCharity() {
           .css("width", `${(data[0].raised / data[0].fund_limit) * 100}%`)
           .attr("aria-valuenow", (data[0].raised / data[0].fund_limit) * 100);
       }
+    },
+    error: function (error) {
+      alert("Something went wrong.");
+    },
+  });
+}
+
+function loadCharities() {
+  search = SearchValue;
+  $.ajax({
+    url: "/Shanty-Dope-Proj/CareToFund/loadCharities",
+    method: "GET",
+    data: { search: search },
+    success: function (result) {
+      // console.log(result);
+      $("#userCharities").empty();
+      $("#userCharities").html(result);
     },
     error: function (error) {
       alert("Something went wrong.");

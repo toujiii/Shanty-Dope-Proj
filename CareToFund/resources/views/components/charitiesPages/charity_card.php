@@ -1,49 +1,72 @@
-
-<div class="container">
-    <div class="container bg-light my-3 px-4 py-2 shadow" style=" border-radius: 12px;">
-        <div class="container ">
-            <p class=" fs-6 fw-bold my-2 d-flex align-items-center gap-2" style="color: #1b3c53;">
-                <i class="bi bi-person-circle fs-1"></i>
-                John Doe
-            </p>
-            <p class="text-dark fs-6 m-0">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </p>
-            <p class="m-0 pb-3" style="font-size: 0.9rem; color: #848484ff;">
-                3:10 PM Jan 15, 2025
-            </p>
-            <div class="progress">
-                <div class="progress-bar progress-bar-striped progress-bar-animated"
-                    role="progressbar"
-                    aria-label="Charity Progress"
-                    style="width: 25%; background-color: #1b3c53;"
-                    aria-valuenow="25"
-                    aria-valuemin="0"
-                    aria-valuemax="100">
-                    25%
+<?php foreach ($userCharities as $charity): ?>
+    <div class="container">
+        <div class="container bg-light my-3 px-4 py-1 shadow" style=" border-radius: 12px;">
+            <div class="container px-0">
+                <p class="fw-bold my-2 py-1 d-flex align-items-center gap-2" style="color: #1b3c53; font-size: 0.9rem; border-bottom: 2px solid #1b3c53;">
+                    <i class="bi bi-person-circle fs-3"></i>
+                    <?php echo ucfirst($charity['name']); ?>
+                </p>
+                <p class="text-dark m-0 pt-1" style="font-size: 0.9rem;">
+                    <?php echo ($charity['description']); ?>
+                </p>
+                <p class="m-0 pb-3" style="font-size: 0.8rem; color: #848484ff;">
+                   <?php echo date('M j, Y g:i a', strtotime($charity['approved_datetime'])); ?>
+                </p>
+                <div class="progress" style="height: 13px;">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated"
+                        role="progressbar"
+                        aria-label="Charity Progress"
+                        style="width: <?php echo ($charity['raised'] / $charity['fund_limit']) * 100; ?>%; background-color: #1b3c53;"
+                        aria-valuenow="<?php echo ($charity['raised'] / $charity['fund_limit']) * 100; ?>"
+                        aria-valuemin="0"
+                        aria-valuemax="100">
+                        <?php echo round(($charity['raised'] / $charity['fund_limit']) * 100, 2); ?>%
+                    </div>
+                </div>
+                <div class="d-flex align-items-center justify-content-between">
+                    <p class=" mt-2 mb-2" style="font-size: 0.9rem; color: #1b3c53;">
+                        <span class="fw-bold">₱ <?php echo number_format($charity['raised'], 2); ?></span> / ₱ <?php echo number_format($charity['fund_limit'], 2); ?>
+                    </p>
+                    <p class="m-0 fw-bold" style="font-size: 0.9rem; color: #1b3c53;">
+                        <span id="charityCountdown<?php echo $charity['charity_id']; ?>"></span>
+                    </p>
+                </div>
+                <div class="d-flex justify-content-end">
+                    <button 
+                        class="btn px-4 py-2 btn-donate text-decoration-none my-3 " 
+                        style="border-radius: 10px; color: white; font-size: 0.9rem;" 
+                        data-bs-toggle="modal" 
+                        data-bs-target="#donateModal"
+                        data-charity-id="<?php echo $charity['charity_id']; ?>"
+                        data-name="<?php echo ucfirst($charity['name']); ?>"
+                        data-description="<?php echo $charity['description']; ?>"
+                        data-approved-datetime="<?php echo date('M j, Y g:i a', strtotime($charity['approved_datetime'])); ?>"
+                        data-fund-limit="<?php echo $charity['fund_limit']; ?>"
+                        data-raised="<?php echo $charity['raised']; ?>"
+                        data-duration="<?php echo $charity['duration']; ?>"
+                    >
+                        Donate 
+                    </button>
                 </div>
             </div>
-            <div class="d-flex align-items-center justify-content-between">
-                <p class=" mt-2 mb-2" style="font-size: 0.9rem; color: #1b3c53;">
-                    <span class="fw-bold">₱ 400.00</span> / ₱ 3,000.00
-                </p>
-                <p class="m-0 fw-bold" style="font-size: 0.9rem; color: #1b3c53;">
-                    5 Days Left...
-                </p>
-            </div>
-            <div class="d-flex justify-content-end">
-                <button 
-                    class="btn px-4 py-3 btn-donate text-decoration-none my-3 fw-bold" 
-                    style="border-radius: 15px; color: white; font-size: 0.9rem;" 
-                    data-bs-toggle="modal" 
-                    data-bs-target="#donateModal"
-                >
-                    Donate
-                </button>
-            </div>
-            
 
         </div>
-
     </div>
-</div>
+<script>
+    startCountdown(
+        "<?php echo $charity['approved_datetime']; ?>",
+        "<?php echo $charity['duration']; ?>",
+        "#charityCountdown<?= $charity['charity_id']; ?>",
+        {
+            onEnd: () => {
+                document.querySelector("#charityCountdown<?= $charity['charity_id']; ?>").textContent = "Finished!";
+                // location.reload(); 
+            },
+            action: () => {
+                loadCharities();
+                updateCharities();
+            }
+        }
+    );
+</script>
+<?php endforeach; ?>

@@ -12,7 +12,8 @@
 <?php include __DIR__ . '/new_charity_card.php'; ?>
 <?php include __DIR__ . '/pending_charity_card.php'; ?>
 <?php include __DIR__ . '/my_charity_card.php'; ?>
-<?php include __DIR__ . '/charity_card.php'; ?>
+<?php include __DIR__ . '/charity_header.php'; ?>
+<div id="userCharities" > </div>
 <?php include __DIR__ . '/create-charity-modal.php'; ?>
 <?php include __DIR__ . '/abort-modal.php'; ?>
 <?php include __DIR__ . '/donators-modal.php'; ?>

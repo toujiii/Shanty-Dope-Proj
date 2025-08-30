@@ -181,5 +181,60 @@ class CharitiesController {
             exit;
         }
     }
+
+    public function loadCharities() {
+        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            $search = $_GET['search'] ?? null;
+
+            $like = [];
+            $charity = new Crud('charity');
+
+            if (!is_null($search)) {
+                $like['charity_request.description'] = $search;
+                $like['users.name'] = $search;
+                $like['charity_request.request_id'] = $search;
+            }
+
+            $userCharities   = $charity->join(
+                'charity_request INNER JOIN users ON charity_request.user_id = users.id',
+                'charity.request_id = charity_request.request_id',
+                ['charity.charity_status' => 'Ongoing'],
+                'charity_request.approved_datetime',
+                'DESC',
+                null,
+                $like
+            );
+
+            $userCharities = array_filter($userCharities, function($charity) {
+                return $charity['user_id'] != $_SESSION['user_id'];
+            });
+
+            $this->render('components/charitiesPages/charity_card', [
+                'userCharities' => $userCharities
+            ]);
+        }
+    }
+
+    public function sendDonation() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $amount = floatval($_POST['amount'] ?? 0);
+            $payment_method = trim($_POST['payment_method'] ?? '');
+            $charityId = intval($_POST['charity_id'] ?? 0);
+
+            $crud = new Crud('donators'); 
+            $donationId = $crud->create([
+                'amount' => $amount,
+                'payment_method' => $payment_method,
+                'charity_id' => $charityId,
+                'user_id' => $_SESSION['user_id'],
+                'datetime' => date('Y-m-d H:i:s')
+            ]);
+            if ($donationId) {
+                echo json_encode(['success' => true, 'donation_id' => $donationId]);
+            } else {
+                echo json_encode(['success' => false, 'message' => 'Failed to process donation.']);
+            }   
+        }
+    }
 }
 
