@@ -1,67 +1,99 @@
-
+<?php $count = 0; ?>
+<?php foreach ($charities as $charity): ?>
+<?php $count += 1; ?>
 <div class="container">
-    <div class="container bg-light my-3 px-4 py-2 shadow" style=" border-radius: 12px;">
+    <div class="container bg-light my-3 px-4 py-2 shadow-sm" style=" border-radius: 12px;">
         <div class="container ">
             <div class="d-flex  align-items-center gap-4">
-                <p class=" fs-6 fw-bold my-2 d-flex align-items-center gap-2" style="color: #1b3c53;">
-                    <i class="bi bi-person-circle fs-1"></i>
-                    John Doe
+                <p class=" fw-bold my-2 d-flex align-items-center gap-2" style="color: #1b3c53; font-size: 0.9rem;">
+                    <i class="bi bi-person-circle fs-3"></i>
+                    <?php echo ucfirst($charity['name']); ?>
                 </p>
-                
-                <p class="fs-6 m-0 ms-auto fw-bold" style="color: #1b3c53; border-radius: 15px;">
-                    (C1001)
+                <?php if ($charity['charity_status'] === 'Ongoing'): ?>
+                    <p class=" m-0 text-white px-3  ms-auto" style="background-color: #ffbd59; border-radius: 15px; width: fit-content; font-size: 0.9rem;">
+                        On Going
+                    </p>
+                <?php elseif ($charity['charity_status'] === 'Finished'): ?>
+                    <p class="m-0 text-white px-3  ms-auto" style="background-color: #549f7b; border-radius: 15px; width: fit-content; font-size: 0.9rem;">
+                        Finished
+                    </p>
+                <?php endif; ?>
+            </div>
+            
+            <p class="text-dark m-0" style="font-size: 0.9rem;">
+                <?php echo $charity['description']; ?>
+            </p>
+            <div class="d-flex mb-2">
+                <p class="m-0" style="color: #848484ff; border-radius: 15px; font-size: 0.8rem;">
+                    <?php echo 'ID: ' . $charity['charity_id']; ?>    
+                </p>
+                <p class="m-0 mx-1" style="color: #848484ff; font-size: 0.8rem;">
+                    ●
+                </p>
+                <p class="m-0" style="font-size: 0.8rem; color: #848484ff;">
+                    <?php echo date('M j, Y g:i a', strtotime($charity['approved_datetime'])); ?>
                 </p>
             </div>
-            <p class="fs-6 m-0 text-white px-3 mb-2" style="background-color: #ffbd59; border-radius: 15px; width: fit-content;">
-                On Going
-            </p>
-            <!-- <p class="fs-6 m-0 text-white px-3 mb-2" style="background-color: #549f7b; border-radius: 15px; width: fit-content;">
-                Finished
-            </p> -->
-            <p class="text-dark fs-6 m-0">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </p>
-            <p class="m-0 pb-3" style="font-size: 0.9rem; color: #848484ff;">
-                3:10 PM Jan 15, 2025
-            </p>
-            <div class="progress">
+            
+            <div class="progress " style="height: 13px; border-radius: 10px; ">
                 <div class="progress-bar progress-bar-striped progress-bar-animated"
                     role="progressbar"
                     aria-label="Charity Progress"
-                    style="width: 25%; background-color: #1b3c53;"
-                    aria-valuenow="25"
+                    style="width: <?php echo ($charity['raised'] / $charity['fund_limit']) * 100; ?>%; background-color: #1b3c53;"
+                    aria-valuenow="<?php echo ($charity['raised'] / $charity['fund_limit']) * 100; ?>"
                     aria-valuemin="0"
                     aria-valuemax="100">
-                    25%
+                    <?php echo round(($charity['raised'] / $charity['fund_limit']) * 100, 2); ?>%
                 </div>
             </div>
             <div class="d-flex align-items-center justify-content-between">
-                <p class=" mt-2 mb-2" style="font-size: 0.9rem; color: #1b3c53;">
-                    <span class="fw-bold">₱ 400.00</span> / ₱ 3,000.00
+                <p class=" mt-2 mb-2" style="font-size: 0.8rem; color: #1b3c53;">
+                    <span class="fw-bold">₱ <?php echo number_format($charity['raised'], 2); ?></span> / ₱ <?php echo number_format($charity['fund_limit'], 2); ?>
                 </p>
-                <p class="m-0 fw-bold" style="font-size: 0.9rem; color: #1b3c53;">
-                    5 Days Left...
+                <p class="m-0 fw-bold" style="font-size: 0.8rem; color: #1b3c53;">
+                    <span id="charityDuration<?php echo $charity['charity_id']; ?>"></span>
                 </p>
             </div>
-            <div class="d-flex flex-md-row flex-column justify-content-between align-items-cente my-3">
-                <button class="btn btn-transparent fw-bold p-0 d-flex align-items-center gap-2 m-0 mb-md-0 mb-3" style="color: #1b3c53; font-size: 0.9rem;"
+            <div class="d-flex flex-md-row flex-column justify-content-between align-items-cente my-2">
+                <button class="btn btn-transparent p-0 d-flex align-items-center gap-2 m-0 mb-md-0 mb-3" style="color: #1b3c53; font-size: 0.9rem;"
                     data-bs-toggle="modal" data-bs-target="#donatorsModal"
                 >
-                    <i class="bi bi-people-fill fs-5"></i>
+                    <i class="bi bi-people-fill fs-6"></i>
                     View Donators
                 </button>
-                <button class="btn btn-danger px-3 py-1" style="border-radius: 10px; font-size: 0.9rem;"
+                <?php if($charity['charity_status'] === 'Ongoing'): ?>
+                <button class="btn btn-danger px-2 py-1" style="border-radius: 8px; font-size: 0.8rem;"
                     data-bs-toggle="modal" data-bs-target="#abortCharityModal"
                 >
                     Abort Charity
                 </button>
-                <!-- <p class="m-0 fw-bold" style="font-size: 0.9rem; color: #549f7b;">
-                    This Charity has raised a total of P 4,500.00! 🎉
-                </p> -->
+                <?php elseif($charity['charity_status'] === 'Finished'): ?>
+                    <p class="m-0 fw-bold" style="font-size: 0.8rem; color: #549f7b;">
+                        This Charity has raised a total of <span>₱ <?php echo number_format($charity['raised'], 2); ?></span>! 🎉
+                    </p>
+                <?php endif; ?>
             </div>
-            
-
         </div>
-
     </div>
 </div>
+<script>
+    startCountdown(
+        "<?php echo $charity['approved_datetime']; ?>",
+        "<?php echo $charity['duration']; ?>",
+        "#charityDuration<?= $charity['charity_id']; ?>",
+        {
+            onEnd: () => {
+                document.querySelector("#charityDuration<?= $charity['charity_id']; ?>").textContent = "Finished!";
+                // location.reload(); 
+            },
+            action: () => {
+                updateCharities();
+                viewCharities();
+                fetchUserStatus();
+            }
+        }
+    );
+</script>
+<?php endforeach; ?>
+
+
