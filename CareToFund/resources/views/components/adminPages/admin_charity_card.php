@@ -62,7 +62,7 @@
                     View Donators
                 </button>
                 <?php if($charity['charity_status'] === 'Ongoing'): ?>
-                <button class="btn btn-danger px-2 py-1" style="border-radius: 8px; font-size: 0.8rem;"
+                <button class="btn btn-red px-2 py-1" style="border-radius: 8px; font-size: 0.8rem;"
                     data-bs-toggle="modal" data-bs-target="#abortCharityModal"
                 >
                     Abort Charity

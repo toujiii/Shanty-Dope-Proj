@@ -309,7 +309,10 @@ function loadMyCharity() {
               document.querySelector("#charityDuration").textContent =
                 "Finished!";
             },
-            action: () => updateMyCharity(data[0].charity_id),
+            action: () => {
+              updateCharities();
+              fetchUserStatus();
+            }
           }
         );
 
@@ -399,51 +402,3 @@ function updateCharities() {
   });
 }
 
-
-// Adminnnnnnn
-// Charity approval request function
-function charityApprovalRequest() {
-  var requestId = $("#admin_request_approval").data("request-id");
-  var userId = $("#admin_request_approval").data("user-id");
-  console.log(userId);
-  console.log(requestId);
-  $.ajax({
-    url: "/Shanty-Dope-Proj/CareToFund/approveCharityRequest",
-    method: "POST",
-    data: {
-      request_id: requestId,
-      user_id: userId,
-    },
-    success: function (response) {
-      viewCharityRequests();
-      fetchUserStatus();
-      loadMyCharity(response);
-    },
-    error: function (error) {
-      alert("Something went wrong.");
-    },
-  });
-}
-
-function charityRejectionRequest() {
-  var requestId = $("#admin_request_rejection").data("request-id");
-  var userId = $("#admin_request_rejection").data("user-id");
-
-  console.log(requestId);
-  console.log(userId);
-
-  $.ajax({
-    url: "/Shanty-Dope-Proj/CareToFund/rejectCharityRequest",
-    method: "POST",
-    data: {
-      request_id: requestId,
-      user_id: userId,
-    },
-    success: function (response) {
-      viewCharityRequests();
-    },
-    error: function (error) {
-      alert("Something went wrong.");
-    },
-  });
-}

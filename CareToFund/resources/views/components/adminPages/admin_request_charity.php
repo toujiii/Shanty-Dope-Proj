@@ -59,15 +59,15 @@
                     <?php echo $result['duration']; ?> Days
                 </p>
                 <?php if($result['request_status'] === "Approved") { ?>
-                    <p class="m-0 ms-0 ms-sm-auto text-white bg-success px-3 d-flex align-items-center" style="border-radius: 10px; width: fit-content; font-size: 0.9rem;">
+                    <p class="m-0 ms-0 ms-sm-auto text-white bg-success px-3 d-flex align-items-center" style="background-color: #549f7b; border-radius: 10px; width: fit-content; font-size: 0.9rem;">
                         Approved
                     </p>
                 <?php } elseif($result['request_status'] === "Pending") { ?>
-                    <p class="m-0 ms-0 ms-sm-auto text-white bg-warning px-3 d-flex align-items-center" style="border-radius: 10px; width: fit-content; font-size: 0.9rem;">
+                    <p class="m-0 ms-0 ms-sm-auto text-white bg-warning px-3 d-flex align-items-center" style="background-color: #ffbd59; border-radius: 10px; width: fit-content; font-size: 0.9rem;">
                         Pending
                     </p>
                 <?php } elseif($result['request_status'] === "Rejected") { ?>
-                    <p class="m-0 ms-0 ms-sm-auto text-white  bg-danger px-3 d-flex align-items-center" style="border-radius: 10px; width: fit-content; font-size: 0.9rem;">
+                    <p class="m-0 ms-0 ms-sm-auto text-white  bg-danger px-3 d-flex align-items-center" style="background-color: #c44949; border-radius: 10px; width: fit-content; font-size: 0.9rem;">
                         Rejected
                     </p>
                 <?php } ?>
