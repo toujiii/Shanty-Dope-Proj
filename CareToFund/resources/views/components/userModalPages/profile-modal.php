@@ -6,7 +6,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body p-0">
-        <div class="d-flex flex-column align-items-center m-0 mb-2 bg-light p-3 rounded-3" style="border: 2px solid #527691ff;">
+        <div class="d-flex flex-column align-items-center m-0 mb-2 bg-light p-3 rounded-3" style="border: 2px solid #c5c5c5ff;">
           <div class="d-flex flex-column align-items-center gap-1 w-100">
             <img src="/Shanty-Dope-Proj/CareToFund/resources/img/user-profile.png" style="width: 80px;" alt="">
             <div class="d-flex flex-column align-items-center">
@@ -36,7 +36,7 @@
 
         <h5 class="ms-2">Wallets</h5>
         <div class="d-flex flex-column gap-1 mb-3 p-3 rounded-3 bg-light">
-          <p class="fw-bold mb-1">Gcash</p>
+          <p class=" mb-1">Gcash</p>
           <input type="text" class="form-control" value="<?php echo htmlspecialchars($userDetails[0]['gcash_number'] ?? 'N/A'); ?>" disabled>
         </div>
         
