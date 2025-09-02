@@ -43,3 +43,13 @@ CREATE TABLE charity (
         ON DELETE NO ACTION
         ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE donators (
+    donation_id INT(11) NOT NULL AUTO_INCREMENT,
+    user_id INT(11) NOT NULL,
+    charity_id INT(11) NOT NULL,
+    amount INT(6) NOT NULL,
+    datetime DATETIME NOT NULL,
+    payment_method ENUM('GCash') NOT NULL,
+    PRIMARY KEY (donation_id)
+);

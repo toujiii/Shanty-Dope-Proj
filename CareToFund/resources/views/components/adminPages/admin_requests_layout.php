@@ -28,3 +28,4 @@
 <div id="charityRequestsContainer"></div>
 <div id="modalContainer"></div>
 <?php include __DIR__ . '/admin_request_confirmation.php'; ?>
+<?php include __DIR__ . '/admin_image_resize.php'; ?>

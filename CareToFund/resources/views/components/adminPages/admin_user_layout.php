@@ -1,15 +1,19 @@
-<div class="container d-flex justify-content-between align-items-center">
-    <h2 class="fs-4 fw-bold m-0" style="color: #545454;">User Management</h2>
+<?php
+    $var = 'Active';
+?>
+<div class="container d-flex flex-column flex-md-row align-items-start align-items-md-center">
+    <h2 class="fs-5 fw-bold m-0" style="color: #545454;">User Managment</h2>
+    <div class="d-flex gap-3 ms-auto mt-2 mt-md-0 flex-column flex-sm-row">
+        <input id="userSearch" type="text" class="form-control fs-6 m-0 py-0 px-2" placeholder="Search..." style="height: 30px; border-radius: 7px; border: 2px solid #1b3c53; padding-left: 15px; padding-right: 15px;">
+    </div>
 </div>
 
-
-<div class="container mt-3">
-    <div class="bg-light shadow-sm p-4 pb-1" style="border-radius: 12px; min-height: fit-content;">
-        <input type="text" class="form-control fs-6 p-1 px-2 ms-auto" placeholder="Search..." style="border-radius: 12px; border: 3px solid #1b3c53; width: 200px; padding-left: 15px; padding-right: 15px;">
+<div class="container my-3">
+    <div class="bg-light shadow-sm p-4 py-1" style="border-radius: 12px; min-height: fit-content;">
         <div class="table-responsive my-3" style="overflow-x: auto; border-radius: 12px; overflow: hidden;">
             <table class="table m-0 table-hover align-middle" style="min-width: 900px;">
                 <thead class="table-light">
-                    <tr style="border-bottom: 3px solid #1b3c53;">
+                    <tr style="border-bottom: 2px solid #1b3c53; ">
                         <th scope="col">#</th>
                         <th scope="col">ID</th>
                         <th scope="col">Name</th>
@@ -21,17 +25,23 @@
                     </tr>
                 </thead>
                 <tbody class="table-light">
-                    <tr>
+                    <tr style="font-size: 0.9rem;">
                         <th scope="row">1</th>
                         <td>1001</td>
                         <td>John Doe</td>
                         <td>johndoe@email.com</td>
                         <td>09123456789</td>
                         <td>?SaNASJKDNBS DOI@#@09</td>
-                        <td class="text-success">Active</td>
+                        <?php if($var == 'Active'){ ?>
+                            <td class="text-success">Active</td>
+                        <?php } else if ($var == 'Offline'){ ?>
+                            <td class="text-secondary">Offline</td>
+                        <?php } else if ($var == 'Pending'){ ?>
+                            <td class="text-warning">Inactive</td>
+                        <?php } ?>
                         <td class="action-col">
-                            <button class="btn btn-sm btn-warning text-white" data-bs-toggle="modal" data-bs-target="#admin_user_edit">Edit</button>
-                            <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#admin_user_delete">Delete</button>
+                            <button class="btn btn-sm btn-yellow text-white" data-bs-toggle="modal" data-bs-target="#admin_user_edit">Edit</button>
+                            <button class="btn btn-sm btn-red text-white" data-bs-toggle="modal" data-bs-target="#admin_user_delete">Delete</button>
                         </td>
                     </tr>
                    

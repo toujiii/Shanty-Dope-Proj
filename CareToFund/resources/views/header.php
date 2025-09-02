@@ -26,7 +26,7 @@
                             <img src="/Shanty-Dope-Proj/CareToFund/resources/img/user-profile.png" 
                                 alt="User Profile" width="40" height="40">
                             <p class="m-0 fw-bold" style="color:#1B3C53">
-                                <?php echo htmlspecialchars($userDetails[0]['name'] ?? 'Tite'); ?>
+                                <?php echo ucfirst($userDetails[0]['name'] ?? 'Tite'); ?>
                             </p>
                         </button>
                     <?php

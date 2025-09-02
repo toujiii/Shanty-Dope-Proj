@@ -6,7 +6,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body p-0">
-        <div class="d-flex flex-column align-items-center m-0 mb-2 bg-light p-3 rounded-3">
+        <div class="d-flex flex-column align-items-center m-0 mb-2 bg-light p-3 rounded-3" style="border: 2px solid #527691ff;">
           <div class="d-flex flex-column align-items-center gap-1 w-100">
             <img src="/Shanty-Dope-Proj/CareToFund/resources/img/user-profile.png" style="width: 80px;" alt="">
             <div class="d-flex flex-column align-items-center">
@@ -45,7 +45,8 @@
           <form action="/Shanty-Dope-Proj/CareToFund/signOut" method="POST">
             <button type="submit" class="btn px-4 py-2 btn-red text-white"
               style=" border-radius: 8px; font-size: 0.9rem;">
-              Sign Out
+              <i class="bi bi-box-arrow-left me-1"></i>
+              <span>Sign Out</span>
             </button>
           </form>
         </div>

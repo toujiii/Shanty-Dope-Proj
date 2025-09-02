@@ -16,11 +16,11 @@
 
             </p>
             <div class="progress" style="height: 13px;">
-              <div class="progress-bar progress-bar-striped progress-bar-animated"
+              <div class="progress-bar progress-bar-striped progress-bar-animated donate-progress-bar"
                 role="progressbar"
                 aria-label="Charity Progress"
-                style="width: 25%; background-color: #1b3c53;"
-                aria-valuenow="25"
+                style=" background-color: #1b3c53;"
+                aria-valuenow=""
                 aria-valuemin="0"
                 aria-valuemax="100">
               </div>
@@ -39,14 +39,18 @@
               <!-- Donation Amount -->
               <div class="col-md-6">
                 <label for="donation_amount" class="form-label">Donation Amount</label>
-                <input type="number" class="form-control" id="donation_amount" name="amount" placeholder="Enter amount" required>
+                <!-- <input type="number" class="form-control" id="donation_amount" name="amount" placeholder="Enter amount" required> -->
+                <div class="input-group">
+                  <span class="input-group-text">₱</span>
+                  <input type="number" min="100" max="100000" step="1" class="form-control" id="donation_amount" name="amount" placeholder="0.00" required>
+                </div>
               </div>
 
               <!-- Payment Method -->
               <div class="col-md-6">
                 <label for="payment_method" class="form-label">Payment Method</label>
                 <select class="form-select" id="payment_method" name="payment_method" required>
-                  <option value="" disabled selected>Select Payment Method</option>
+                  <option value="" disabled selected hidden>Select Payment Method</option>
                   <option value="gcash">GCash</option>
                 </select>
               </div>
@@ -64,7 +68,7 @@
               <button type="submit"
                 class="btn px-4 py-2"
                 style="background-color: #549f7b; color: #ffffffff; font-weight: bold; border-radius: 8px;"
-                data-bs-dismiss="modal" 
+                
                 >
                 Donate Now
               </button>
@@ -129,6 +133,8 @@
 
       $('.charity-approved').text(formatted);
       $('.charity-duration').attr('id', 'charity-duration-' + charityId);
+      $('.donate-progress-bar').css('width', (raised / fundLimit * 100) + '%');
+      $('.donate-progress-bar').text((raised / fundLimit * 100).toFixed(2) + '%');
 
 
       startCountdown(

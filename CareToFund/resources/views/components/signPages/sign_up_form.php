@@ -32,7 +32,15 @@
                 <input type="text" placeholder="GCash Number" class="form-control py-2" style="border-radius: 12px;" id="gcash" name="gcash" value="GCash" readonly disabled>
             </div>
             <div class="mb-2">
-                <input type="text" placeholder="GCash Number" class="form-control py-2" style="border-radius: 12px;" id="gcash" name="gcash" required>
+                <input type="text" 
+                    placeholder="GCash Number" 
+                    class="form-control py-2" 
+                    style="border-radius: 12px;" 
+                    id="gcash" 
+                    name="gcash" 
+                    pattern="09[0-9]{9}" 
+                    maxlength="11" 
+                    required>
             </div>
             <button type="submit" class="btn mt-5 d-block mx-auto w-75 btn_continue" style=" color: white; border-radius: 12px;">Continue</button>
         </form>
