@@ -43,3 +43,13 @@ CREATE TABLE charity (
         ON DELETE NO ACTION
         ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    role VARCHAR(50) NOT NULL,
+    name VARCHAR(50) NOT NULL,
+    email VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    gcash_number VARCHAR(11),
+    status ENUM('Active', 'Offline', 'Pending') NOT NULL
+);
