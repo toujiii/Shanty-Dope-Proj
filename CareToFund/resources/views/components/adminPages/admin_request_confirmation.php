@@ -6,15 +6,15 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body d-flex flex-column align-items-center text-center gap-2 ">
-        <img src="/Shanty-Dope-Proj/CareToFund/resources/img/Questions-pana.svg" style="width: 150px;" alt="">
+        <img src="/Shanty-Dope-Proj/CareToFund/resources/img/Questions-pana.svg" style="width: 200px;" alt="">
         <p class="fs-4 fw-bold m-0 confirm-head">
         </p>
         <p class="fs-6  m-0 confirm-description" >
         </p>
       </div>
       <div class=" d-flex justify-content-center align-items-center gap-3 m-4">
-        <button type="button" data-bs-dismiss="modal" class="btn btn-secondary  fw-bold">Cancel</button>
-        <button type="button" class="btn btn-confirm fw-bold" data-bs-toggle="modal" data-bs-target="#admin_request_confirmed"
+        <button type="button" data-bs-dismiss="modal" class="btn btn-secondary text-white fw-bold">Cancel</button>
+        <button type="button" class="btn btn-confirm fw-bold text-white" data-bs-toggle="modal" data-bs-target="#admin_request_confirmed"
         >
 
         </button>
@@ -30,16 +30,16 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body d-flex flex-column align-items-center text-center gap-2 ">
-        <i class="bi bi-check-circle" style="font-size: 100px; color: #ffbd59;"></i>
-        <p class="fs-5 fw-bold m-0" >
-            Rejected!
+        <img src="/Shanty-Dope-Proj/CareToFund/resources/img/Ok-amico.svg" style="width: 150px;" alt="">
+        <p class="fs-5 fw-bold m-0 2nd-modal-head" >
+            Success!
         </p>
-        <p class="m-0">
-          The charity request has been Rejected.
+        <p class="m-0 2nd-modal-description">
+          
         </p>
       </div>
       <div class=" d-flex justify-content-center align-items-center gap-3 m-4">
-        <button type="button" data-bs-dismiss="modal" class="btn btn-secondary  fw-bold">Close</button>
+        <button type="button" data-bs-dismiss="modal" class="btn btn-secondary text-white fw-bold">Close</button>
       </div>
     </div>
   </div>
@@ -54,6 +54,8 @@
       if(confirmation === "approve") {
           $('.confirm-head').text('Approve Charity');
           $('.confirm-description').text('Are you sure you want to approve this charity request?');
+          $('.2nd-modal-head').text('Approved!');
+          $('.2nd-modal-description').text('The charity request has been approved.');
           var $confirmBtn = $('#admin_request_confirmation .btn-confirm');
           $confirmBtn
               .addClass('btn-green').removeClass('btn-red')
@@ -65,6 +67,8 @@
       } else if(confirmation === "reject") {
           $('.confirm-head').text('Reject Charity');
           $('.confirm-description').text('Are you sure you want to reject this charity request?');
+          $('.2nd-modal-head').text('Rejected!');
+          $('.2nd-modal-description').text('The charity request has been rejected.');
           var $confirmBtn = $('#admin_request_confirmation .btn-confirm');
           $confirmBtn
               .addClass('btn-red').removeClass('btn-green')

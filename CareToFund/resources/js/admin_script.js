@@ -47,8 +47,8 @@ function handleFilterClick(filter) {
     $("#pendingRequestsBtn, #rejectedRequestsBtn, #approvedRequestsBtn")
       .removeClass("btn-yellow btn-red btn-green")
       .addClass("btn-cool");
-    $("#ongoingCharityBtn, #finishedCharityBtn")
-      .removeClass("btn-yellow btn-green")
+    $("#ongoingCharityBtn, #finishedCharityBtn, #cancelledCharityBtn")
+      .removeClass("btn-yellow btn-green btn-red")
       .addClass("btn-cool");
   } else {
     currentFilter = filter;
@@ -58,8 +58,8 @@ function handleFilterClick(filter) {
     $("#pendingRequestsBtn, #rejectedRequestsBtn, #approvedRequestsBtn")
       .removeClass("btn-yellow btn-red btn-green")
       .addClass("btn-cool");
-    $("#ongoingCharityBtn, #finishedCharityBtn")
-      .removeClass("btn-yellow btn-green")
+    $("#ongoingCharityBtn, #finishedCharityBtn, #cancelledCharityBtn")
+      .removeClass("btn-yellow btn-green btn-red")
       .addClass("btn-cool");
 
     if (filter === "Pending") {
@@ -73,6 +73,8 @@ function handleFilterClick(filter) {
       $("#ongoingCharityBtn").removeClass("btn-cool").addClass("btn-yellow");
     } else if (filter === "Finished") {
       $("#finishedCharityBtn").removeClass("btn-cool").addClass("btn-green");
+    } else if (filter === "Cancelled") {
+      $("#cancelledCharityBtn").removeClass("btn-cool").addClass("btn-red");
     }
   }
 }
@@ -179,3 +181,24 @@ function getCharityRequestDetails(requestId) {
 //         showSection('users');
 //     });
 // });
+
+function cancelCharity(charityId, userId) {
+  console.log(charityId, userId);
+  $.ajax({
+    url: "/Shanty-Dope-Proj/CareToFund/cancelCharity",
+    method: "POST",
+    data: {
+      charity_id: charityId,
+      user_id: userId
+    },
+    success: function (response) {
+      // Handle success
+      viewCharities();
+      console.log(response);
+    },
+    error: function (error) {
+      // Handle error
+      console.error(error);
+    }
+  });
+}

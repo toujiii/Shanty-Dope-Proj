@@ -31,6 +31,7 @@ $router->add('GET', '/viewCharityRequests', ['AdminController', 'viewCharityRequ
 $router->add('POST', '/charityRequestConfirmation', ['AdminController', 'charityRequestConfirmation']);
 $router->add('POST', '/getCharityRequestDetails', ['AdminController', 'getCharityRequestDetails']);
 $router->add('GET', '/viewCharities', ['AdminController', 'viewCharities']);
+$router->add('POST', '/cancelCharity', ['AdminController', 'cancelCharity']);
 
 
 

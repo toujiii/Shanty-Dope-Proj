@@ -24,7 +24,7 @@
               value="<?php echo htmlspecialchars($userDetails[0]['email'] ?? ''); ?>" required>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#profileModal">Back</button>
             <button type="submit" class="btn px-3 py-2"
               style="background-color: #1B3C53; color: #fff; font-weight: bold; border-radius: 8px;">
               Save Changes

@@ -19,6 +19,14 @@
             >
                 Finished
             </button>
+            <button 
+                id="cancelledCharityBtn" 
+                class="btn btn-cool m-0 text-white px-3 d-flex align-items-center" 
+                style=" border-radius: 15px; width: fit-content; font-size: 0.9rem;"
+                onclick="handleFilterClick('Cancelled')"
+            >
+                Cancelled
+            </button>
         </div>
         <input id="charitySearch" type="text" class="form-control fs-6 m-0 py-0 px-2" placeholder="Search..." style="border-radius: 7px; border: 2px solid #1b3c53; padding-left: 15px; padding-right: 15px;">
     </div>

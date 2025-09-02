@@ -176,7 +176,7 @@ class CharitiesController
 
             foreach ($charityDetails as $charity) {
                 // Only check ongoing charities
-                if ($charity['charity_status'] !== 'Ongoing') continue;
+                if ($charity['charity_status'] !== 'Ongoing' && $charity['charity_status'] !== 'Cancelled') continue;
 
                 $approved = $charity['approved_datetime'];
                 $duration = (int)$charity['duration'];

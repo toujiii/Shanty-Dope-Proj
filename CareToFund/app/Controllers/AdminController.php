@@ -142,4 +142,22 @@ class AdminController
             ]);
         }
     }
+
+    public function cancelCharity() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $charityId = $_POST['charity_id'] ?? null;
+            $userId = $_POST['user_id'] ?? null;
+
+            $charityStatus = new Crud('charity');
+            $userStatus = new Crud('users');
+            $updateCharityStatus = $charityStatus->update(['charity_status' => 'Cancelled'], ['charity_id' => $charityId]);
+            $updateUserStatus = $userStatus->update(['status' => 'Offline'], ['id' => $userId]);
+
+            if ($updateCharityStatus && $updateUserStatus) {
+                echo json_encode(['success' => true, 'message' => 'Charity canceled successfully.']);
+            } else {
+                echo json_encode(['success' => false, 'message' => 'Failed to cancel charity.']);
+            }
+        }
+    }
 }

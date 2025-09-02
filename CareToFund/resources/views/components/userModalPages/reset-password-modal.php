@@ -28,7 +28,7 @@
         </div>
 
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#profileModal">Cancel</button>
           <button type="submit" class="btn btn-warning">Update Password</button>
         </div>
       </form>

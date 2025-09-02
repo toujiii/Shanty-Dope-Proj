@@ -16,7 +16,6 @@
 <?php include __DIR__ . '/charity_header.php'; ?>
 <div id="userCharities" > </div>
 <?php include __DIR__ . '/create-charity-modal.php'; ?>
-<?php include __DIR__ . '/abort-modal.php'; ?>
 <div id="donatorsModalContainer"></div>
 <?php include __DIR__ . '/donate-modal.php'; ?>
 
