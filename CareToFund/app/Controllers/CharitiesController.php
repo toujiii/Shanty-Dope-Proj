@@ -1,13 +1,17 @@
 <?php
+
 namespace CareToFund\Controllers;
 
 use CareToFund\Models\Crud;
 use CareToFund\Controllers\UserController;
+
 date_default_timezone_set('Asia/Manila');
 
 //homepage and general pages
-class CharitiesController {
-    public function charities() {
+class CharitiesController
+{
+    public function charities()
+    {
         $userDetails = null;
         if (isset($_SESSION['user_id'])) {
             $userController = new UserController();
@@ -16,16 +20,19 @@ class CharitiesController {
         include __DIR__ . '/../../resources/views/components/charitiesPages/charities.php';
     }
 
-    public function createCharity() {
+    public function createCharity()
+    {
         include __DIR__ . '/../../resources/views/components/charitiesPages/create-charity-modal.php';
     }
 
-    public function render($view, $data = []) {
-        extract($data); 
+    public function render($view, $data = [])
+    {
+        extract($data);
         require __DIR__ . '/../../resources/views/' . $view . '.php';
     }
 
-    public function createCharityProcess() {
+    public function createCharityProcess()
+    {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $description = trim($_POST['description'] ?? '');
             $fund_limit = floatval($_POST['fund_limit'] ?? 0);
@@ -54,11 +61,13 @@ class CharitiesController {
                 $faceFrontPath = $uploadDir . $new_face_front_name;
                 $faceSidePath = $uploadDir . $new_face_side_name;
 
-                if (move_uploaded_file($id_upload['tmp_name'], $idUploadPath) &&
+                if (
+                    move_uploaded_file($id_upload['tmp_name'], $idUploadPath) &&
                     move_uploaded_file($face_front['tmp_name'], $faceFrontPath) &&
-                    move_uploaded_file($face_side['tmp_name'], $faceSidePath)) {
+                    move_uploaded_file($face_side['tmp_name'], $faceSidePath)
+                ) {
 
-                   
+
                     $crud = new Crud('charity_request');
 
                     $charityData = [
@@ -81,75 +90,83 @@ class CharitiesController {
                     if ($result) {
                         echo json_encode(['success' => true]);
                         // Update user status
-                        
-                        
-                        
+
+
+
                     } else {
                         echo json_encode(['success' => false, 'message' => 'Failed to save charity data.']);
                     }
                     exit;
-
                 } else {
                     echo json_encode(['success' => false, 'message' => 'Failed to upload files.']);
-                    
                 }
             } else {
                 echo json_encode(['success' => false, 'message' => 'All fields are required.']);
             }
-
-        } 
-       
-    }
-
-    public function loadPendingCharity() {
-        if($_SERVER['REQUEST_METHOD'] === 'GET') {
-         
-            $crud = new Crud('charity_request');
-            $pendingCharities = $crud->select('*', ['user_id' => $_SESSION['user_id']], 'datetime', 'DESC', 1);
-            if($pendingCharities[0]['request_status'] === 'Pending') {
-                echo json_encode($pendingCharities);
-            } else {
-                echo json_encode([]);
-            }
         }
     }
 
-    public function fetchUserStatus(){
-        if($_SERVER['REQUEST_METHOD'] === 'GET') {
-            
-            $crud = new Crud('users');
-            $userStatus = $crud->select('status', ['id' => $_SESSION['user_id']]);
-            echo json_encode($userStatus);
-        }
-    }
-    
-    public function loadMyCharity(){
+    public function loadPendingCharity()
+    {
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
-            
-            $charityRequestTable = new Crud('charity_request');
-            $charityTable = new Crud('charity');
-
-            $userCharityRequest = $charityRequestTable->select('request_id', ['user_id' => $_SESSION['user_id']], 'datetime', 'DESC', 1);
-            $requestIdFromCharityRequest = $userCharityRequest[0]['request_id'] ?? null;
-
-            $charityStatus = $charityTable->select('charity_status', ['request_id' => $requestIdFromCharityRequest]);
-
-            if (!empty($charityStatus) && isset($charityStatus[0]['charity_status']) && $charityStatus[0]['charity_status'] === 'Ongoing') {
-                $charity = new Crud('charity');
-                $charityDetails = $charity->join(
-                    'charity_request',
-                    'charity.request_id = charity_request.request_id',
-                    ['charity.request_id' => $requestIdFromCharityRequest]
-                );
-                echo json_encode($charityDetails);
-            } else {
-                echo json_encode([]);
-            }
-            }
+            $crud = new Crud('charity_request');
+            $pendingCharities = $crud->select('*', ['user_id' => $_SESSION['user_id']], 'datetime', 'DESC', 1);
+            $this->render('components/charitiesPages/pending_charity_card', [
+                'pendingCharities' => $pendingCharities
+            ]);
+        }
     }
 
-    public function updateCharity() {
+    public function loadCreateCharity()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            $this->render('components/charitiesPages/new_charity_card');
+        }
+    }
+
+    public function fetchUserStatus()
+    {
+        if (isset($_SESSION['user_id'])) {
+            if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+                $crud = new Crud('users');
+                $userStatus = $crud->select('status', ['id' => $_SESSION['user_id']]);
+                echo json_encode($userStatus);
+            }
+        } else {
+            echo json_encode([['status' => 'Guest']]);
+        }
+    }
+
+    public function loadMyCharity()
+    {
+        if (isset($_SESSION['user_id'])) {
+            if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+                $charityRequestTable = new Crud('charity_request');
+                $charityTable = new Crud('charity');
+
+                $userCharityRequest = $charityRequestTable->select('request_id', ['user_id' => $_SESSION['user_id']], 'datetime', 'DESC', 1);
+                $requestIdFromCharityRequest = $userCharityRequest[0]['request_id'] ?? null;
+
+                $charityStatus = $charityTable->select('charity_status', ['request_id' => $requestIdFromCharityRequest]);
+
+                if (!empty($charityStatus) && isset($charityStatus[0]['charity_status']) && $charityStatus[0]['charity_status'] === 'Ongoing') {
+                    $charity = new Crud('charity');
+                    $charityDetails = $charity->join(
+                        'charity_request',
+                        'charity.request_id = charity_request.request_id',
+                        ['charity.request_id' => $requestIdFromCharityRequest]
+                    );
+                    $this->render('components/charitiesPages/my_charity_card', [
+                        'charityDetails' => $charityDetails
+                    ]);
+                }
+            }
+        }
+    }
+
+    public function updateCharity()
+    {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $charityData = new Crud('charity');
             $charityDetails = $charityData->join(
@@ -188,7 +205,8 @@ class CharitiesController {
         }
     }
 
-    public function loadCharities() {
+    public function loadCharities()
+    {
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $search = $_GET['search'] ?? null;
 
@@ -201,7 +219,7 @@ class CharitiesController {
                 $like['charity_request.request_id'] = $search;
             }
 
-            $userCharities   = $charity->join(
+            $userCharities = $charity->join(
                 'charity_request INNER JOIN users ON charity_request.user_id = users.id',
                 'charity.request_id = charity_request.request_id',
                 ['charity.charity_status' => 'Ongoing'],
@@ -211,7 +229,24 @@ class CharitiesController {
                 $like
             );
 
-            $userCharities = array_filter($userCharities, function($charity) {
+            // Sum donations for each charity
+            $donatorsCrud = new Crud('donators');
+            $charityCrud = new Crud('charity');
+            foreach ($userCharities as &$charityRow) {
+                $charityId = $charityRow['charity_id'];
+                $donations = $donatorsCrud->select('SUM(amount) as total_donated', ['charity_id' => $charityId]);
+                $totalDonated = $donations[0]['total_donated'] ?? 0;
+                $charityRow['raised'] = $totalDonated;
+
+                $charityCrud->update(['raised' => $totalDonated], ['charity_id' => $charityId]);
+            }
+            unset($charityRow);
+
+
+            $userCharities = array_filter($userCharities, function ($charity) {
+                if (!isset($_SESSION['user_id'])) {
+                    return true; 
+                }
                 return $charity['user_id'] != $_SESSION['user_id'];
             });
 
@@ -221,13 +256,14 @@ class CharitiesController {
         }
     }
 
-    public function sendDonation() {
+    public function sendDonation()
+    {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $amount = floatval($_POST['amount'] ?? 0);
             $payment_method = trim($_POST['payment_method'] ?? '');
             $charityId = intval($_POST['charity_id'] ?? 0);
 
-            $crud = new Crud('donators'); 
+            $crud = new Crud('donators');
             $donationId = $crud->create([
                 'amount' => $amount,
                 'payment_method' => $payment_method,
@@ -239,8 +275,25 @@ class CharitiesController {
                 echo json_encode(['success' => true, 'donation_id' => $donationId]);
             } else {
                 echo json_encode(['success' => false, 'message' => 'Failed to process donation.']);
-            }   
+            }
+        }
+    }
+
+    public function loadDonators()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            $charityId = intval($_GET['charity_id'] ?? 0);
+            $donatorsCrud = new Crud('donators');
+            $donators = $donatorsCrud->join(
+                'users',
+                'donators.user_id = users.id',
+                ['donators.charity_id' => $charityId],
+                'donators.datetime',
+                'DESC'
+            );
+            $this->render('components/charitiesPages/donators-modal', [
+                'donators' => $donators
+            ]);
         }
     }
 }
-

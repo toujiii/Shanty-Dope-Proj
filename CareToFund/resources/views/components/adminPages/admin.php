@@ -39,5 +39,5 @@
 </body>
 </html>
 <script src="/Shanty-Dope-Proj/CareToFund/resources/js/side-bar-toggle.js"></script>
-<script rel="text/javascript" src="/Shanty-Dope-Proj/CareToFund/resources/js/base_ajax_requests.js"></script>
-<script rel="text/javascript" src="/Shanty-Dope-Proj/CareToFund/resources/js/admin_ajax_requests.js"></script>
+<script rel="text/javascript" src="/Shanty-Dope-Proj/CareToFund/resources/js/base_script.js"></script>
+<script rel="text/javascript" src="/Shanty-Dope-Proj/CareToFund/resources/js/admin_script.js"></script>

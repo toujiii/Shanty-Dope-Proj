@@ -2,12 +2,15 @@
 <div class="modal fade" id="admin_request_approval" tabindex="-1"  aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      <div class="modal-header" style="border-bottom: none;">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body d-flex flex-column align-items-center text-center gap-2 ">
-        <i class="bi bi-question-circle" style="font-size: 100px; color: #1b3c53;"></i>
-        <p class="fs-5 fw-bold m-0" >
+        <img src="/Shanty-Dope-Proj/CareToFund/resources/img/Questions-pana.svg" style="width: 150px;" alt="">
+        <p class="fs-4 fw-bold m-0">
+          Approve Charity
+        </p>
+        <p class="fs-6  m-0" >
             Are you sure you want to approve this charity request?
         </p>
       </div>
@@ -27,7 +30,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body d-flex flex-column align-items-center text-center gap-2 ">
-        <i class="bi bi-check-circle" style="font-size: 100px; color: #549f7b;"></i>
+        
         <p class="fs-4 fw-bold m-0" >
             Approved!
         </p>

@@ -5,7 +5,6 @@
 <script src="/Shanty-Dope-Proj/CareToFund/resources/bootstrap/bootstrap-5.3.7-dist/js/bootstrap.bundle.min.js"></script>
 <link rel="stylesheet" href="/Shanty-Dope-Proj/CareToFund/resources/css/body_styles.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
-<script src="/Shanty-Dope-Proj/CareToFund/resources/js/styling.js"></script>
 <link rel="icon" type="image/png" href="/Shanty-Dope-Proj/CareToFund/resources/img/website_logo.png">
 <script rel="text/javascript" src="/Shanty-Dope-Proj/CareToFund/resources/js/jquery.js"></script>
 <script src="/Shanty-Dope-Proj/CareToFund/resources/js/user_requests.js"></script>

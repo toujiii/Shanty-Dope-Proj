@@ -23,11 +23,12 @@ $router->add('GET', '/loadMyCharity', ['CharitiesController', 'loadMyCharity']);
 $router->add('POST', '/updateCharity', ['CharitiesController', 'updateCharity']);
 $router->add('GET', '/loadCharities', ['CharitiesController', 'loadCharities']);
 $router->add('POST', '/sendDonation', ['CharitiesController', 'sendDonation']);
+$router->add('GET', '/loadCreateCharity', ['CharitiesController', 'loadCreateCharity']);
+$router->add('GET', '/loadDonators', ['CharitiesController', 'loadDonators']);
 
 //Admin
 $router->add('GET', '/viewCharityRequests', ['AdminController', 'viewCharityRequests']);
-$router->add('POST', '/approveCharityRequest', ['AdminController', 'approveCharityRequest']);
-$router->add('POST', '/rejectCharityRequest', ['AdminController', 'rejectCharityRequest']);
+$router->add('POST', '/charityRequestConfirmation', ['AdminController', 'charityRequestConfirmation']);
 $router->add('POST', '/getCharityRequestDetails', ['AdminController', 'getCharityRequestDetails']);
 $router->add('GET', '/viewCharities', ['AdminController', 'viewCharities']);
 

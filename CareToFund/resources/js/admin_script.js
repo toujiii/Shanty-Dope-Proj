@@ -98,42 +98,19 @@ function viewCharities(filter) {
   });
 }
 
-function charityApprovalRequest() {
-  var requestId = $("#admin_request_approval").data("request-id");
-  var userId = $("#admin_request_approval").data("user-id");
-  console.log(userId);
+function charityRequestConfirmation(requestId, userId, confirmation) {
+
   console.log(requestId);
+  console.log(userId);
+  console.log(confirmation);
+
   $.ajax({
-    url: "/Shanty-Dope-Proj/CareToFund/approveCharityRequest",
+    url: "/Shanty-Dope-Proj/CareToFund/charityRequestConfirmation",
     method: "POST",
     data: {
       request_id: requestId,
       user_id: userId,
-    },
-    success: function (response) {
-      viewCharityRequests();
-      fetchUserStatus();
-      loadMyCharity(response);
-    },
-    error: function (error) {
-      alert("Something went wrong.");
-    },
-  });
-}
-
-function charityRejectionRequest() {
-  var requestId = $("#admin_request_rejection").data("request-id");
-  var userId = $("#admin_request_rejection").data("user-id");
-
-  console.log(requestId);
-  console.log(userId);
-
-  $.ajax({
-    url: "/Shanty-Dope-Proj/CareToFund/rejectCharityRequest",
-    method: "POST",
-    data: {
-      request_id: requestId,
-      user_id: userId,
+      confirmation: confirmation
     },
     success: function (response) {
       viewCharityRequests();
@@ -173,32 +150,32 @@ function getCharityRequestDetails(requestId) {
   });
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    function showSection(section) {
-        document.getElementById('admin-charities-section').style.display = (section === 'charities') ? '' : 'none';
-        document.getElementById('admin-requests-section').style.display = (section === 'requests') ? '' : 'none';
-        document.getElementById('admin-users-section').style.display = (section === 'users') ? '' : 'none';
-    }
+// document.addEventListener('DOMContentLoaded', function() {
+//     function showSection(section) {
+//         document.getElementById('admin-charities-section').style.display = (section === 'charities') ? '' : 'none';
+//         document.getElementById('admin-requests-section').style.display = (section === 'requests') ? '' : 'none';
+//         document.getElementById('admin-users-section').style.display = (section === 'users') ? '' : 'none';
+//     }
 
-    document.getElementById('nav-charities').addEventListener('click', function(e) {
-        e.preventDefault();
-        $("#nav-charities").addClass("active");
-        $("#nav-requests").removeClass("active");
-        $("#nav-users").removeClass("active");
-        showSection('charities');
-    });
-    document.getElementById('nav-requests').addEventListener('click', function(e) {
-        e.preventDefault();
-        $("#nav-requests").addClass("active");
-        $("#nav-charities").removeClass("active");
-        $("#nav-users").removeClass("active");
-        showSection('requests');
-    });
-    document.getElementById('nav-users').addEventListener('click', function(e) {
-        e.preventDefault();
-        $("#nav-users").addClass("active");
-        $("#nav-charities").removeClass("active");
-        $("#nav-requests").removeClass("active");
-        showSection('users');
-    });
-});
+//     document.getElementById('nav-charities').addEventListener('click', function(e) {
+//         e.preventDefault();
+//         $("#nav-charities").addClass("active");
+//         $("#nav-requests").removeClass("active");
+//         $("#nav-users").removeClass("active");
+//         showSection('charities');
+//     });
+//     document.getElementById('nav-requests').addEventListener('click', function(e) {
+//         e.preventDefault();
+//         $("#nav-requests").addClass("active");
+//         $("#nav-charities").removeClass("active");
+//         $("#nav-users").removeClass("active");
+//         showSection('requests');
+//     });
+//     document.getElementById('nav-users').addEventListener('click', function(e) {
+//         e.preventDefault();
+//         $("#nav-users").addClass("active");
+//         $("#nav-charities").removeClass("active");
+//         $("#nav-requests").removeClass("active");
+//         showSection('users');
+//     });
+// });

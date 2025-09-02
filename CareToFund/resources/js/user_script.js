@@ -5,12 +5,11 @@ $(document).ready(function () {
 
     loadCharities();
   });
-  loadPendingCharity();
+  // loadPendingCharity();
   fetchUserStatus();
   updateCharities();
-  loadMyCharity();
+  // loadMyCharity();
   loadCharities();
-  
 });
 
 // Initialize the create charity form submission
@@ -46,7 +45,6 @@ $("#createCharityForm").on("submit", function (e) {
           document.getElementById("charity_created")
         );
         charityCreatedModal.show();
-        loadPendingCharity();
         fetchUserStatus();
       } else {
         alert(result.message || "Something went wrong.");
@@ -111,32 +109,8 @@ function loadPendingCharity() {
     url: "/Shanty-Dope-Proj/CareToFund/loadPendingCharity",
     method: "GET",
     success: function (result) {
-      console.log(JSON.parse(result));
-      var data = JSON.parse(result);
-      if (data.length !== 0) {
-        // Sort by latest
-        data.sort(function (a, b) {
-          return new Date(b.datetime) - new Date(a.datetime);
-        });
-
-        $("#pendingDescription").text(data[0].description);
-        // $("#pendingDatetime").text(data[0].datetime);
-        const d = new Date(data[0].datetime);
-        $("#pendingDatetime").text(
-        d.toLocaleString("en-US", {
-              month: "short",
-              day: "numeric",
-              year: "numeric",
-              hour: "numeric",
-              minute: "2-digit",
-              hour12: true,
-            }).replace(",", "")
-        );
-        $("#pendingFundLimit").text(
-          "₱ " + Number(data[0].fund_limit).toLocaleString() + ".00"
-        );
-        $("#pendingDuration").text(data[0].duration + " Day/s");
-      }
+      $("#idPendingCharity").empty();
+      $("#idPendingCharity").html(result);
     },
     error: function (error) {
       alert("Something went Wrong.");
@@ -150,25 +124,39 @@ function fetchUserStatus() {
     url: "/Shanty-Dope-Proj/CareToFund/fetchUserStatus",
     method: "GET",
     success: function (result) {
-      console.log(JSON.parse(result));
+      // if(result[])
       var data = JSON.parse(result);
-      if (data[0].status === "Pending") {
-        $("#newCharityCard").hide();
-        $("#idPendingCharity").show();
-        $("#myCharityCard").hide();
-
-        // User is pending
-      } else if (data[0].status === "Offline") {
-        $("#newCharityCard").show();
-        $("#idPendingCharity").hide();
-        $("#myCharityCard").hide();
-        // User is offline
-      } else if (data[0].status === "Active") {
-        $("#newCharityCard").hide();
-        $("#idPendingCharity").hide();
-        $("#myCharityCard").show();
-        // User is active
+      if (data[0].status === "Guest") {
+        console.log("User is guest");
+      } else {
+        if (data[0].status === "Pending") {
+          loadPendingCharity();
+          $("#createNewCharity").empty();
+        }
+        if (data[0].status === "Offline") {
+          console.log("Users is offline");
+          loadCreateCharity();
+        }
+        if (data[0].status === "Active") {
+          loadMyCharity();
+          $("#idPendingCharity").empty();
+        }
       }
+    },
+    error: function (error) {
+      alert("Something went Wrong.");
+    },
+  });
+}
+
+function loadCreateCharity() {
+  $.ajax({
+    url: "/Shanty-Dope-Proj/CareToFund/loadCreateCharity",
+    method: "GET",
+    success: function (result) {
+      console.log(result);
+      $("#createNewCharity").empty();
+      $("#createNewCharity").html(result);
     },
     error: function (error) {
       alert("Something went Wrong.");
@@ -182,51 +170,8 @@ function loadMyCharity() {
     url: "/Shanty-Dope-Proj/CareToFund/loadMyCharity",
     method: "GET",
     success: function (result) {
-      var data = JSON.parse(result);
-      if (data.length === 0) {
-        console.log("No charity details found.", data.length);
-        return;
-      } else {
-        console.log("My charity details:", data);
-        $("#charityDescription").text(data[0].description);
-        const d = new Date(data[0].approved_datetime);
-        $("#charityDatetime").text(
-          "Approved at: " +
-            d.toLocaleString("en-US", {
-              month: "short",
-              day: "numeric",
-              year: "numeric",
-              hour: "numeric",
-              minute: "2-digit",
-              hour12: true,
-            }).replace(",", "")
-        );
-        $("#charityRaised").text(
-          `₱ ${Number(data[0].raised).toLocaleString()}.00`
-        );
-        $("#charityFundLimit").text(
-          `₱ ${Number(data[0].fund_limit).toLocaleString()}.00`
-        );
-        startCountdown(
-          data[0].approved_datetime,
-          data[0].duration,
-          "#charityDuration",
-          {
-            onEnd: () => {
-              document.querySelector("#charityDuration").textContent =
-                "Finished!";
-            },
-            action: () => {
-              updateCharities();
-              fetchUserStatus();
-            }
-          }
-        );
-
-        $("#charityProgress")
-          .css("width", `${(data[0].raised / data[0].fund_limit) * 100}%`)
-          .attr("aria-valuenow", (data[0].raised / data[0].fund_limit) * 100);
-      }
+      $("#myCharity").empty();
+      $("#myCharity").html(result);
     },
     error: function (error) {
       alert("Something went wrong.");
@@ -244,6 +189,24 @@ function loadCharities() {
       // console.log(result);
       $("#userCharities").empty();
       $("#userCharities").html(result);
+    },
+    error: function (error) {
+      alert("Something went wrong.");
+    },
+  });
+}
+
+function loadDonators (charityId){
+  $.ajax({
+    url: "/Shanty-Dope-Proj/CareToFund/loadDonators",
+    method: "GET",
+    data: { charity_id: charityId },
+    success: function (result) {
+      $("#donatorsModalContainer").empty();
+      $("#donatorsModalContainer").html(result);
+
+      var donatorsModal = new bootstrap.Modal(document.getElementById('donatorsModal'));
+      donatorsModal.show();
     },
     error: function (error) {
       alert("Something went wrong.");

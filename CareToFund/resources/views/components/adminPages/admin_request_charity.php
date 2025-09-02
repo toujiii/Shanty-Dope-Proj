@@ -17,16 +17,18 @@
                 <?php if($result['request_status'] === "Pending"): ?>
                     <div class="d-flex align-items-center gap-0">
                     <button class="btn btn-success px-2 py-0" style="border-radius: 10px; font-size: 0.9rem; color: white;" 
-                        data-bs-toggle="modal" data-bs-target="#admin_request_approval" 
+                        data-bs-toggle="modal" data-bs-target="#admin_request_confirmation" 
                         data-request-id="<?php echo $result['request_id']; ?>"
                         data-user-id="<?php echo $result['user_id']; ?>"
+                        data-confirmation="approve"
                     >
                         <i class="bi bi-check2 fs-5"></i>
                     </button>
                     <button class="btn btn-danger px-2 py-0 ms-2" style="border-radius: 10px; font-size: 0.9rem; color: white;"
-                        data-bs-toggle="modal" data-bs-target="#admin_request_rejection" 
+                        data-bs-toggle="modal" data-bs-target="#admin_request_confirmation" 
                         data-request-id="<?php echo $result['request_id']; ?>"
                         data-user-id="<?php echo $result['user_id']; ?>"
+                        data-confirmation="reject"
                     >
                         <i class="bi bi-x-lg fs-5 "></i>
                     </button> 

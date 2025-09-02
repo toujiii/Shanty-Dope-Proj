@@ -23,12 +23,11 @@
                 aria-valuenow="25"
                 aria-valuemin="0"
                 aria-valuemax="100">
-                25%
               </div>
             </div>
             <div class="d-flex align-items-center justify-content-between mb-2">
               <p class=" mt-2 mb-2" style="font-size: 0.9rem; color: #1b3c53;">
-                <span class="fw-bold charity-raised">₱ 400.00</span> / <span class="charity-fund-limit">₱ 3,000.00</span>
+                <span class="fw-bold charity-raised"></span> / <span class="charity-fund-limit"></span>
               </p>
               <p class="m-0 fw-bold" style="font-size: 0.9rem; color: #1b3c53;">
                 <span class="charity-duration"></span>
@@ -85,12 +84,12 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body d-flex flex-column align-items-center text-center gap-2 ">
-        <i class="bi bi-piggy-bank-fill" style="font-size: 100px; color: #549f7b;"></i>
+        <img src="/Shanty-Dope-Proj/CareToFund/resources/img/Coins-amico.svg" style="width: 150px;" alt="">
         <p class="fs-4 fw-bold m-0">
           Success!
         </p>
-        <p class="m-0">
-          The have donated to John Doe's Charity.
+        <p class="m-0 donate_success">
+          The have donated to <?php echo $charity['name']; ?>'s Charity.
         </p>
       </div>
       <div class=" d-flex justify-content-center align-items-center gap-3 m-4">
@@ -100,31 +99,10 @@
   </div>
 </div>
 
-  <!-- <div class="modal fade" id="thankYouModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body d-flex flex-column align-items-center text-center gap-2 ">
-          <i class="bi bi-piggy-bank-fill" style="font-size: 100px;;"></i>
-          <p class="fs-4 fw-bold m-0 text-success">
-            Thank You!
-          </p>
-          <p class="m-0">
-            Your donation has been received successfully.
-          </p>
-        </div>
-        <div class=" d-flex justify-content-center align-items-center gap-3 m-4">
-          <button type="button" data-bs-dismiss="modal" class="btn btn-secondary  fw-bold">Close</button>
-        </div>
-      </div>
-    </div>
-  </div> -->
-
-
   <script>
     $('#donateModal').on('show.bs.modal', function(event) {
+      document.getElementById('sendDonationForm').reset();
+
       var button = $(event.relatedTarget); 
       var charityId = button.data('charity-id'); 
       var name = button.data('name'); 
@@ -135,10 +113,21 @@
       var duration = button.data('duration'); 
 
       $('.modal-title').text('Donate to ' + name);
+      $('.donate_success').text('You have donated to ' + name + '\'s Charity.');
       $('.charity-description').text(description);
       $('.charity-fund-limit').text('₱ ' + fundLimit.toFixed(2));
       $('.charity-raised').text('₱ ' + raised.toFixed(2));
-      $('.charity-approved').text(approvedDatetime);
+      var dateObj = new Date(approvedDatetime);
+      var formatted = dateObj.toLocaleString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true
+      });
+
+      $('.charity-approved').text(formatted);
       $('.charity-duration').attr('id', 'charity-duration-' + charityId);
 
 
@@ -164,6 +153,8 @@
       // Store the requestId somewhere, e.g., in a hidden input or a JS variable
       $(this).data('charity-id', charityId);
     });
+
+
   </script>
 
 

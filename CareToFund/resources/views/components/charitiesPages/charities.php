@@ -10,20 +10,18 @@
 <div id="headerContainer">
     <?php include __DIR__ . '/../../header.php'; ?>
 </div>
-<?php include __DIR__ . '/new_charity_card.php'; ?>
-<?php include __DIR__ . '/pending_charity_card.php'; ?>
-<?php include __DIR__ . '/my_charity_card.php'; ?>
+<div id="createNewCharity"></div>
+<div id="idPendingCharity"></div>
+<div id="myCharity"></div>
 <?php include __DIR__ . '/charity_header.php'; ?>
 <div id="userCharities" > </div>
 <?php include __DIR__ . '/create-charity-modal.php'; ?>
 <?php include __DIR__ . '/abort-modal.php'; ?>
-<?php include __DIR__ . '/donators-modal.php'; ?>
+<div id="donatorsModalContainer"></div>
 <?php include __DIR__ . '/donate-modal.php'; ?>
 
 
 </body>
 </html>
-
-<script src="/Shanty-Dope-Proj/CareToFund/resources/js/styling.js"></script>
-<script rel="text/javascript" src="/Shanty-Dope-Proj/CareToFund/resources/js/base_ajax_requests.js"></script>
-<script rel="text/javascript" src="/Shanty-Dope-Proj/CareToFund/resources/js/user_ajax_requests.js"></script>
+<script rel="text/javascript" src="/Shanty-Dope-Proj/CareToFund/resources/js/base_script.js"></script>
+<script rel="text/javascript" src="/Shanty-Dope-Proj/CareToFund/resources/js/user_script.js"></script>
