@@ -106,7 +106,7 @@ class AdminController
             $approveDate = new Crud('charity_request');
             $createNewCharity = new Crud('charity');
 
-            if($confirmation === 'approve') {
+            if ($confirmation === 'approve') {
                 $updateUserStatus->update(['status' => 'Active'], ['id' => $userId]);
 
                 $approveDate->update(['request_status' => 'Approved', 'approved_datetime' => date('Y-m-d H:i:s')], ['request_id' => $requestId]);
@@ -116,7 +116,7 @@ class AdminController
                     'raised' => 0,
                     'charity_status' => 'Ongoing'
                 ]);
-            } else if($confirmation === 'reject') {
+            } else if ($confirmation === 'reject') {
                 $updateResult = $crud->update(['request_status' => 'Rejected'], ['request_id' => $requestId]);
                 $updateUserStatus->update(['status' => 'Offline'], ['id' => $userId]);
             }
@@ -143,7 +143,8 @@ class AdminController
         }
     }
 
-    public function cancelCharity() {
+    public function cancelCharity()
+    {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $charityId = $_POST['charity_id'] ?? null;
             $userId = $_POST['user_id'] ?? null;
@@ -159,5 +160,32 @@ class AdminController
                 echo json_encode(['success' => false, 'message' => 'Failed to cancel charity.']);
             }
         }
+    }
+
+    // public function getAllUsers() {
+    //     $crud = new Crud('users');
+    //     $users = $crud->select('*');
+    //     $this->render('components/adminPages/admin_user_show', [
+    //         'users' => $users
+    //     ]);
+    // }
+    public function getAllUsers()
+    {
+        $page = $_GET['page'] ?? 1;
+        $perPage = 10;
+        $crud = new Crud('users');
+        $allUsers = $crud->select('*'); // Get all users
+        $totalUsers = count($allUsers);
+        $totalPages = ceil($totalUsers / $perPage);
+        $offset = ($page - 1) * $perPage;
+        $users = array_slice($allUsers, $offset, $perPage);
+
+        // Pass $totalPages to JS (e.g. as a hidden input or JS variable)
+        echo '<script>window.totalUserPages = ' . $totalPages . ';</script>';
+        // Render user rows as before
+        $this->render('components/adminPages/admin_user_show', [
+            'users' => $users
+            // 'users' => $totalUsers
+        ]);
     }
 }

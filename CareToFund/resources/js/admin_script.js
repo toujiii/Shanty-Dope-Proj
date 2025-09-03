@@ -13,6 +13,7 @@ $(document).ready(function () {
 
     viewCharities();
   });
+  showUsers();
   viewCharityRequests();
   viewCharities();
   updateCharities();
@@ -202,3 +203,46 @@ function cancelCharity(charityId, userId) {
     }
   });
 }
+
+
+// function showUsers() {
+//   $.ajax({
+//     url: "/Shanty-Dope-Proj/CareToFund/getAllUsers",
+//     method: "GET",
+//     success: function (result) {
+//       // console.log(result);
+//       $("#usersContainer").empty();
+//       $("#usersContainer").html(result);
+//     },
+//     error: function (error) {
+//       alert("Something went wrong.");
+//     },
+//   });
+// }
+function showUsers(page = 1) {
+  $.ajax({
+    url: "/Shanty-Dope-Proj/CareToFund/getAllUsers",
+    method: "GET",
+    data: { page: page },
+    success: function (result) {
+      // console.log(result);
+      $("#usersContainer").empty();
+      $("#usersContainer").html(result); // result.html should contain user rows
+      var totalPages = result.totalPages || 1;
+      var html = '';
+      for (var i = 1; i <= totalPages; i++) {
+        html += '<button class="btn btn-sm btn-outline-primary mx-1 user-page-btn" data-page="' + i + '">' + i + '</button>';
+      }
+      $('#userPagination').html(html);
+      $('#userPagination .user-page-btn[data-page="' + page + '"]').addClass('active');
+    },
+    error: function (error) {
+      alert("Something went wrong.");
+    },
+  });
+}
+
+$(document).on('click', '.user-page-btn', function() {
+  var page = $(this).data('page');
+  showUsers(page);
+});

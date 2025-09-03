@@ -24,30 +24,9 @@
                         <th scope="col" class="action-col">Action</th>
                     </tr>
                 </thead>
-                <tbody class="table-light">
-                    <tr style="font-size: 0.9rem;">
-                        <th scope="row">1</th>
-                        <td>1001</td>
-                        <td>John Doe</td>
-                        <td>johndoe@email.com</td>
-                        <td>09123456789</td>
-                        <td>?SaNASJKDNBS DOI@#@09</td>
-                        <?php if($var == 'Active'){ ?>
-                            <td class="text-success">Active</td>
-                        <?php } else if ($var == 'Offline'){ ?>
-                            <td class="text-secondary">Offline</td>
-                        <?php } else if ($var == 'Pending'){ ?>
-                            <td class="text-warning">Inactive</td>
-                        <?php } ?>
-                        <td class="action-col">
-                            <button class="btn btn-sm btn-yellow text-white" data-bs-toggle="modal" data-bs-target="#admin_user_edit">Edit</button>
-                            <button class="btn btn-sm btn-red text-white" data-bs-toggle="modal" data-bs-target="#admin_user_delete">Delete</button>
-                        </td>
-                    </tr>
-                   
-                </tbody>
+                <tbody id="usersContainer"></tbody>
             </table>
-            <div class="d-flex align-items-center justify-content-center mt-3">
+            <div id="userPagination" class="d-flex align-items-center justify-content-center mt-3">
                 <ul class="pagination gap-3 m-0  ">
                     <li><i class="bi bi-caret-left-fill"></i></li>
                     <li>1</li>
@@ -62,3 +41,4 @@
 
 <?php include __DIR__ . '/admin_user_delete_modal.php'; ?>
 <?php include __DIR__ . '/admin_user_edit_modal.php'; ?>
+
