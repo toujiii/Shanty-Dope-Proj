@@ -18,10 +18,10 @@
                 <input type="email" placeholder="Email Address" class="form-control py-2" style="border-radius: 12px;" id="email" name="email" required>
             </div>
             <div class="mb-2">
-                <input type="password" placeholder="Password" class="form-control py-2" style="border-radius: 12px;" id="password" name="password" required>
+                <input type="password" placeholder="Password" class="form-control py-2" style="border-radius: 12px;" id="password" name="password" required minlength="6">
             </div>
             <div class="mb-2">
-                <input type="password" placeholder="Confirm Password" class="form-control mb-5 py-2" style="border-radius: 12px;" id="confirm_password" name="confirm_password" required>
+                <input type="password" placeholder="Confirm Password" class="form-control mb-5 py-2" style="border-radius: 12px;" id="confirm_password" name="confirm_password" required minlength="6">
             </div>
             <div class="text-center mb-3">
                 <p class="fs-4 fw-bold mb-0" style="color: #1b3c53;">
@@ -39,6 +39,7 @@
                     id="gcash" 
                     name="gcash" 
                     pattern="09[0-9]{9}" 
+                    minlength="11"
                     maxlength="11" 
                     required>
             </div>

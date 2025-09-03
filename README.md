@@ -13,7 +13,7 @@ Pallete:
 
 SQL
 
-CREATE TABLE charity_requests (
+CREATE TABLE charity_request (
     request_id INT(11) NOT NULL AUTO_INCREMENT,
     description TEXT NOT NULL,
     datetime DATETIME NOT NULL,

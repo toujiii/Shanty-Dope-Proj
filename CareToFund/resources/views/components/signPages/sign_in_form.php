@@ -15,7 +15,7 @@
                 <input type="email" placeholder="Email address" class="form-control py-2" style="border-radius: 12px;" id="email" name="email" required>
             </div>
             <div class="mb-3">
-                <input type="password" placeholder="Password" class="form-control mb-5 py-2" style="border-radius: 12px;" id="password" name="password" required>
+                <input type="password" placeholder="Password" class="form-control mb-5 py-2" style="border-radius: 12px;" id="password" name="password" required minlength="5">
             </div>
             <button type="submit" class="btn mt-5 d-block mx-auto w-75 btn_continue" style=" color: white; border-radius: 12px;">Continue</button>
         </form>
