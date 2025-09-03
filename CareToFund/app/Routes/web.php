@@ -27,11 +27,16 @@ $router->add('GET', '/loadCreateCharity', ['CharitiesController', 'loadCreateCha
 $router->add('GET', '/loadDonators', ['CharitiesController', 'loadDonators']);
 
 //Admin
-$router->add('GET', '/viewCharityRequests', ['AdminController', 'viewCharityRequests']);
-$router->add('POST', '/charityRequestConfirmation', ['AdminController', 'charityRequestConfirmation']);
-$router->add('POST', '/getCharityRequestDetails', ['AdminController', 'getCharityRequestDetails']);
-$router->add('GET', '/viewCharities', ['AdminController', 'viewCharities']);
-$router->add('POST', '/cancelCharity', ['AdminController', 'cancelCharity']);
+require_once 'app/Controllers/AdminController.php';
+$router->group(['middleware' => 'admin'], function($router) {
+	$router->add('GET', '/admin', ['AdminController', 'index']);
+	$router->add('POST', '/signOut', ['SignController', 'signOut']);
+    $router->add('GET', '/viewCharityRequests', ['AdminController', 'viewCharityRequests']);
+    $router->add('POST', '/charityRequestConfirmation', ['AdminController', 'charityRequestConfirmation']);
+    $router->add('POST', '/getCharityRequestDetails', ['AdminController', 'getCharityRequestDetails']);
+    $router->add('GET', '/viewCharities', ['AdminController', 'viewCharities']);
+    $router->add('POST', '/cancelCharity', ['AdminController', 'cancelCharity']);
+});
 
 
 
@@ -53,9 +58,5 @@ $router->group(['middleware' => 'user'], function($router) {
 	$router->add('POST', '/updateUserPassword', ['UserController', 'updateUserPassword']);
 });
 
-
-
-require_once 'app/Controllers/AdminController.php';
-$router->add('GET', '/admin', ['AdminController', 'index']);
 
 ?>

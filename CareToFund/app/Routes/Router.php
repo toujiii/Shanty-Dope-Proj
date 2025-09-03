@@ -37,6 +37,12 @@ class Router {
                     foreach ($route['middleware'] as $middleware) {
                         // Check for global function
                         if (is_string($middleware) && function_exists('\\' . $middleware)) {
+                            // Debug: Show if session is set
+                            if (isset($_SESSION) && !empty($_SESSION)) {
+                                echo 'Session contents: ' . print_r($_SESSION, true) . '<br>';
+                            } else {
+                                echo 'No session set.<br>';
+                            }
                             // echo 'Dispatching middleware: ' . $middleware . '<br>';
                             $middlewareResult = call_user_func('\\' . $middleware);
                             if ($middlewareResult === false) return;

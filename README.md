@@ -54,7 +54,7 @@ CREATE TABLE donators (
     payment_method ENUM('GCash') NOT NULL,
     PRIMARY KEY (donation_id)
 );
-users (
+CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     role VARCHAR(50) NOT NULL,
     name VARCHAR(50) NOT NULL,

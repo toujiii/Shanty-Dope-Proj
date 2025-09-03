@@ -14,12 +14,12 @@
             </p>
         </div>
         <div class="container mt-auto mb-0 px-0 d-flex justify-content-center">
-            <a href="/Shanty-Dope-Proj/CareToFund/resources/views/home.php" >
+            <form action="/Shanty-Dope-Proj/CareToFund/signOut" method="POST">
                 <button class="btn btn-signout text-white" style="font-size: 1rem; border-radius: 0px; width: 200px; height: 60px;">
                     <i class="bi bi-box-arrow-left me-1"></i>
                     Sign Out
                 </button>
-            </a>
+            </form>
         </div>
     </div>
 </div>

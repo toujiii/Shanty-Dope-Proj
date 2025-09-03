@@ -73,7 +73,15 @@ class SignController {
             $user = $crud->readByEmail($email);
 
             if ($user && password_verify($password, $user['password'])) {
-                $_SESSION['user_id'] = $user['id'];
+                // Set admin session if user role is admin
+                if ($user['role'] === 'admin') {
+                    $_SESSION['is_admin'] = true;
+                    header('Location: /Shanty-Dope-Proj/CareToFund/admin');
+                    exit;
+                } else {
+                    $_SESSION['is_admin'] = false;
+                    $_SESSION['user_id'] = $user['id'];
+                }
                 // Redirect to dashboard or home page
                 header('Location: /Shanty-Dope-Proj/CareToFund/');
                 exit;
