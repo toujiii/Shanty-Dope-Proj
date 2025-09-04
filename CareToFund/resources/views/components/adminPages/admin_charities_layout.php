@@ -33,7 +33,8 @@
 </div>
 
 <div id="charitiesContainer"></div>
+<div id="donatorsModalContainer"></div>
 
 <?php include __DIR__ . '/admin_abort_charity_modal.php'; ?>
-<?php include __DIR__ . '/admin_charity_donators_modal.php'; ?>
+
 

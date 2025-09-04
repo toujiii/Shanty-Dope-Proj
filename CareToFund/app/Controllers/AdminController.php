@@ -181,7 +181,7 @@ class AdminController
         $users = array_slice($allUsers, $offset, $perPage);
 
         // Pass $totalPages to JS (e.g. as a hidden input or JS variable)
-        echo '<script>window.totalUserPages = ' . $totalPages . ';</script>';
+        // echo '<script>window.totalUserPages = ' . $totalPages . ';</script>';
         // Render user rows as before
         $this->render('components/adminPages/admin_user_show', [
             'users' => $users

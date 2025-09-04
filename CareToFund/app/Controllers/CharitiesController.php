@@ -176,7 +176,7 @@ class CharitiesController
 
             foreach ($charityDetails as $charity) {
                 // Only check ongoing charities
-                if ($charity['charity_status'] !== 'Ongoing' && $charity['charity_status'] !== 'Cancelled') continue;
+                if ($charity['charity_status'] !== 'Ongoing') continue;
 
                 $approved = $charity['approved_datetime'];
                 $duration = (int)$charity['duration'];
@@ -249,6 +249,10 @@ class CharitiesController
                 }
                 return $charity['user_id'] != $_SESSION['user_id'];
             });
+
+            if (empty($userCharities)) {
+                return;
+            }
 
             $this->render('components/charitiesPages/charity_card', [
                 'userCharities' => $userCharities

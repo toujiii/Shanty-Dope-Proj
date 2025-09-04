@@ -72,3 +72,21 @@ function updateCharities() {
     },
   });
 }
+
+function loadDonators (charityId){
+  $.ajax({
+    url: "/Shanty-Dope-Proj/CareToFund/loadDonators",
+    method: "GET",
+    data: { charity_id: charityId },
+    success: function (result) {
+      $("#donatorsModalContainer").empty();
+      $("#donatorsModalContainer").html(result);
+
+      var donatorsModal = new bootstrap.Modal(document.getElementById('donatorsModal'));
+      donatorsModal.show();
+    },
+    error: function (error) {
+      alert("Something went wrong.");
+    },
+  });
+}

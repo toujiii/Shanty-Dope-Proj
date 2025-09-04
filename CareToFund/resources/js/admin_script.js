@@ -90,7 +90,7 @@ function viewCharities(filter) {
       search: search
     },
     success: function (result) {
-      // console.log(result);
+      console.log(result);
 
       $("#charitiesContainer").empty();
       $("#charitiesContainer").html(result);
@@ -134,7 +134,7 @@ function getCharityRequestDetails(requestId) {
       request_id: requestId,
     },
     success: function (result) {
-      console.log(result);
+      // console.log(result);
       $("#requestDetailsModal").each(function () {
         const modal = bootstrap.Modal.getInstance(this);
         if (modal) modal.dispose();
@@ -142,6 +142,7 @@ function getCharityRequestDetails(requestId) {
       });
 
       // Inject and show new modal
+      // $("#modalContainer").empty();
       $("#modalContainer").html(result);
       new bootstrap.Modal(
         document.getElementById("requestDetailsModal")
