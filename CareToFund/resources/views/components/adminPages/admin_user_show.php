@@ -1,3 +1,4 @@
+<span style="display:none" data-total-pages="<?php echo isset($totalPages) ? $totalPages : 1; ?>" data-current-page="<?php echo isset($currentPage) ? $currentPage : 1; ?>"></span>
 <?php $index = 0; ?>
 <?php foreach ($users as $user): ?>
     <?php if ($user['role'] != 'admin'): ?>

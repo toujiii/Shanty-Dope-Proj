@@ -39,6 +39,8 @@ function viewCharityRequests(filter) {
 }
 
 let currentFilter = null;
+let userCurrentPage = 1;
+let userTotalPages = 1;
 function handleFilterClick(filter) {
   if (currentFilter === filter) {
     currentFilter = null;
@@ -206,36 +208,17 @@ function cancelCharity(charityId, userId) {
 }
 
 
-// function showUsers() {
-//   $.ajax({
-//     url: "/Shanty-Dope-Proj/CareToFund/getAllUsers",
-//     method: "GET",
-//     success: function (result) {
-//       // console.log(result);
-//       $("#usersContainer").empty();
-//       $("#usersContainer").html(result);
-//     },
-//     error: function (error) {
-//       alert("Something went wrong.");
-//     },
-//   });
-// }
+
 function showUsers(page = 1) {
+  userCurrentPage = page;
   $.ajax({
     url: "/Shanty-Dope-Proj/CareToFund/getAllUsers",
     method: "GET",
-    data: { page: page },
+    data: { page: userCurrentPage },
     success: function (result) {
-      // console.log(result);
       $("#usersContainer").empty();
-      $("#usersContainer").html(result); // result.html should contain user rows
-      var totalPages = result.totalPages || 1;
-      var html = '';
-      for (var i = 1; i <= totalPages; i++) {
-        html += '<button class="btn btn-sm btn-outline-primary mx-1 user-page-btn" data-page="' + i + '">' + i + '</button>';
-      }
-      $('#userPagination').html(html);
-      $('#userPagination .user-page-btn[data-page="' + page + '"]').addClass('active');
+      $("#usersContainer").html(result);
+      renderUserPagination();
     },
     error: function (error) {
       alert("Something went wrong.");
@@ -243,7 +226,23 @@ function showUsers(page = 1) {
   });
 }
 
-$(document).on('click', '.user-page-btn', function() {
-  var page = $(this).data('page');
-  showUsers(page);
-});
+function renderUserPagination() {
+  // Get totalPages from a hidden element in the result
+  let totalPages = $("#usersContainer").find('[data-total-pages]').data('total-pages');
+  if (!totalPages) totalPages = 1;
+  userTotalPages = totalPages;
+  let paginationHtml = '';
+  if (userTotalPages > 1) {
+    paginationHtml += '<ul class="pagination gap-3 m-0">';
+    paginationHtml += `<li><button class="btn btn-sm" ${userCurrentPage === 1 ? 'disabled' : ''} onclick="showUsers(${userCurrentPage - 1})">&lt;</button></li>`;
+    for (let i = 1; i <= userTotalPages; i++) {
+      paginationHtml += `<li><button class="btn btn-sm ${i === userCurrentPage ? 'btn-primary' : ''}" onclick="showUsers(${i})">${i}</button></li>`;
+    }
+    paginationHtml += `<li><button class="btn btn-sm" ${userCurrentPage === userTotalPages ? 'disabled' : ''} onclick="showUsers(${userCurrentPage + 1})">&gt;</button></li>`;
+    paginationHtml += '</ul>';
+  } else {
+    paginationHtml = `<ul class="pagination gap-3 m-0"><li><button class="btn btn-sm btn-primary">1</button></li></ul>`;
+  }
+  $("#userPagination").html(paginationHtml);
+}
+

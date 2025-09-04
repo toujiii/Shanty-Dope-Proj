@@ -162,30 +162,20 @@ class AdminController
         }
     }
 
-    // public function getAllUsers() {
-    //     $crud = new Crud('users');
-    //     $users = $crud->select('*');
-    //     $this->render('components/adminPages/admin_user_show', [
-    //         'users' => $users
-    //     ]);
-    // }
-    public function getAllUsers()
-    {
-        $page = $_GET['page'] ?? 1;
-        $perPage = 10;
+    public function getAllUsers() {
         $crud = new Crud('users');
-        $allUsers = $crud->select('*'); // Get all users
-        $totalUsers = count($allUsers);
+        $users = $crud->select('*');
+        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+        $perPage = 10;
+        $totalUsers = count($users);
         $totalPages = ceil($totalUsers / $perPage);
-        $offset = ($page - 1) * $perPage;
-        $users = array_slice($allUsers, $offset, $perPage);
-
-        // Pass $totalPages to JS (e.g. as a hidden input or JS variable)
-        // echo '<script>window.totalUserPages = ' . $totalPages . ';</script>';
-        // Render user rows as before
+        $start = ($page - 1) * $perPage;
+        $pagedUsers = array_slice($users, $start, $perPage);
         $this->render('components/adminPages/admin_user_show', [
-            'users' => $users
-            // 'users' => $totalUsers
+            'users' => $pagedUsers,
+            'totalPages' => $totalPages,
+            'currentPage' => $page
         ]);
     }
+
 }
