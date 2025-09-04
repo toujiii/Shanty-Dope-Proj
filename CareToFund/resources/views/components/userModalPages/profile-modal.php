@@ -35,9 +35,12 @@
         </div>
 
         <h5 class="ms-2">Wallets</h5>
-        <div class="d-flex flex-column gap-1 mb-3 p-3 rounded-3 bg-light">
+        <div class="d-flex flex-column gap-1 mb-3 p-3 rounded-3 bg-light"  style="border: 2px solid #c5c5c5ff;">
           <p class=" mb-1">Gcash</p>
-          <input type="text" class="form-control" value="<?php echo htmlspecialchars($userDetails[0]['gcash_number'] ?? 'N/A'); ?>" disabled>
+          <div class="d-flex align-items-center gap-2" >
+            <input type="text" class="form-control" value="<?php echo htmlspecialchars($userDetails[0]['gcash_number'] ?? 'N/A'); ?>" disabled>
+            <i class="bi bi-check-circle text-success fs-5"></i>
+          </div>
         </div>
         
 

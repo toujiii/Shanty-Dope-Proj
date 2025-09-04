@@ -7,7 +7,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <form action="Shanty-Dope-Proj/CareToFund/updateUserPassword" method="POST" id="editPasswordForm">
-        <div class="bg-light p-3 rounded-3 mb-3">
+        <div class="bg-light p-3 rounded-3 mb-3" style="border: 2px solid #c5c5c5ff;">
           <div class="modal-body p-0">
             <div class="mb-3">
               <label for="current_password" class="form-label">Current Password</label>

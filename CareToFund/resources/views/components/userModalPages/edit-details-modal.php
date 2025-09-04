@@ -1,13 +1,13 @@
 <div class="modal fade" id="editDetailsModal" tabindex="-1" aria-labelledby="editDetailsModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content px-3 py-2 rounded-3 shadow-sm">
-      <div class="modal-header px-2 py-2">
+      <div class="modal-header px-2 py-2" style="border-bottom: none;">
         <h5 class="modal-title">Edit Profile</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body p-0">
         <form id="editDetailsForm" method="POST" action="/Shanty-Dope-Proj/CareToFund/updateUser">
-          <div class="bg-light p-3 rounded-3 mb-3">
+          <div class="bg-light p-3 rounded-3 mb-3" style="border: 2px solid #c5c5c5ff;">
             <div class="mb-3">
               <label for="editName" class="form-label text-dark">Name</label>
               <input type="text" class="form-control" id="editName" name="name"
