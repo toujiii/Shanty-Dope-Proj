@@ -17,10 +17,12 @@
                 <td class="text-warning">Inactive</td>
             <?php } ?>
             <td class="action-col">
-                <button class="btn btn-sm btn-yellow text-white" data-bs-toggle="modal"
-                    data-bs-target="#admin_user_edit">Edit</button>
-                <button class="btn btn-sm btn-red text-white" data-bs-toggle="modal"
-                    data-bs-target="#admin_user_delete">Delete</button>
+                <button class="btn btn-sm btn-yellow text-white" 
+                    data-bs-target="#admin_user_edit"
+                    data-user-id="<?php echo htmlspecialchars($user['id']); ?>">Edit</button>
+                <button class="btn btn-sm btn-red text-white open-delete-modal" data-bs-toggle="modal"
+                    data-bs-target="#admin_user_delete" 
+                    data-user-id="<?php echo htmlspecialchars($user['id']); ?>">Delete</button>
             </td>
         </tr>
     <?php endif; ?>

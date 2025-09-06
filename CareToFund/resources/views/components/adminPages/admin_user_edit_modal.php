@@ -3,34 +3,33 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content px-3 pb-3 rounded-3 shadow-sm" style="border: none;">
       <div class="modal-header px-2 py-3" style="border-bottom: none;">
-        <h5 class="modal-title fs-5">Edit John Doe (1001)</h5>
+        <h5 class="modal-title fs-5">Edit User <?php echo htmlspecialchars($user['name']); ?></h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body p-0">
-        <form action="">
+        <form id="editUserForm">
           <div class="bg-light p-3 rounded-3">
             <div class="mb-3">
-              <label for="id_number" class="form-label">Name</label>
-              <input type="text" class="form-control" id="name" name="name" required value="John Doe">
+              <label class="form-label">Name</label>
+              <input type="hidden" id="edit_user_id" name="user_id" value="<?php echo htmlspecialchars($user['id']); ?>">
+              <input type="text" class="form-control" id="name" name="name" required value="<?php echo htmlspecialchars($user['name']); ?>">
             </div>
             <div class="mb-3">
-              <label for="email" class="form-label">Email</label>
-              <input type="email" class="form-control" id="email" name="email" required value="johndoe@email.com">
+              <label class="form-label">Email</label>
+              <input type="email" class="form-control" id="email" name="email" required value="<?php echo htmlspecialchars($user['email']); ?>">
             </div>
             <div class="mb-3">
-              <label for="id_number" class="form-label">GCash</label>
-              <input type="text" class="form-control" id="gcash" name="gcash" disabled value="09123456789">
+              <label class="form-label">GCash</label>
+              <input type="text" class="form-control" id="gcash" name="gcash" disabled value="<?php echo htmlspecialchars($user['gcash_number']); ?>">
             </div>
             <div class="">
-              <label for="id_number" class="form-label">Password</label>
-              <input type="text" class="form-control" id="password" name="password" disabled value="?SaNASJKDNBS DOI@#@09">
+              <label class="form-label">Password</label>
+              <input type="text" class="form-control" id="password" name="password" disabled value="<?php echo htmlspecialchars(substr($user['password'], 0, 10)) . '...'; ?>">
             </div>
           </div>
-
-
-          <div class=" d-flex justify-content-end align-items-center gap-2 mt-3">
-            <button type="button" data-bs-dismiss="modal" class="btn btn-secondary ">Cancel</button>
-            <button type="button" class="btn btn-green text-white" data-bs-toggle="modal" data-bs-target="#admin_user_edited">Update</button>
+          <div class="d-flex justify-content-end align-items-center gap-2 mt-3">
+            <button type="button" data-bs-dismiss="modal" class="btn btn-secondary">Cancel</button>
+            <button type="submit" class="btn btn-green text-white">Update</button>
           </div>
         </form>
       </div>

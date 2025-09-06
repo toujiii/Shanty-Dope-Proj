@@ -246,3 +246,76 @@ function renderUserPagination() {
   $("#userPagination").html(paginationHtml);
 }
 
+$(document).on('click', '[data-bs-target="#admin_user_edit"]', function () {
+  var userId = $(this).data('user-id');
+  // Remove existing modal
+  $('#admin_user_edit').remove();
+  $('.modal-backdrop').remove();
+  $('body').removeClass('modal-open');
+
+  $.ajax({
+    url: '/Shanty-Dope-Proj/CareToFund/editUser',
+    method: 'POST',
+    data: { user_id: userId },
+    success: function(html) {
+      $('body').append(html);
+      var modal = new bootstrap.Modal(document.getElementById('admin_user_edit'));
+      modal.show();
+    },
+    error: function() {
+      alert('Failed to load user data.');
+    }
+  });
+});
+
+// Handle update form submit
+$(document).on('submit', '#editUserForm', function(e) {
+  e.preventDefault();
+  $.ajax({
+    url: '/Shanty-Dope-Proj/CareToFund/editUser',
+    method: 'POST',
+    data: $(this).serialize(),
+    dataType: 'json',
+    success: function(response) {
+      if (response.success) {
+        $('#admin_user_edit').modal('hide');
+        $('#admin_user_edited').modal('show');
+        showUsers(); // Refresh user list
+      } else {
+        alert(response.message);
+      }
+    },
+    error: function() {
+      alert('May mali sa js.');
+    }
+  });
+});
+
+// Open delete modal and store user ID
+$(document).on('click', '.open-delete-modal', function () {
+  var userId = $(this).data('user-id');
+  $('#delete_user_id').val(userId);
+});
+
+// Handle confirm delete
+$(document).on('click', '#confirmDeleteBtn', function () {
+  var userId = $('#delete_user_id').val();
+  $.ajax({
+    url: '/Shanty-Dope-Proj/CareToFund/deleteUser',
+    method: 'POST',
+    data: { user_id: userId },
+    dataType: 'json',
+    success: function(response) {
+      if (response.success) {
+        $('#admin_user_delete').modal('hide');
+        $('#admin_user_deleted').modal('show');
+        showUsers();
+      } else {
+        alert(response.message);
+      }
+    },
+    error: function() {
+      alert('May something went wrong. Please try again.');
+    }
+  });
+});

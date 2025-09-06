@@ -36,6 +36,8 @@ $router->group(['middleware' => 'admin'], function($router) {
     $router->add('GET', '/viewCharities', ['AdminController', 'viewCharities']);
     $router->add('POST', '/cancelCharity', ['AdminController', 'cancelCharity']);
 	$router->add('GET', '/getAllUsers', ['AdminController', 'getAllUsers']);
+	$router->add('POST', '/editUser', ['AdminController', 'editUser']);
+	$router->add('POST', '/deleteUser', ['AdminController', 'deleteUser']);
 });
 
 

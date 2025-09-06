@@ -86,7 +86,7 @@ class SignController {
                 header('Location: /Shanty-Dope-Proj/CareToFund/');
                 exit;
             } else {
-                echo 'Invalid email or password.';
+                echo "<script>alert('Invalid email or password.'); window.location.href='/Shanty-Dope-Proj/CareToFund/sign_in';</script>";
             }
         } else {
             echo 'Invalid request.';

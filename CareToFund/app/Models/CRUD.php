@@ -108,6 +108,7 @@ class Crud {
             $stmt->bind_param($types, ...$values);
             $stmt->execute();
             $stmt->close();
+            return true;
         }catch(\Exception $e){
             die("Error while updating data!. <br>". $e);
         }

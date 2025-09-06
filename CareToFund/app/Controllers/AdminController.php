@@ -3,6 +3,7 @@
 namespace CareToFund\Controllers;
 
 use CareToFund\Models\Crud;
+use CareToFund\Controllers\UserController;
 
 date_default_timezone_set('Asia/Manila');
 
@@ -178,4 +179,56 @@ class AdminController
         ]);
     }
 
+    public function editUser() {
+        $crud = new Crud('users');
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $userId = $_POST['user_id'] ?? null;
+            $name = $_POST['name'] ?? null;
+            $email = $_POST['email'] ?? null;
+
+            // If only user_id is sent, render the modal with user data
+            if ($userId && !$name && !$email) {
+                $user = $crud->select('*', ['id' => $userId]);
+                $this->render('components/adminPages/admin_user_edit_modal', [
+                    'user' => $user[0]
+                ]);
+                exit;
+            }
+
+            // If updating user
+            if ($userId && $name && $email) {
+                $updateData = [
+                    'name' => $name,
+                    'email' => $email,
+                ];
+                $result = $crud->update($updateData, ['id' => $userId]);
+                if ($result) {
+                    echo json_encode(['success' => true, 'message' => 'User updated successfully.']);
+                } else {
+                    echo json_encode(['success' => false, 'message' => 'Failed to update user.']);
+                }
+                exit;
+            }
+
+            echo json_encode(['success' => false, 'message' => 'Invalid request.']);
+            exit;
+        }
+    }
+
+    public function deleteUser() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $userId = $_POST['user_id'] ?? null;
+            if ($userId) {
+                $crud = new Crud('users');
+                $result = $crud->delete(['id' => $userId]);
+                if ($result) {
+                    echo json_encode(['success' => true, 'message' => 'User deleted successfully.']);
+                } else {
+                    echo json_encode(['success' => false, 'message' => 'Failed to delete user.']);
+                }
+            } else {
+                echo json_encode(['success' => false, 'message' => 'User ID is required.']);
+            }
+        }
+    }
 }

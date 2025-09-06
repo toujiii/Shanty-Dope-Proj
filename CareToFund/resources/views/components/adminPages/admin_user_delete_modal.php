@@ -10,10 +10,11 @@
         <p class="fs-5 fw-bold m-0" >
             Are you sure you want to delete this user?
         </p>
+        <input type="hidden" id="delete_user_id">
       </div>
       <div class=" d-flex justify-content-center align-items-center gap-2 m-4">
         <button type="button" data-bs-dismiss="modal" class="btn btn-secondary ">Cancel</button>
-        <button type="button" class="btn btn-red " data-bs-toggle="modal" data-bs-target="#admin_user_deleted">Delete</button>
+        <button type="button" class="btn btn-red " id="confirmDeleteBtn">Delete</button>
       </div>
     </div>
   </div>
