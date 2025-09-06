@@ -46,6 +46,7 @@
 <?php include __DIR__ . '/components/usermodalPages/profile-modal.php'; ?>
 <?php include __DIR__ . '/components/usermodalPages/edit-details-modal.php'; ?>
 <?php include __DIR__ . '/components/usermodalPages/reset-password-modal.php'; ?>
+<?php include __DIR__ . '/components/usermodalPages/edit-images-modal.php'; ?>
 <!-- <script rel="text/javascript" src="/Shanty-Dope-Proj/CareToFund/resources/js/jquery.js"></script>
 <script src="/Shanty-Dope-Proj/CareToFund/resources/js/user_requests.js"></script> -->
 

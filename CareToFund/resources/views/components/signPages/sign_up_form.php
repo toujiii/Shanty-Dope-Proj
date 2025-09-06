@@ -2,7 +2,7 @@
     <div class="container bg-light shadow d-flex  align-items-center justify-content-center gap-4 p-5 mx-3" style="border-radius: 12px; width: auto; max-width: 100%;">
         <div class="container d-flex flex-column align-items-center" style="max-width: 1200px;">
             <form action="/Shanty-Dope-Proj/CareToFund/signUpProcess" class="text-center" style="width: 100%;" method="POST">
-                <div class="d-flex align-items-center gap-5 flex-column flex-md-row">
+                <div class="d-flex align-items-center gap-5 flex-column flex-lg-row">
                     <div>
                         <a href="/Shanty-Dope-Proj/CareToFund/"><img src="/Shanty-Dope-Proj/CareToFund/resources/img/website_logo.png" alt="CareToFund Logo" class="img-fluid mb-2" style="width: 150px; display: block; margin: 10px auto 10px auto;"></a>
                         <div class="text-center mb-3">
@@ -46,23 +46,12 @@
                                 required>
                         </div>
                     </div>
-                    <div class="vr" style="height: auto;"></div>
-                    <div>
-                        <p class="fs-5 fw-bold mb-4" style="color: #1b3c53;">
-                            Identity Verification Photos
-                        </p>
-                       
-                    </div>
                 </div>
                 <button type="submit" class="btn mt-5 d-block mx-auto w-50 btn_continue" style=" color: white; border-radius: 12px;">Continue</button>
                 <p class="fs-6" style="color: #545454;">
                     Already Have an Account? <a href="/Shanty-Dope-Proj/CareToFund/sign_in">Sign In</a>
                 </p>
             </form>
-
         </div>
-
-
-
     </div>
 </div>

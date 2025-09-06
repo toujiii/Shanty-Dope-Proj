@@ -15,7 +15,7 @@
               
             </div>
           </div>
-          <div class="d-flex justify-content-center gap-3 mt-3 align-items-center w-100">
+          <div class="d-flex flex-column flex-sm-row justify-content-center gap-3 mt-3 align-items-center w-100">
               <button type="button" class="btn p-0 btn-transparent text-center"
                 style=" border-radius: 8px;  font-size: 0.9rem; height: fit-content; color: #1B3C53;"
                 data-bs-toggle="modal" data-bs-target="#editDetailsModal">
@@ -29,6 +29,13 @@
                 data-bs-target="#resetPasswordModal">
                 <i class="bi bi-key-fill"></i>
                 Reset Password
+              </button>
+              <button type="button" class="btn p-0 btn-transparent"
+                style=" border-radius: 8px;  font-size: 0.9rem; height: fit-content; color: #1B3C53;"
+                data-bs-toggle="modal"
+                data-bs-target="#editImagesModal">
+                <i class="bi bi-images"></i>
+                Attachments
               </button>
             </div>
 
