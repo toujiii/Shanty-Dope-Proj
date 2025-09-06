@@ -295,11 +295,13 @@ $(document).on('submit', '#editUserForm', function(e) {
 $(document).on('click', '.open-delete-modal', function () {
   var userId = $(this).data('user-id');
   $('#delete_user_id').val(userId);
+  console.log(userId);
 });
 
 // Handle confirm delete
 $(document).on('click', '#confirmDeleteBtn', function () {
   var userId = $('#delete_user_id').val();
+  console.log(userId);
   $.ajax({
     url: '/Shanty-Dope-Proj/CareToFund/deleteUser',
     method: 'POST',
@@ -319,3 +321,19 @@ $(document).on('click', '#confirmDeleteBtn', function () {
     }
   });
 });
+
+
+
+$('#cancelCharityModal').on('show.bs.modal', function(event) {
+        var button = $(event.relatedTarget); // Button that triggered the modal
+        var charityId = button.data('charity-id'); // Extract info from data-* attributes
+        var userId = button.data('user-id');
+        console.log(charityId, userId);
+
+
+        var $confirmBtn = $('#cancelCharityModal .btn-cancel');
+        $confirmBtn
+          .on('click', function() {
+            cancelCharity(charityId, userId);
+          });
+  });

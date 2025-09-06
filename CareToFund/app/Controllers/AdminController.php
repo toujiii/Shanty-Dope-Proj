@@ -218,7 +218,7 @@ class AdminController
     public function deleteUser() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $userId = $_POST['user_id'] ?? null;
-            if ($userId) {
+            if ($userId) { 
                 $crud = new Crud('users');
                 $result = $crud->delete(['id' => $userId]);
                 if ($result) {
@@ -232,3 +232,4 @@ class AdminController
         }
     }
 }
+

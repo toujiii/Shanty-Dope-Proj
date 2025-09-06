@@ -115,11 +115,24 @@ class Crud {
     }
 
     // Delete
-    public function delete($id) {
-        $id = $this->conn->real_escape_string($id);
-        $sql = "DELETE FROM {$this->table} WHERE id = '$id'";
-        return $this->conn->query($sql);
-    }
+    public function delete($where){
+            try{
+                $cond = $types = "";
+                foreach($where as $key => $value){
+                    $cond .= "$key = ? AND ";
+                    $types .= substr(gettype($value), 0, 1);
+                }
+                $cond = substr($cond, 0, -4);
+
+                $stmt = $this->conn->prepare("DELETE FROM {$this->table} WHERE $cond");
+                $stmt->bind_param($types, ...array_values($where));
+                $stmt->execute();
+                $stmt->close();
+                return true;
+            }catch(\Exception $e){
+                die("Error while deleting data!. <br>". $e);
+            }
+        }
     
     // Find user by email
     public function readByEmail($email) {
