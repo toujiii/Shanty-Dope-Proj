@@ -8,9 +8,15 @@
         </button>
         <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
             <ul class="navbar-nav gap-lg-4 gap-3 align-items-center mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active fs-6" aria-current="page" href="/Shanty-Dope-Proj/CareToFund/" style="color:#1B3C53">Home</a>
-                </li>
+                <?php 
+                 if(!isset($_SESSION['user_id'])) {
+                     ?>
+                    <li class="nav-item">
+                        <a class="nav-link active fs-6" aria-current="page" href="/Shanty-Dope-Proj/CareToFund/" style="color:#1B3C53">Home</a>
+                    </li>
+                    <?php
+                    }
+                    ?>
                 <li class="nav-item me-lg-5">
                     <a class="nav-link fs-6" href="/Shanty-Dope-Proj/CareToFund/charities" style="color:#1B3C53">Charities</a>
                 </li>

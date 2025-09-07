@@ -83,7 +83,7 @@ class SignController {
                     $_SESSION['user_id'] = $user['id'];
                 }
                 // Redirect to dashboard or home page
-                header('Location: /Shanty-Dope-Proj/CareToFund/');
+                header('Location: /Shanty-Dope-Proj/CareToFund/charities');
                 exit;
             } else {
                 echo "<script>alert('Invalid email or password.'); window.location.href='/Shanty-Dope-Proj/CareToFund/sign_in';</script>";

@@ -4,9 +4,6 @@ namespace CareToFund\Routes;
 require_once 'app/Controllers/UserController.php';
 require_once 'app/Middleware/Session.php';
 
-require_once 'app/Controllers/HomeController.php';
-$router->add('GET', '/', 'HomeController');
-
 // Header
 require_once 'app/Controllers/HeaderController.php';
 $router->add('GET', '/header', ['HeaderController', 'show']);
@@ -54,6 +51,8 @@ $router->group(['middleware' => 'guest'], function($router) {
 	$router->add('GET', '/sign_up', ['SignController', 'sign_up']);
 	$router->add('POST', '/signUpProcess', ['SignController', 'signUpProcess']);
 	$router->add('POST', '/signInProcess', ['SignController', 'signInProcess']);
+	require_once 'app/Controllers/HomeController.php';
+	$router->add('GET', '/', ['HomeController', 'index']);
 });
 $router->group(['middleware' => 'user'], function($router) {
 	$router->add('POST', '/updateUser', ['UserController', 'updateUserDetails']);
