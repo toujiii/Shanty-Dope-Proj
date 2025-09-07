@@ -164,19 +164,47 @@ class AdminController
     }
 
     public function getAllUsers() {
-        $crud = new Crud('users');
-        $users = $crud->select('*');
-        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-        $perPage = 10;
-        $totalUsers = count($users);
-        $totalPages = ceil($totalUsers / $perPage);
-        $start = ($page - 1) * $perPage;
-        $pagedUsers = array_slice($users, $start, $perPage);
-        $this->render('components/adminPages/admin_user_show', [
-            'users' => $pagedUsers,
-            'totalPages' => $totalPages,
-            'currentPage' => $page
-        ]);
+        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            $search = $_GET['search'] ?? null;
+            
+            $crud = new Crud('users');
+            $where = ['role' => NULL];
+            $like = [];
+
+            if (!is_null($search)) {
+                $like['name'] = $search;
+                // Bahala kayo pero gusto ko to
+                // $like['email'] = $search;
+                // $like['gcash_number'] = $search;
+                // $like['id'] = $search;
+            }
+
+            $users = $crud->select('*', $where, null, null, null, $like);
+            $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+            $perPage = 10;
+            $totalUsers = count($users);
+            $totalPages = ceil($totalUsers / $perPage);
+            $start = ($page - 1) * $perPage;
+            $pagedUsers = array_slice($users, $start, $perPage);
+            $this->render('components/adminPages/admin_user_show', [
+                'users' => $pagedUsers,
+                'totalPages' => $totalPages,
+                'currentPage' => $page
+            ]);
+        }
+        // $crud = new Crud('users');
+        // $users = $crud->select('*', ['role' => NULL]);
+        // $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+        // $perPage = 10;
+        // $totalUsers = count($users);
+        // $totalPages = ceil($totalUsers / $perPage);
+        // $start = ($page - 1) * $perPage;
+        // $pagedUsers = array_slice($users, $start, $perPage);
+        // $this->render('components/adminPages/admin_user_show', [
+        //     'users' => $pagedUsers,
+        //     'totalPages' => $totalPages,
+        //     'currentPage' => $page
+        // ]);
     }
 
     public function editUser() {

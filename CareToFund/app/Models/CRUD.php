@@ -28,7 +28,7 @@ class Crud {
     //     return $result ? $result->fetch_assoc() : null;
     // }
 
-    public function select($row = "*", $where = NULL, $orderBy = NULL, $orderDir = "ASC", $limit = NULL) {
+    public function select($row = "*", $where = NULL, $orderBy = NULL, $orderDir = "ASC", $limit = NULL, $like = NULL) {
         try {
             $sql = "SELECT $row FROM {$this->table}";
             $params = [];
@@ -36,13 +36,17 @@ class Crud {
 
             // WHERE clause
             if (!is_null($where) && count($where) > 0) {
-                $cond = "";
+                $condArr = [];
                 foreach ($where as $key => $value) {
-                    $cond .= "$key = ? AND ";
-                    $types .= substr(gettype($value), 0, 1);
-                    $params[] = $value;
+                    if (is_null($value)) {
+                        $condArr[] = "$key IS NULL";
+                    } else {
+                        $condArr[] = "$key = ?";
+                        $types .= substr(gettype($value), 0, 1);
+                        $params[] = $value;
+                    }
                 }
-                $cond = substr($cond, 0, -4);
+                $cond = implode(' AND ', $condArr);
                 $sql .= " WHERE $cond";
             }
 
@@ -55,6 +59,19 @@ class Crud {
             // LIMIT clause
             if (!is_null($limit) && is_numeric($limit)) {
                 $sql .= " LIMIT $limit";
+            }
+
+            // LIKE clause
+            if (!is_null($like) && count($like) > 0) {
+                $likeArr = [];
+                foreach ($like as $key => $value) {
+                    $likeArr[] = "$key LIKE ?";
+                    $types .= "s";
+                    $params[] = "%$value%";
+                }
+                $likeCond = implode(' OR ', $likeArr);
+                $sql .= is_null($where) ? " WHERE " : " AND ";
+                $sql .= "($likeCond)";
             }
 
             $stmt = $this->conn->prepare($sql);

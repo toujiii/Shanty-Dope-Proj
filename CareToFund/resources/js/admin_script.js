@@ -1,5 +1,6 @@
 var requestSearchValue = "";
 var charitySearchValue = "";
+var userSearchValue = "";
 // Initialize the search input
 $(document).ready(function () {
 
@@ -12,6 +13,11 @@ $(document).ready(function () {
     charitySearchValue = $(this).val().toLowerCase().trim();
 
     viewCharities();
+  });
+  $("#userSearch").on("keyup", function () {
+    userSearchValue = $(this).val().toLowerCase().trim();
+
+    showUsers();
   });
   showUsers();
   viewCharityRequests();
@@ -207,14 +213,16 @@ function cancelCharity(charityId, userId) {
   });
 }
 
-
-
 function showUsers(page = 1) {
   userCurrentPage = page;
+  var search = userSearchValue;
   $.ajax({
     url: "/Shanty-Dope-Proj/CareToFund/getAllUsers",
     method: "GET",
-    data: { page: userCurrentPage },
+    data: { 
+      page: userCurrentPage,
+      search: search
+    },
     success: function (result) {
       $("#usersContainer").empty();
       $("#usersContainer").html(result);
