@@ -27,13 +27,6 @@
                 <tbody id="usersContainer"></tbody>
             </table>
             <div id="userPagination" class="d-flex align-items-center justify-content-center mt-3">
-                <ul class="pagination gap-3 m-0  ">
-                    <li><i class="bi bi-caret-left-fill"></i></li>
-                    <li>1</li>
-                    <li>2</li>
-                    <li>3</li>
-                    <li><i class="bi bi-caret-right-fill"></i></li>
-                </ul>
             </div>
         </div>
     </div>

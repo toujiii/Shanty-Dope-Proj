@@ -26,6 +26,7 @@ $router->add('POST', '/sendDonation', ['CharitiesController', 'sendDonation']);
 $router->add('GET', '/loadCreateCharity', ['CharitiesController', 'loadCreateCharity']);
 $router->add('GET', '/loadDonators', ['CharitiesController', 'loadDonators']);
 
+
 //Admin
 require_once 'app/Controllers/AdminController.php';
 $router->group(['middleware' => 'admin'], function($router) {
@@ -57,6 +58,7 @@ $router->group(['middleware' => 'guest'], function($router) {
 $router->group(['middleware' => 'user'], function($router) {
 	$router->add('POST', '/updateUser', ['UserController', 'updateUserDetails']);
 	$router->add('POST', '/updateUserPassword', ['UserController', 'updateUserPassword']);
+	$router->add('POST', '/uploadUserVerificationImages', ['UserController', 'uploadUserVerificationImages']);
 });
 $router->add('POST', '/signOut', ['SignController', 'signOut']);
 

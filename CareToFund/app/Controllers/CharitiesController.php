@@ -121,7 +121,10 @@ class CharitiesController
     public function loadCreateCharity()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-            $this->render('components/charitiesPages/new_charity_card');
+            $verification = $_GET['verification'];
+            $this->render('components/charitiesPages/new_charity_card', [
+                'verification' => $verification
+            ]);
         }
     }
 
@@ -131,6 +134,12 @@ class CharitiesController
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 $crud = new Crud('users');
                 $userStatus = $crud->select('status', ['id' => $_SESSION['user_id']]);
+                $userVerification = $crud->select('user_front_link, user_side_link', ['id' => $_SESSION['user_id']]);
+                if(isset($userVerification[0]['user_front_link']) || isset($userVerification[0]['user_side_link'])){
+                    $userStatus[0]['verification'] = 'verified';
+                } else {
+                    $userStatus[0]['verification'] = 'not verified';
+                }
                 echo json_encode($userStatus);
             }
         } else {
@@ -251,6 +260,9 @@ class CharitiesController
             });
 
             if (empty($userCharities)) {
+                $this->render('components/charitiesPages/charity_card', [
+                    'userCharities' => []
+                ]);
                 return;
             }
 

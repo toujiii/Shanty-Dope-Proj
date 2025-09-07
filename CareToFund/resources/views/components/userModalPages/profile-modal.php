@@ -10,46 +10,62 @@
           <div class="d-flex flex-column align-items-center gap-1 w-100">
             <img src="/Shanty-Dope-Proj/CareToFund/resources/img/user-profile.png" style="width: 80px;" alt="">
             <div class="d-flex flex-column align-items-center">
+              <?php
+              if (isset($userDetails[0]['user_front_link']) && isset($userDetails[0]['user_side_link'])) {
+              ?>
+                <p class="badge bg-success text-light m-0"
+                  style="font-weight: normal; font-size: 0.8rem;">
+                  Verified
+                </p>
+              <?php
+              } else {
+              ?>
+                <p class="badge bg-warning text-light m-0"
+                  style="font-weight: normal; font-size: 0.8rem;">
+                  Unverified
+                </p>
+              <?php
+              }
+              ?>
               <span class="fw-semibold text-dark fs-4"><?php echo ucfirst($userDetails[0]['name'] ?? 'N/A'); ?></span>
               <span class=" text-secondary"><?php echo htmlspecialchars($userDetails[0]['email'] ?? 'N/A'); ?></span>
               
+
             </div>
           </div>
-          <div class="d-flex flex-column flex-sm-row justify-content-center gap-3 mt-3 align-items-center w-100">
-              <button type="button" class="btn p-0 btn-transparent text-center"
-                style=" border-radius: 8px;  font-size: 0.9rem; height: fit-content; color: #1B3C53;"
-                data-bs-toggle="modal" data-bs-target="#editDetailsModal">
-                <i class="bi bi-pencil-square"></i>
-                Edit Profile
-              </button>
-              <!-- <span >●</span> -->
-              <button type="button" class="btn p-0 btn-transparent"
-                style=" border-radius: 8px;  font-size: 0.9rem; height: fit-content; color: #1B3C53;"
-                data-bs-toggle="modal"
-                data-bs-target="#resetPasswordModal">
-                <i class="bi bi-key-fill"></i>
-                Reset Password
-              </button>
-              <button type="button" class="btn p-0 btn-transparent"
-                style=" border-radius: 8px;  font-size: 0.9rem; height: fit-content; color: #1B3C53;"
-                data-bs-toggle="modal"
-                data-bs-target="#editImagesModal">
-                <i class="bi bi-images"></i>
-                Attachments
-              </button>
-            </div>
+          <div class="d-flex flex-column flex-sm-row justify-content-center gap-2 mt-3 align-items-center w-100">
+            <button type="button" class="btn p-0 btn-transparent text-center"
+              style=" border-radius: 8px;  font-size: 0.9rem; height: fit-content; color: #1B3C53;"
+              data-bs-toggle="modal" data-bs-target="#editDetailsModal">
+              Edit
+            </button>
+            <span class=" d-none d-sm-block" style="color: #1B3C53;">|</span>
+            <button type="button" class="btn p-0 btn-transparent"
+              style=" border-radius: 8px;  font-size: 0.9rem; height: fit-content; color: #1B3C53;"
+              data-bs-toggle="modal"
+              data-bs-target="#resetPasswordModal">
+              Password
+            </button>
+            <span class=" d-none d-sm-block" style="color: #1B3C53;">|</span>
+            <button type="button" class="btn p-0 btn-transparent"
+              style=" border-radius: 8px;  font-size: 0.9rem; height: fit-content; color: #1B3C53;"
+              data-bs-toggle="modal"
+              data-bs-target="#editImagesModal">
+              Verify
+            </button>
+          </div>
 
         </div>
 
         <h5 class="ms-2">Wallets</h5>
-        <div class="d-flex flex-column gap-1 mb-3 p-3 rounded-3 bg-light"  style="border: 2px solid #c5c5c5ff;">
+        <div class="d-flex flex-column gap-1 mb-3 p-3 rounded-3 bg-light" style="border: 2px solid #c5c5c5ff;">
           <p class=" mb-1">Gcash</p>
-          <div class="d-flex align-items-center gap-2" >
+          <div class="d-flex align-items-center gap-2">
             <input type="text" class="form-control" value="<?php echo htmlspecialchars($userDetails[0]['gcash_number'] ?? 'N/A'); ?>" disabled>
             <i class="bi bi-check-circle text-success fs-5"></i>
           </div>
         </div>
-        
+
 
         <div class="text-end">
           <form action="/Shanty-Dope-Proj/CareToFund/signOut" method="POST">

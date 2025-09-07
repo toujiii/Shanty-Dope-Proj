@@ -155,12 +155,12 @@
                                 style="overflow:hidden; max-width: 300px;  height: 450px;  border-radius: 10px; cursor: pointer;"
                                 data-bs-toggle="modal"
                                 data-bs-target="#imageResizeModal"
-                                data-image-src="<?= $requestDetails[0]['front_face_link']; ?>">
+                                data-image-src="<?= $requestDetails[0]['user_front_link']; ?>">
                                 <img
                                     id="id_image_details"
                                     class="img-fluid align-self-center"
                                     style=" object-fit: contain; "
-                                    src="<?= $requestDetails[0]['front_face_link']; ?>"
+                                    src="<?= $requestDetails[0]['user_front_link']; ?>"
                                     alt="">
                             </div>
                             <p class="text-secondary m-0 mt-1" style="font-size: 0.8rem;">
@@ -201,12 +201,12 @@
                                 style="overflow:hidden; max-width: 300px;  height: 450px;  border-radius: 10px; cursor: pointer;"
                                 data-bs-toggle="modal"
                                 data-bs-target="#imageResizeModal"
-                                data-image-src="<?= $requestDetails[0]['side_face_link']; ?>">
+                                data-image-src="<?= $requestDetails[0]['user_side_link']; ?>">
                                 <img
                                     id="id_image_details"
                                     class="img-fluid align-self-center"
                                     style=" object-fit: contain; "
-                                    src="<?= $requestDetails[0]['side_face_link']; ?>"
+                                    src="<?= $requestDetails[0]['user_side_link']; ?>"
                                     alt="">
                             </div>
                             <p class="text-secondary m-0 mt-1" style="font-size: 0.8rem;">

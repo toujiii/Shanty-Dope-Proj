@@ -124,7 +124,7 @@ function fetchUserStatus() {
     url: "/Shanty-Dope-Proj/CareToFund/fetchUserStatus",
     method: "GET",
     success: function (result) {
-      // if(result[])
+      console.log(result);
       var data = JSON.parse(result);
       if (data[0].status === "Guest") {
         console.log("User is guest");
@@ -135,7 +135,7 @@ function fetchUserStatus() {
         }
         if (data[0].status === "Offline") {
           console.log("Users is offline");
-          loadCreateCharity();
+          loadCreateCharity(data[0].verification);
         }
         if (data[0].status === "Active") {
           loadMyCharity();
@@ -149,12 +149,13 @@ function fetchUserStatus() {
   });
 }
 
-function loadCreateCharity() {
+function loadCreateCharity(verification) {
   $.ajax({
     url: "/Shanty-Dope-Proj/CareToFund/loadCreateCharity",
     method: "GET",
+    data: { verification: verification },
     success: function (result) {
-      console.log(result);
+      // console.log(result);
       $("#createNewCharity").empty();
       $("#createNewCharity").html(result);
     },
@@ -195,4 +196,6 @@ function loadCharities() {
     },
   });
 }
+
+
 
