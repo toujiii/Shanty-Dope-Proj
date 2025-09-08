@@ -92,6 +92,7 @@ class SignController {
             echo 'Invalid request.';
         }
     }
+    
     public function signOut() {
         // Clear session and redirect to sign in page
         session_unset();

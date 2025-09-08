@@ -5,12 +5,12 @@
     <div class="container mb-5 fs-5">
         <p class="text-white">Join our mission to make a difference in the lives of those in need. Start your own charity or support a cause you care about. Together, we can create a brighter future for everyone.</p>
     </div>
-    <div class="container mt-2 d-flex align-items-center gap-4">
+    <div class="container mt-2 d-flex align-items-center gap-3">
         <a href="/Shanty-Dope-Proj/CareToFund/sign_up">
-            <button class="btn btn-signup text-white p-3 px-4 fw-bold" style="border-radius: 20px;">Start a Charity Now</button>
+            <button class="btn btn-signup text-white p-3 fw-bold" style="border-radius: 13px; font-size: 0.9rem;">Start a Charity Now</button>
         </a>
         <a href="/Shanty-Dope-Proj/CareToFund/charities">
-            <button class="btn btn_border fw-bold" style="border-radius: 20px; padding: 12px 50px;">Donate</button>
+            <button class="btn btn_border fw-bold" style="border-radius: 13px; padding: 12px 50px; font-size: 0.9rem;">Donate</button>
         </a>
     </div>
 </div>

@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-sm navbar-light p-0" style="background-color: #F9F3EF;">
     <div class="container">
-        <a class="navbar-brand p-0" href="/Shanty-Dope-Proj/CareToFund/">
+        <a class="navbar-brand p-0" href="">
             <img src="/Shanty-Dope-Proj/CareToFund/resources/img/website_logo.png" alt="CareToFund Logo" width="90" height="90">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

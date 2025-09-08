@@ -118,7 +118,7 @@
 </div>
 
 <div class="modal fade" id="faceCompareModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-dialog modal-dialog-centered " style="max-width: 650px;">
         <div class="modal-content">
             <div class="modal-body">
                 <div class="d-flex justify-content-between align-items-center pb-2 px-0" style="border-bottom: 2.3px solid #1b3c53;">
@@ -133,7 +133,7 @@
                         <div class="d-flex flex-column justify-content-center align-items-center">
                             <div
                                 class="d-flex justify-content-center align-items-center bg-secondary-subtle border border-2 border-secondary-subtle"
-                                style="overflow:hidden; max-width: 300px;  height: 450px;  border-radius: 10px; cursor: pointer;"
+                                style="overflow:hidden; max-width: 250px;  height: 400px;  border-radius: 10px; cursor: pointer;"
                                 data-bs-toggle="modal"
                                 data-bs-target="#imageResizeModal"
                                 data-image-src="<?= $requestDetails[0]['front_face_link']; ?>">
@@ -152,7 +152,7 @@
                         <div class="d-flex flex-column justify-content-center align-items-center">
                             <div
                                 class="d-flex justify-content-center align-items-center bg-secondary-subtle border border-2 border-secondary-subtle"
-                                style="overflow:hidden; max-width: 300px;  height: 450px;  border-radius: 10px; cursor: pointer;"
+                                style="overflow:hidden; max-width: 250px;  height: 400px;  border-radius: 10px; cursor: pointer;"
                                 data-bs-toggle="modal"
                                 data-bs-target="#imageResizeModal"
                                 data-image-src="<?= $requestDetails[0]['user_front_link']; ?>">
@@ -179,7 +179,7 @@
                         <div class="d-flex flex-column justify-content-center align-items-center">
                             <div
                                 class="d-flex justify-content-center align-items-center bg-secondary-subtle border border-2 border-secondary-subtle"
-                                style="overflow:hidden; max-width: 300px;  height: 450px;  border-radius: 10px; cursor: pointer;"
+                                style="overflow:hidden; max-width: 250px;  height: 400px    ;  border-radius: 10px; cursor: pointer;"
                                 data-bs-toggle="modal"
                                 data-bs-target="#imageResizeModal"
                                 data-image-src="<?= $requestDetails[0]['side_face_link']; ?>">
@@ -198,7 +198,7 @@
                         <div class="d-flex flex-column justify-content-center align-items-center">
                             <div
                                 class="d-flex justify-content-center align-items-center bg-secondary-subtle border border-2 border-secondary-subtle"
-                                style="overflow:hidden; max-width: 300px;  height: 450px;  border-radius: 10px; cursor: pointer;"
+                                style="overflow:hidden; max-width: 250px;  height: 400px;  border-radius: 10px; cursor: pointer;"
                                 data-bs-toggle="modal"
                                 data-bs-target="#imageResizeModal"
                                 data-image-src="<?= $requestDetails[0]['user_side_link']; ?>">
