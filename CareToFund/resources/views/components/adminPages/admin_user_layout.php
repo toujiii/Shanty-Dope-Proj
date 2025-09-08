@@ -1,5 +1,5 @@
 <?php
-    $var = 'Active';
+$var = 'Active';
 ?>
 <div class="container d-flex flex-column flex-md-row align-items-start align-items-md-center">
     <h2 class="fs-5 fw-bold m-0" style="color: #545454;">User Managment</h2>
@@ -10,7 +10,7 @@
 
 <div class="container my-3">
     <div class="bg-light shadow-sm p-4 py-1" style="border-radius: 12px; min-height: fit-content;">
-        <div class="table-responsive my-3" style="overflow-x: auto; border-radius: 12px; overflow: hidden;">
+        <div class="table-responsive my-3 " style="overflow-x: auto; border-radius: 12px; overflow: hidden; min-height: 700px;">
             <table class="table m-0 table-hover align-middle" style="min-width: 900px;">
                 <thead class="table-light">
                     <tr style="border-bottom: 2px solid #1b3c53; ">
@@ -26,12 +26,10 @@
                 </thead>
                 <tbody id="usersContainer"></tbody>
             </table>
-            <div id="userPagination" class="d-flex align-items-center justify-content-center mt-3">
-            </div>
+            <div id="userPagination" class="d-flex align-items-center justify-content-center mt-3"></div>
         </div>
     </div>
 </div>
 
 <?php include __DIR__ . '/admin_user_delete_modal.php'; ?>
 <?php include __DIR__ . '/admin_user_edit_modal.php'; ?>
-
