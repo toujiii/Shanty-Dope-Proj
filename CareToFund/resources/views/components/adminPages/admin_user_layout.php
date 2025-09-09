@@ -26,8 +26,9 @@ $var = 'Active';
                 </thead>
                 <tbody id="usersContainer"></tbody>
             </table>
-            <div id="userPagination" class="d-flex align-items-center justify-content-center mt-3"></div>
+            
         </div>
+        <div id="userPagination" class="d-flex align-items-center justify-content-center my-3"></div>
     </div>
 </div>
 
