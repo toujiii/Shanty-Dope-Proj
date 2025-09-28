@@ -98,7 +98,7 @@ function viewCharities(filter) {
       search: search
     },
     success: function (result) {
-      console.log(result);
+      // console.log(result);
 
       $("#charitiesContainer").empty();
       $("#charitiesContainer").html(result);
@@ -303,19 +303,20 @@ $(document).on('submit', '#editUserForm', function(e) {
 $(document).on('click', '.open-delete-modal', function () {
   var userId = $(this).data('user-id');
   $('#delete_user_id').val(userId);
-  console.log(userId);
+  // console.log(userId);
 });
 
 // Handle confirm delete
 $(document).on('click', '#confirmDeleteBtn', function () {
   var userId = $('#delete_user_id').val();
-  console.log(userId);
+  // console.log(userId);
   $.ajax({
     url: '/Shanty-Dope-Proj/CareToFund/deleteUser',
     method: 'POST',
     data: { user_id: userId },
     dataType: 'json',
     success: function(response) {
+      console.log(response);
       if (response.success) {
         $('#admin_user_delete').modal('hide');
         $('#admin_user_deleted').modal('show');
@@ -324,8 +325,9 @@ $(document).on('click', '#confirmDeleteBtn', function () {
         alert(response.message);
       }
     },
-    error: function() {
-      alert('May something went wrong. Please try again.');
+    error: function(error) {
+      console.log(error);
+      alert('Maybe something went wrong. Please try again.');
     }
   });
 });
