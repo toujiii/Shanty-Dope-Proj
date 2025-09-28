@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 08, 2025 at 05:01 AM
+-- Generation Time: Sep 28, 2025 at 03:37 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -94,7 +94,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `gcash_number`, `status`, `role`, `user_front_link`, `user_side_link`) VALUES
-(1000, 'admin', 'admin@email.com', '$2y$10$YnVPwG74IBKkF5hBb97m2.Hk6ynN.l1eFGRvw2ZsZ7QDUAINTnFs.', '09000000000', 'Offline', 'admin', NULL, NULL);
+(1000, 'admin', 'admin@ctf.com', '$2y$10$YnVPwG74IBKkF5hBb97m2.Hk6ynN.l1eFGRvw2ZsZ7QDUAINTnFs.', '09000000000', 'Offline', 'admin', NULL, NULL),
+(1002, 'bet', 'bet@email.com', '$2y$10$uLOO34v5X3ooJCyuECTDsuwXP3ebADL5rW43XSBvw/ziV.my.5kcC', '09123123123', 'Offline', NULL, NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -136,25 +137,25 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `charity`
 --
 ALTER TABLE `charity`
-  MODIFY `charity_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000;
+  MODIFY `charity_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1001;
 
 --
 -- AUTO_INCREMENT for table `charity_request`
 --
 ALTER TABLE `charity_request`
-  MODIFY `request_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000;
+  MODIFY `request_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1001;
 
 --
 -- AUTO_INCREMENT for table `donators`
 --
 ALTER TABLE `donators`
-  MODIFY `donation_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000;
+  MODIFY `donation_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1002;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1001;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1003;
 
 --
 -- Constraints for dumped tables
@@ -164,20 +165,20 @@ ALTER TABLE `users`
 -- Constraints for table `charity`
 --
 ALTER TABLE `charity`
-  ADD CONSTRAINT `charity_request_fk` FOREIGN KEY (`request_id`) REFERENCES `charity_request` (`request_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `charity_request_fk` FOREIGN KEY (`request_id`) REFERENCES `charity_request` (`request_id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `charity_request`
 --
 ALTER TABLE `charity_request`
-  ADD CONSTRAINT `user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `donators`
 --
 ALTER TABLE `donators`
-  ADD CONSTRAINT `charity_id_fk` FOREIGN KEY (`charity_id`) REFERENCES `charity` (`charity_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `donator_user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `charity_id_fk` FOREIGN KEY (`charity_id`) REFERENCES `charity` (`charity_id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `donator_user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
