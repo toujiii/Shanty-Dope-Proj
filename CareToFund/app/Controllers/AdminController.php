@@ -123,9 +123,9 @@ class AdminController
             }
 
             if ($updateResult) {
-                echo json_encode(['success' => true, 'message' => 'Charity request rejected.']);
+                echo json_encode(['success' => true, 'message' => 'Charity request successfully confirmed.']);
             } else {
-                echo json_encode(['success' => false, 'message' => 'Failed to reject charity request.']);
+                echo json_encode(['success' => false, 'message' => 'Charity request confirmation failed.']);
             }
         }
     }
@@ -174,7 +174,7 @@ class AdminController
             if (!is_null($search)) {
                 $like['name'] = $search;
                 // Bahala kayo pero gusto ko to
-                // $like['email'] = $search;
+                $like['email'] = $search;
                 // $like['gcash_number'] = $search;
                 // $like['id'] = $search;
             }
